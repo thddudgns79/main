@@ -43,14 +43,15 @@
 		</property>
 		<property name="defaultErrorView" value="error/default"/>
 	</bean>
-	<!--  
-	<mybatis-spring:scan base-package="com.coderby.myapp.board.dao"/>
-	<context:component-scan base-package="com.coderby.myapp.board.service"/>
-	<context:component-scan base-package="com.coderby.myapp.board.controller"/>
+
+	<mybatis-spring:scan base-package="com.coderby.myapp.classes.dao"/>
+	<context:component-scan base-package="com.coderby.myapp.classes.service"/>
 	
-	<mybatis-spring:scan base-package="com.coderby.myapp.member.dao"/>
-	<context:component-scan base-package="com.coderby.myapp.member.service"/>
-	<context:component-scan base-package="com.coderby.myapp.member.controller"/>-->
+	<!-- <mybatis-spring:scan base-package="com.coderby.myapp.board.dao"/>
+	<context:component-scan base-package="com.coderby.myapp.board.service"/>
+	
+	<mybatis-spring:scan base-package="com.coderby.myapp.attendance.dao"/>
+	<context:component-scan base-package="com.coderby.myapp.attendance.service"/> -->
 	
 	
 </beans>
