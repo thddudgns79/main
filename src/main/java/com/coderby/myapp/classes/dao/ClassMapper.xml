@@ -1,3 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.coderby.myapp.classes.dao.classMapper"></mapper>
+<mapper namespace="com.coderby.myapp.classes.dao.IClassRepository">
+	<select id="getClassList" parameterType="map" resultType="com.coderby.myapp.classes.model.ClassVO">
+		select 
+			class_id 		 as 		"classId",
+			org_name 		 as 		"orgName",
+			class_name 		 as 		"className",
+			created_date     as 		"createdDate",
+			class_hours      as 		"classHours",
+			class_start_date as 		"classStartDate",
+			class_end_date 	 as 		"classEndDate"
+		from class
+		<where>
+			<if test="orgName != '전체'">
+				org_name = #{orgName}
+			</if>
+			<if test="className != null">
+				and class_name like #{className}
+			</if>
+		</where>
+	</select>
+</mapper>
