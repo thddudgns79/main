@@ -1,6 +1,7 @@
 package com.coderby.myapp.board.model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class BoardVO {
 	private int boardId;
@@ -9,6 +10,9 @@ public class BoardVO {
 	private String boardContent;
 	private Date createdDate;
 	private String studentId;
+	private int classId;
+	private List<ReplyVO> replyList;
+//	private List<FileVO> fileList;
 
 	public int getBoardId() {
 		return boardId;
@@ -57,4 +61,21 @@ public class BoardVO {
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
+	
+	public int getClassId() {
+		return classId;
+	}
+
+	public void setClassId(int classId) {
+		this.classId = classId;
+	}
+
+	public List<ReplyVO> getReplyList() {
+		return replyList;
+	}
+
+	public void setReplyList(List<ReplyVO> replyList) {
+		this.replyList = replyList;
+	}
+	
 }
