@@ -16,18 +16,22 @@
 <body>
 	<div class="container">
 		<form action="<c:url value='/board/insert'/>" method=post enctype="multipart/form-data">
-			<select class="form-select mt-3" name="boardCategory">
+			카테고리:
+			<select class="form-select" name="boardCategory">
+			    <option>--전체--</option>
 			    <option value="qna">질문</option>
 			    <option value="community">커뮤니티</option>
 			    <option value="study">스터디</option>
 		  	</select>
-			
 			<div>
     			<label for="boardTitle" class="form-label">제목:</label>
    				<input type="text" class="form-control" id="boardTitle" placeholder="제목을 입력하세요" name="boardTitle">
 		
 				<label for="boardContent">내용:</label>
 				<textarea class="form-control" rows="5" id="boardContent" name="boardContent"></textarea>
+				
+				<label for="bFile">파일: </label>
+				<input type="file" class="form-control" id="bFile" name="bFile">
   			</div>
   			<button type="submit">제출</button>
 		</form>

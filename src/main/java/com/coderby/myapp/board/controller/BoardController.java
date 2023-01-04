@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Safelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.coderby.myapp.board.model.BoardVO;
 import com.coderby.myapp.board.service.IBoardService;
+import com.coderby.myapp.file.model.FileVO;
 
 @Controller
 public class BoardController {
@@ -72,9 +72,17 @@ public class BoardController {
 	//[게시글 추가 - DB]
 	@RequestMapping(value="board/insert", method=RequestMethod.POST)
 	public String writeBoard(BoardVO board, BindingResult result, RedirectAttributes redirectAttr) {
+		//파일첨부
+		MultipartFile mfile = board.getbFile();
+		
+		if(mfile!=null && !mfile.isEmpty()) {
+			FileVO file = new FileVO();
+			file.setFileName(mfile.getName());
+			file.setFileType(mfile.getContentType());
+		}
+		
 		boardService.insertBoard(board);
 		
-		//파일 첨부 서비스 로직 추가
 		
 		return "redirect:/board/list";
 	}
