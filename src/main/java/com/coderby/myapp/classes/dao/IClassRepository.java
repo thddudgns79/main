@@ -12,9 +12,11 @@ public interface IClassRepository {
 
 	List<SectionVO> getSectionList(int classId);
 	
-	void insertSection(@Param("classId") int classId, @Param("sectionTitle") String sectionTitle);
-
-	void updateSection(@Param("sectionId") int sectionId, @Param("sectionTitle") String sectionTitle);
+	void insertSection(@Param("classId") int classId, @Param("sectionTitle") String sectionTitle, @Param("sectionDescription") String sectionDescription);
+	
+	void updateSectionTitle(@Param("sectionId") int sectionId, @Param("sectionTitle") String sectionTitle);
+	
+	void updateSectionDescription(@Param("sectionId") int sectionId, @Param("sectionDescription") String sectionDescription);
 
 	void deleteSection(int sectionId);
 }

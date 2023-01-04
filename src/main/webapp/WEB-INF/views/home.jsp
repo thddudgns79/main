@@ -9,7 +9,7 @@
 	<jsp:include page="/WEB-INF/views/include/header.jsp"/>
 
 		<div role="main" class="ml-sm-auto col-12">
-			<div class="parallax-window" data-parallax="scroll" data-image-src="img/main3.png">
+			<div class="parallax-window" data-parallax="scroll" data-image-src="img/background.png">
 				<div class="tm-section-wrap">
 					<section id="intro" class="tm-section">
 						<div class="tm-bg-white-transparent tm-intro">
