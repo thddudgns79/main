@@ -14,4 +14,14 @@
 			WHERE board_id=#{boardId} and master_id=-1
 		]]>
 	</select>
+	
+	<insert id="insertReply" parameterType="com.coderby.myapp.board.model.ReplyVO">
+		<![CDATA[
+			INSERT INTO
+				REPLY
+					(REPLY_ID, REPLY_CONTENT, CREATED_DATE, MASTER_ID, STUDENT_ID, BOARD_ID)
+			VALUES
+				(SEQ_REPLY_REPLY_ID.NEXTVAL, #{replyContent}, sysdate, -1, 'song', ${boardId})
+		]]>
+	</insert>
 </mapper>

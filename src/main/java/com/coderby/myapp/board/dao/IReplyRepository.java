@@ -8,4 +8,5 @@ import com.coderby.myapp.board.model.ReplyVO;
 
 public interface IReplyRepository {
 	List<ReplyVO> selectReplyList(@Param("boardId") int boardId);
+	void insertReply(ReplyVO reply);
 }
