@@ -26,7 +26,7 @@ public class FileService implements IFileService {
 	
 	
 	@Override
-	public void uploadFile(int entityId, MultipartFile file) {
+	public void uploadFile(int entityId, FileVO file) {
 		fileRepository.uploadFile(entityId, file);
 		
 	}

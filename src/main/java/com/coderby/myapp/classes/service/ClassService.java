@@ -36,20 +36,44 @@ public class ClassService implements IClassService {
 
 
 	@Override
-	public void insertSection(int classId, String sectionTitle) {
-		classRepository.insertSection(classId, sectionTitle);
+	@Transactional
+	public boolean insertSection(int classId, String sectionTitle, String sectionDescription) {
+		List<SectionVO> sectionList = classRepository.getSectionList(classId);
+		// 섹션 리스트에 추가할 섹션의 타이틀과 중복되는 섹션이 존재할 경우
+		for(SectionVO sectionVO : sectionList) {
+			if(sectionVO.getSectionTitle().equals(sectionTitle)) {
+				return false;
+			}
+		}
+		// 중복x
+		classRepository.insertSection(classId, sectionTitle, sectionDescription);
+		return true;
 	}
 
+	@Transactional
 	@Override
-	public void updateSection(int sectionId, String sectionTitle) {
-		classRepository.updateSection(sectionId, sectionTitle);
+	public boolean updateSectionTitle(int classId, int sectionId, String sectionTitle) {
+		List<SectionVO> sectionList = classRepository.getSectionList(classId);
+		// 섹션 리스트에 추가할 섹션의 타이틀과 중복되는 섹션이 존재할 경우
+		for(SectionVO sectionVO : sectionList) {
+			if(sectionVO.getSectionTitle().equals(sectionTitle)) {
+				return false;
+			}
+		}
+		// 중복x
+		classRepository.updateSectionTitle(sectionId, sectionTitle);
+		return true;
 
+	}
+	
+	@Override
+	public void updateSectionDescription(int sectionId, String sectionDescription) {
+		classRepository.updateSectionDescription(sectionId, sectionDescription);
 	}
 
 	@Override
 	public void deleteSection(int sectionId) {
 		classRepository.deleteSection(sectionId);
-
 	}
 
 }
