@@ -14,51 +14,57 @@
 </head>
 
 <body>
-	
-	<%-- <table>
-		<tr>
-			<td>섹션 번호</td>
-			<td>섹션명</td>
-		</tr>
-		<c:forEach var="section" items="${sectionList}">
-			<tr>
-				<td>${section.sectionId}</td>
-				<td>${section.sectionTitle}</td>
-				<td><a href='<c:url value="/class/sectiondelete/${section.sectionId}"/>'>섹션 삭제</a></td>
-				<td>
-					<form action='<c:url value="/class/sectionupdate"/>' method="post">
-						<input type="hidden" name="sectionId" value="${section.sectionId}"/>
-						<input type="text" name="sectionTitle"/>
-						<input type="submit" value="섹션 수정"/>
-					</form>
-				</td>
-			</tr>
-		</c:forEach>
-			<tr>
-				<td>
-					<form action='<c:url value="/class/sectioninsert"/>' method="post">
-						<input type="text" name="sectionTitle"/>
-						<input type="submit" value="섹션 추가"/>
-					</form>
-				</td>
-			</tr>
-	</table> --%>
-	
-	<!-- <script>
-		$(".fileListEventInvoker").click(getFileList);
-		function getFileList() {
-			var box = $(event.target);
-			var sectionId = box.prev().text();
-			console.log(sectionId);
-			$.ajax({
-				url: "${pageContext.request.contextPath}/class/filelist/" + sectionId,
-				type: "get",
-				success: function(data) {
-					console.log(data);
-					box.html(data);
-				}
-			});
-		}
-	</script> -->
+	<!-- 섹션추가,수정 중복 타이틀 검색 시 나오는 모달 -->
+	<div class="modal">
+	</div>
+		<div>
+			<div class = "container-fluid">
+				<c:forEach var="section" items="${sectionList}">
+					<!-- section -->
+					<div class = "row">
+						<div class="col-1">${section.sectionId}</div>
+						<div class="col-5">
+							<form action='<c:url value="/class/sectionupdatetitle"/>' method="post">
+								<input type="hidden" name="sectionId" value="${section.sectionId}"/>
+								<input type="text" name="sectionTitle" value="${section.sectionTitle}"/>
+								<input type="submit" value="적용"/>
+							</form>
+						</div>
+						<div class="col-1"><a href='<c:url value="/class/sectiondelete/${section.sectionId}"/>'>섹션 삭제</a></div>
+						<div class="col-5">
+						</div>
+					</div>
+					<div class="row">
+						<form action='<c:url value="/class/sectionupdatedescription"/>' method="post">
+							<input type="hidden" name="sectionId" value="${section.sectionId}"/>
+							<input type="text" name="sectionDescription" value="${section.sectionDescription}"/>
+							<input type="submit" value="적용"/>
+						</form>
+					</div>
+					<c:forEach var="file" items="${section.fileList}">
+						<div class = "row fileList">
+							<div class="col-9"><a href='<c:url value="/class/filedownload/${file.fileId}"/>'>${file.fileName}</a></div>
+							<div class="col-3"><a href='<c:url value="/class/filedelete/${file.fileId}"/>'>파일 삭제</a></div>
+						</div>
+					</c:forEach>
+					<div class="row">
+						<div>
+							<form action='<c:url value="/class/fileupload"/>' method="post" enctype="multipart/form-data">
+								<input type="hidden" name="sectionId" value="${section.sectionId}"/>
+								파일 선택 : <input type="file" name="file" />
+								<input type="submit" value="전송"/>
+							</form>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+		<div>
+		<form action='<c:url value="/class/sectioninsert"/>' method="post">
+			<input type="text" name="sectionTitle"/>
+			<input type="text" name="sectionDescription" placeholder="섹션 설명글 작성"/>
+			<input type="submit" value="섹션 추가"/>
+		</form>
+	</div>
+</div>
 </body>
 </html>

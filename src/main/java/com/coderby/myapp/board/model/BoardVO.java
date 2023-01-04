@@ -3,6 +3,10 @@ package com.coderby.myapp.board.model;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.coderby.myapp.file.model.FileVO;
+
 public class BoardVO {
 	private int boardId;
 	private String boardCategory;
@@ -12,7 +16,8 @@ public class BoardVO {
 	private String studentId;
 	private int classId;
 	private List<ReplyVO> replyList;
-//	private List<FileVO> fileList;
+	private MultipartFile bFile;
+	private List<FileVO> bfileList;
 
 	public int getBoardId() {
 		return boardId;
@@ -76,6 +81,22 @@ public class BoardVO {
 
 	public void setReplyList(List<ReplyVO> replyList) {
 		this.replyList = replyList;
+	}
+
+	public MultipartFile getbFile() {
+		return bFile;
+	}
+
+	public void setbFile(MultipartFile bFile) {
+		this.bFile = bFile;
+	}
+
+	public List<FileVO> getBfileList() {
+		return bfileList;
+	}
+
+	public void setBfileList(List<FileVO> bfileList) {
+		this.bfileList = bfileList;
 	}
 	
 }
