@@ -39,7 +39,7 @@
 		]]>
 	</select>
 	
-	<insert id="insertBoard" parameterType="com.coderby.myapp.board.model.BoardVO">
+	<insert id="insertBoard" parameterType="com.coderby.myapp.board.model.BoardVO" useGeneratedKeys="true" keyProperty="boardId" keyColumn="board_id">
 		<![CDATA[
 			INSERT INTO
 				BOARD

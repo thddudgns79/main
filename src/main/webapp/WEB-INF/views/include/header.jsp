@@ -23,7 +23,7 @@
 					<div class="tm-brand-box">
 						<div class="tm-double-border-1">
 							<div class="tm-double-border-2">
-								<img src="img/logo3.png" style="width:100%; heigth:100%">
+								<img src='<c:url value="/img/logo.png"/>' style="width:100%; heigth:100%">
 							</div>
 						</div>
 					</div>
