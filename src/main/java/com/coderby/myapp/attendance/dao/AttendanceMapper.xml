@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.coderby.myapp.attendance.dao.IAttendanceRepository">
+
+	<select id="attendToday" parameterType="string" resultType="com.coderby.myapp.attendance.model.AttendanceVO">
+		select
+			in_time			as "inTime", 
+			out_time 		as "outTime",
+			status			as "status", 
+			attendance_date as "attendanceDate"
+		from 
+			attendance 
+		where 
+			student_id=#{stdId};
+	</select>
+
+	<insert id="attendIn" parameterType="string">
+		insert into attendance
+			(attendance_date, in_time, status, student_id) 
+		values
+			(sysdate, systimestamp, '-', #{stdId});
+	</insert>
+	
+	<insert id="attendOut" parameterType="string">
+		insert into attendance
+			(out_time, status)
+		values
+			(systimestamp, '출결')
+	</insert>
+	
+	
+</mapper>

@@ -5,49 +5,45 @@ import java.sql.Timestamp;
 
 public class AttendanceVO {
 	private Date attendanceDate;
-	private Timestamp in;
-	private Timestamp out;
+	private Timestamp inTime;
+	private Timestamp outTime;
 	private String status;
 	private String studentId;
-
+	
 	public Date getAttendanceDate() {
 		return attendanceDate;
 	}
-
 	public void setAttendanceDate(Date attendanceDate) {
 		this.attendanceDate = attendanceDate;
 	}
-
-	public Timestamp getIn() {
-		return in;
+	public Timestamp getInTime() {
+		return inTime;
 	}
-
-	public void setIn(Timestamp in) {
-		this.in = in;
+	public void setInTime(Timestamp inTime) {
+		this.inTime = inTime;
 	}
-
-	public Timestamp getOut() {
-		return out;
+	public Timestamp getOutTime() {
+		return outTime;
 	}
-
-	public void setOut(Timestamp out) {
-		this.out = out;
+	public void setOutTime(Timestamp outTime) {
+		this.outTime = outTime;
 	}
-
 	public String getStatus() {
 		return status;
 	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 	public String getStudentId() {
 		return studentId;
 	}
-
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
+	}
+	@Override
+	public String toString() {
+		return "AttendanceVO [attendanceDate=" + attendanceDate + ", inTime=" + inTime + ", outTime=" + outTime
+				+ ", status=" + status + ", studentId=" + studentId + "]";
 	}
 
 }
