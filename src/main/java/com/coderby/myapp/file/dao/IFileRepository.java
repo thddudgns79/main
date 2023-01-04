@@ -12,7 +12,7 @@ public interface IFileRepository {
 	
 	FileVO downloadFile(int fileId);
 	
-	void uploadFile(@Param("entityId") int entityId, @Param("file") MultipartFile file);
+	void uploadFile(@Param("entityId") int entityId, @Param("file") FileVO file);
 
 	void deleteFile(int fileId);
 

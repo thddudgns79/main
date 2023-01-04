@@ -36,6 +36,8 @@ public class ClassController {
 	public String getClassList(String orgName, String className, Model model, HttpSession session) {
 		// 테스트 용도 - 지워야 함
 		session.setAttribute("classId", 3);
+		session.setAttribute("userId", "thddudgns79");
+		session.setAttribute("isManager", 'Y');
 		// 검색 키워드 있을 경우
 		if (!className.equals("")) {
 			className = "%" + className + "%";
@@ -59,21 +61,37 @@ public class ClassController {
 		model.addAttribute("sectionList", sectionList);
 		return "classes/sectionList";
 	}
-	
+
 	// 섹션 추가
 	@RequestMapping("/class/sectioninsert")
-	public String insertSection(String sectionTitle, Model model, HttpSession session) {
-		System.out.println("insertSection");
+	public String insertSection(String sectionTitle, String sectionDescription, Model model, HttpSession session) {
 		int classId = (Integer) session.getAttribute("classId");
-		classService.insertSection(classId, sectionTitle);
+		boolean result = classService.insertSection(classId, sectionTitle, sectionDescription);
+		if (!result) {
+			System.out.println("섹션 추가 실패");
+		} else {
+			System.out.println("섹션 추가 성공");
+		}
 		return "redirect:/class/sectionlist";
 	}
 
-	// 섹션 수정
-	@RequestMapping("/class/sectionupdate")
-	public String updateSection(int sectionId, String sectionTitle, Model model, RedirectAttributes ra) {
-		System.out.println("수정in");
-		classService.updateSection(sectionId, sectionTitle);
+	// 섹션 타이틀 수정
+	@RequestMapping("/class/sectionupdatetitle")
+	public String updateSection(int sectionId, String sectionTitle, Model model, HttpSession session) {
+		int classId = (Integer) session.getAttribute("classId");
+		boolean result = classService.updateSectionTitle(classId, sectionId, sectionTitle);
+		if (!result) {
+			System.out.println("섹션 수정 실패");
+		} else {
+			System.out.println("섹션 수정 성공");
+		}
+		return "redirect:/class/sectionlist";
+	}
+
+	// 섹션 설명글 수정
+	@RequestMapping("/class/sectionupdatedescription")
+	public String updateSection(int sectionId, String sectionDescription, Model model) {
+		classService.updateSectionDescription(sectionId, sectionDescription);
 		return "redirect:/class/sectionlist";
 	}
 
@@ -87,19 +105,32 @@ public class ClassController {
 	// 파일 업로드
 	@RequestMapping("/class/fileupload")
 	public String uploadFile(int sectionId, MultipartFile file, Model model, RedirectAttributes ra) {
-		FileVO fileVO = new FileVO();
-		fileService.uploadFile(sectionId, file);
-		return "redirect:/classes/filelist/" + sectionId;
+		try {
+			if (file != null && !file.isEmpty()) {
+				FileVO fileVO = new FileVO();
+				System.out.println(file.getOriginalFilename());
+				System.out.println(file.getContentType());
+				System.out.println(file.getSize());
+				fileVO.setFileName(file.getOriginalFilename());
+				fileVO.setFileType(file.getContentType());
+				fileVO.setFileSize(file.getSize());
+				fileVO.setFileData(file.getBytes());
+				fileService.uploadFile(sectionId, fileVO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			ra.addFlashAttribute("message", e.getMessage());
+		}
+		return "redirect:/class/sectionlist";
 	}
 
 	// 파일 삭제
-	@RequestMapping("/class/fiedelete/{sectionId}/{fileId}")
-	public String deleteFile(@PathVariable int sectionId, @PathVariable int fileId, Model model,
-			RedirectAttributes ra) {
+	@RequestMapping("/class/filedelete/{fileId}")
+	public String deleteFile(@PathVariable int fileId, Model model, RedirectAttributes ra) {
 		fileService.deleteFile(fileId);
-		return "redirect:/classes/filelist/" + sectionId;
+		return "redirect:/class/sectionlist";
 	}
-	
+
 	// 파일 다운로드
 	@RequestMapping("/class/filedownload/{fileId}")
 	public ResponseEntity<byte[]> getFileList(@PathVariable int fileId, Model model) {
@@ -112,6 +143,5 @@ public class ClassController {
 		headers.setContentDispositionFormData("attachment", file.getFileName(), Charset.forName("UTF-8"));
 		return new ResponseEntity<byte[]>(file.getFileData(), headers, HttpStatus.OK);
 	}
-
 
 }

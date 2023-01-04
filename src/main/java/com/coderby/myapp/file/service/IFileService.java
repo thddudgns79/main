@@ -12,7 +12,7 @@ public interface IFileService {
 	
 	FileVO downloadFile(int fileId);
 	
-	void uploadFile(int entityId, MultipartFile file);
+	void uploadFile(int entityId, FileVO file);
 	
 	void deleteFile(int fileId);
 }

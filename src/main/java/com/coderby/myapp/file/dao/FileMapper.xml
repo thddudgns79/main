@@ -32,8 +32,8 @@
 		insert into files
 			(file_id, file_name, file_type, file_data, entity_id, file_size)
 		values
-			(SEQ_FILE_FILE_ID.NEXTVAL, #{fileName}, 
-			#{fileType}, #{fileData}, #{entityId}, #{fleSize})
+			(SEQ_FILE_FILE_ID.NEXTVAL, #{file.fileName}, 
+			#{file.fileType}, #{file.fileData}, #{entityId}, #{file.fileSize})
 	</insert>
 	
 	<!-- 게시물 or 섹션 or 상신건의 파일 삭제 -->

@@ -4,7 +4,7 @@ public class FileVO {
 	private int fileId;
 	private String fileName;
 	private String fileType;
-	private int fileSize;
+	private long fileSize;
 	// board(게시물), request(휴가신청건), section(섹션) 세 테이블의 PK를 참조
 	private int entityId;
 	private byte[] fileData;
@@ -33,11 +33,11 @@ public class FileVO {
 		this.fileType = fileType;
 	}
 
-	public int getFileSize() {
+	public long getFileSize() {
 		return fileSize;
 	}
 
-	public void setFileSize(int fileSize) {
+	public void setFileSize(long fileSize) {
 		this.fileSize = fileSize;
 	}
 
