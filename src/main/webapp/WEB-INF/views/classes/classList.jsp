@@ -27,6 +27,11 @@
 				<td>${class.classEndDate}</td>
 			</tr>
 		</c:forEach>
+		<tr>
+			<td>
+				<a href='<c:url value="/class/sectionlist"/>'>자료실</a>
+			</td>		
+		</tr>
 	</table>
 </body>
 </html>

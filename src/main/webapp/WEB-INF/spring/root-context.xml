@@ -47,7 +47,14 @@
 	<mybatis-spring:scan base-package="com.coderby.myapp.classes.dao"/>
 	<context:component-scan base-package="com.coderby.myapp.classes.service"/>
 	
+<<<<<<< HEAD
 	<mybatis-spring:scan base-package="com.coderby.myapp.board.dao"/>
+=======
+	<mybatis-spring:scan base-package="com.coderby.myapp.file.dao"/>
+	<context:component-scan base-package="com.coderby.myapp.file.service"/>
+	
+	<!-- <mybatis-spring:scan base-package="com.coderby.myapp.board.dao"/>
+>>>>>>> branch 'master' of https://github.com/oti-project3/main.git
 	<context:component-scan base-package="com.coderby.myapp.board.service"/>
 	
 	<mybatis-spring:scan base-package="com.coderby.myapp.attendance.dao"/>
