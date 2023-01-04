@@ -1,4 +1,4 @@
-package com.coderby.myapp.classes.model;
+package com.coderby.myapp.file.model;
 
 public class FileVO {
 	private int fileId;
