@@ -12,6 +12,7 @@ import com.coderby.myapp.attendance.service.IAttendanceService;
 
 @Controller
 public class AttendanceController {
+	
 	@Autowired
 	IAttendanceService attendanceService;
 	
@@ -19,11 +20,20 @@ public class AttendanceController {
 	public String attendToday(HttpSession session, Model model) {
 		AttendanceVO attendVO = new AttendanceVO();
 		String stdId = (String)session.getAttribute("stdId");
-		attendVO = attendanceService.attendToday(stdId);
-		model.addAttribute("attendVO", attendVO);
+		if(attendVO.getInTime()!=null) {
+			attendVO = attendanceService.attendToday(stdId);
+			model.addAttribute("attendVO", attendVO);
+			if(attendVO.getOutTime()!=null) {
+				int result = attendVO.getInTime().compareTo(attendVO.getOutTime());
+				System.out.println("날짜계산: "+result);
+				model.addAttribute("result",result);
+			}
+		}
+//		System.out.println("VO:  "+attendVO.toString());
 		return "attendance/attend";
 	}
 	
+	//출석버튼 click
 	@RequestMapping("/attend/in")
 	public String attendIn(HttpSession session, Model model) {
 		String stdId = (String)session.getAttribute("stdId");
@@ -31,6 +41,7 @@ public class AttendanceController {
 		return "redirect:/attend/today";
 	}
 	
+	//퇴근버튼 click
 	@RequestMapping("/attend/out")
 	public String attendOut(HttpSession session, Model model) {
 		String stdId = (String)session.getAttribute("stdId");

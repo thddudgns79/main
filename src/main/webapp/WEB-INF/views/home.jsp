@@ -9,7 +9,7 @@
 	<jsp:include page="/WEB-INF/views/include/header.jsp"/>
 
 		<div role="main" class="ml-sm-auto col-12">
-			<div class="parallax-window" data-parallax="scroll" data-image-src="img/main2.png">
+			<div class="parallax-window" data-parallax="scroll" data-image-src="img/main3.png">
 				<div class="tm-section-wrap">
 					<section id="intro" class="tm-section">
 						<div class="tm-bg-white-transparent tm-intro">
@@ -19,13 +19,18 @@
 								<div class="pg-opt">
 									<div class="row">
 										<div class="col-md-6">
-											<h2 style="color:black;">로그인</h2>
+											<c:if test="${empty sessionScope.stdId}">
+												<h2 style="color:black;">로그인</h2>
+											</c:if>
+											<c:if test="${!empty sessionScope.stdId}">
+												<h3 style="color:black;">환영합니다.</h3>
+											</c:if>
 										</div>
 									</div>
 								</div>
 								<div class="content">
 									<c:if test="${empty sessionScope.stdId}">
-										<form action="<c:url value='/student/login'/>" method="post" class="form-horizontal">
+										<form action="<c:url value='/attend'/>" method="post" class="form-horizontal">
 											<div class="form-group">
 												<label class="control-label col-sm-2" for="id" style="color:black;">ID</label>
 												<div class="col-sm-8">

@@ -22,12 +22,13 @@ public class AttendanceService implements IAttendanceService {
 	public void attendIn(String stdId) {
 		attendanceRepository.attendIn(stdId);
 	}
-
+	
 	//퇴근버튼
 	@Override
 	public void attendOut(String stdId) {
 		attendanceRepository.attendOut(stdId);
 	}
 
+	
 	
 }
