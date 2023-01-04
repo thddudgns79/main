@@ -10,10 +10,12 @@ public interface IClassService {
 
 	List<SectionVO> getSectionList(int classId);
 
-	void insertSection(int classId, String sectionTitle);
+	boolean insertSection(int classId, String sectionTitle, String sectionDescription);
 
-	void updateSection(int sectionId, String sectionTitle);
+	boolean updateSectionTitle(int classId, int sectionId, String sectionTitle);
 
+	void updateSectionDescription(int sectionId, String sectionDescription);
+	
 	void deleteSection(int sectionId);
-
+	
 }
