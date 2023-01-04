@@ -1,10 +1,34 @@
 package com.coderby.myapp.classes.model;
 
+import java.sql.Timestamp;
+import java.util.List;
+
+import com.coderby.myapp.file.model.FileVO;
+
 public class SectionVO {
 	private int sectionId;
 	private String sectionTitle;
 	private int classId;
+	private List<FileVO> fileList;
+	
+	public void setFileList(List<FileVO> fileList) {
+		this.fileList = fileList;
+	}
 
+	public List<FileVO> getFileList() {
+		return fileList;
+	}
+	
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	private Timestamp createdDate;
+	
 	public int getSectionId() {
 		return sectionId;
 	}
