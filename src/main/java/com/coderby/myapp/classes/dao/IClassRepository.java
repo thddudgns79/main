@@ -19,4 +19,6 @@ public interface IClassRepository {
 	void updateSectionDescription(@Param("sectionId") int sectionId, @Param("sectionDescription") String sectionDescription);
 
 	void deleteSection(int sectionId);
+	
+	List<Integer> getClassIdList();
 }

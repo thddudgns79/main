@@ -76,4 +76,9 @@ public class ClassService implements IClassService {
 		classRepository.deleteSection(sectionId);
 	}
 
+	@Override
+	public List<Integer> getClassIdList() {
+		return classRepository.getClassIdList();
+	}
+
 }
