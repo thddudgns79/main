@@ -72,6 +72,30 @@
 		</where>
 	</select>
 	
+	<select id="getStudentReportsList" parameterType="map" resultType="com.coderby.myapp.attendance.model.ReportsVO">
+		select 
+			rep_id as "repId",
+			rep_date as "repDate",
+			reason as "reason",
+			in_time as "inTime",
+			out_time as "outTime",
+			rep_status as "repStatus",
+			rep_type as "repType",
+			student_id as "studentId"
+			from reports
+		<where>
+			student_id = #{stdId}
+			and extract(year from rep_date) = #{yearParam}
+			and extract(month from rep_date) = #{monthParam}
+			<if test="repType != '전체'">
+				and rep_type= #{repType}
+			</if>
+			<if test="repStatus != '전체'">
+				and rep_status= #{repStatus}
+			</if>
+		</where>
+	</select>
+	
 	<select id="getReportsDetail" parameterType="int" resultType="com.coderby.myapp.attendance.model.ReportsVO">
 		select 
 			rep_id as "repId",

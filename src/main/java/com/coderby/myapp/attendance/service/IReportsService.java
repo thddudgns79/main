@@ -15,6 +15,9 @@ public interface IReportsService {
 	List<ReportsVO> getReportsList(String classId, String yearParam, String monthParam, String repType,
 			String repStatus);
 
+	List<ReportsVO> getStudentReportsList(String yearParam, String monthParam, String repType, String repStatus,
+			String stdId);
+
 	ReportsVO getReportsDetail(int repId);
 
 	void updateRepStatus(ReportsVO repVO, String updateRepStatus) throws ParseException;
