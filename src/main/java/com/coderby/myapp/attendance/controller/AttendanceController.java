@@ -173,6 +173,27 @@ public class AttendanceController {
 			model.addAttribute("repStatus", repStatus);
 			return "classes/reportsList";
 		}
+		
+		 // 학생의 휴가 신청 목록 조회(학생)
+		// year, month, status, reqType
+		@RequestMapping(value = "/attend/studentreportslist", method = RequestMethod.POST)
+		public String getStudentReportsList(String yearParam, String monthParam, String repType, String repStatus,
+				Model model, HttpSession session) {
+			String stdId = (String) session.getAttribute("stdId");
+			List<ReportsVO> reportsList = reportsService.getStudentReportsList(yearParam, monthParam, repType, repStatus, stdId);
+			model.addAttribute("reportsList", reportsList);
+			//jsp의 selectbox selected값 기억하기 위해서 
+			model.addAttribute("yearParam", yearParam);
+			model.addAttribute("monthParam", monthParam);
+			model.addAttribute("repType", repType);
+			model.addAttribute("repStatus", repStatus);
+			return "classes/studentReportsList";
+		}
+
+	      @RequestMapping(value = "/attend/studentreportslist", method = RequestMethod.GET)
+		public String getStudentReportsList(Model model, HttpSession session) {
+			return getStudentReportsList("2023", "1", "전체", "전체", model, session);
+		}
 
 		@RequestMapping(value = "/attend/reportslist", method = RequestMethod.GET)
 		public String getReportsList(Model model) {

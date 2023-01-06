@@ -130,6 +130,11 @@ public class ReportsService implements IReportsService {
 	}
 	
 	@Override
+	public List<ReportsVO> getStudentReportsList(String yearParam, String monthParam, String repType,String repStatus, String stdId) {
+	      return reportsRepository.getStudentReportsList(yearParam, monthParam, repType, repStatus, stdId);
+	}
+	
+	@Override
 	public List<ReportsVO> getReportsList(String classId, String yearParam, String monthParam, String repType,
 			String repStatus) {
 		return reportsRepository.getReportsList(classId, yearParam, monthParam, repType, repStatus);

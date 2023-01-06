@@ -10,12 +10,19 @@ import com.coderby.myapp.attendance.model.ReportsVO;
 
 public interface IReportsRepository {
 	List<ReportsVO> selectReports(ReportsVO reports);
+
 	void insertReports(ReportsVO reports);
+
 	void deleteReports(int repId);
+
 	ReportsVO selectRep(int repId);
+
 	List<ReportsVO> getReportsList(@Param("classId") String classId, @Param("yearParam") String yearParam,
 			@Param("monthParam") String monthParam, @Param("repType") String repType,
 			@Param("repStatus") String repStatus);
+
+	List<ReportsVO> getStudentReportsList(@Param("yearParam") String yearParam, @Param("monthParam") String monthParam,
+			@Param("repType") String repType, @Param("repStatus") String repStatus, @Param("stdId") String stdId);
 
 	ReportsVO getReportsDetail(int repId);
 
