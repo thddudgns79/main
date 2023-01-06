@@ -23,6 +23,7 @@ public class ReportsVO {
 	public int getRepId() {
 		return repId;
 	}
+	
 	public void setRepId(int repId) {
 		this.repId = repId;
 	}
