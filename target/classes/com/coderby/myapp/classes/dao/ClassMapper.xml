@@ -65,4 +65,9 @@
 		where section_id = #{sectionId}
 	</delete>
 	
+	<!-- 전체 반 ID 리스트 조회 -->
+	<select id="getClassIdList" resultType="int">
+		select class_id
+		from class
+	</select>	
 </mapper>

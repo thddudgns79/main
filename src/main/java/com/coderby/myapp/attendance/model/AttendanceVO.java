@@ -1,7 +1,7 @@
 package com.coderby.myapp.attendance.model;
 
 import java.util.Date;
-import java.sql.Timestamp;
+
 
 public class AttendanceVO {
 	private Date attendanceDate;
@@ -16,7 +16,6 @@ public class AttendanceVO {
 	public void setAttendanceDate(Date attendanceDate) {
 		this.attendanceDate = attendanceDate;
 	}
-	
 	public Date getInTime() {
 		return inTime;
 	}
