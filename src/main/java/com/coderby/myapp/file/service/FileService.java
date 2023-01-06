@@ -37,4 +37,9 @@ public class FileService implements IFileService {
 		
 	}
 
+	@Override
+	public void deleteFiles(int entityId) {
+		fileRepository.deleteFiles(entityId);
+	}
+
 }
