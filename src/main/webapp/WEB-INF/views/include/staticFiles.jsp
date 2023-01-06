@@ -15,4 +15,5 @@
 	<link rel="stylesheet" href="<c:url value='/slick/slick-theme.css'/>">
 	<link rel="stylesheet" href="<c:url value='/css/magnific-popup.css'/>">
 	<link rel="stylesheet" href="<c:url value='/css/templatemo-dream-pulse.css'/>">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>

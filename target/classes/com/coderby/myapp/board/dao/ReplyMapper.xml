@@ -24,4 +24,46 @@
 				(SEQ_REPLY_REPLY_ID.NEXTVAL, #{replyContent}, sysdate, -1, 'song', ${boardId})
 		]]>
 	</insert>
+	
+	<update id="updateReply" parameterType="com.coderby.myapp.board.model.ReplyVO">
+		<![CDATA[
+			UPDATE 
+				REPLY
+			SET
+				REPLY_CONTENT=#{replyContent}, CREATED_DATE=SYSDATE
+			WHERE
+				REPLY_ID=#{replyId}
+		]]>
+	</update>
+	
+	<select id="selectReReplyList" parameterType="int" resultType="com.coderby.myapp.board.model.ReplyVO">
+		<![CDATA[
+			SELECT
+				REPLY_ID			AS "replyId",
+				REPLY_CONTENT		AS "replyContent",
+				CREATED_DATE		AS "createdDate",
+				MASTER_ID			AS "masterId",
+				STUDENT_ID			AS "studentId"
+			FROM reply
+			WHERE master_id=#{replyId}
+		]]>
+	</select>
+	
+	<insert id="insertReReply" parameterType="com.coderby.myapp.board.model.ReplyVO">
+		<![CDATA[
+			INSERT INTO
+				REPLY
+					(REPLY_ID, REPLY_CONTENT, CREATED_DATE, MASTER_ID, STUDENT_ID, BOARD_ID)
+			VALUES
+				(SEQ_REPLY_REPLY_ID.NEXTVAL, #{replyContent}, sysdate, ${replyId}, 'song', ${boardId})
+		]]>
+	</insert>
+	
+	<delete id="deleteReply" parameterType="int">
+		<![CDATA[
+			DELETE 
+				FROM REPLY
+			WHERE REPLY_ID=#{replyId}
+		]]>
+	</delete>
 </mapper>
