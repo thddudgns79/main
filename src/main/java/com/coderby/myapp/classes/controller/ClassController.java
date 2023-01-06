@@ -38,6 +38,8 @@ public class ClassController {
 		session.setAttribute("classId", 3);
 		session.setAttribute("userId", "thddudgns79");
 		session.setAttribute("isManager", 'Y');
+		model.addAttribute("orgName",orgName);
+		model.addAttribute("className",className);
 		// 검색 키워드 있을 경우
 		if (!className.equals("")) {
 			className = "%" + className + "%";
@@ -47,9 +49,6 @@ public class ClassController {
 			className = null;
 		}
 		List<ClassVO> classList = classService.getClassList(orgName, className);
-		for (ClassVO classVo : classList) {
-			System.out.println(classVo.getClassName());
-		}
 		model.addAttribute("classList", classList);
 		return "classes/classList";
 	}
