@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.coderby.myapp.attendance.dao.IReportsRepository">
+
+	<select id="selectReports" parameterType="com.coderby.myapp.attendance.model.ReportsVO" resultType="com.coderby.myapp.attendance.model.ReportsVO">
+		select 
+			rep_id		as "repId",
+			rep_date	as "repDate",
+			reason		as "reason",
+			in_time		as "inTime",
+			out_time	as "outTime",
+			rep_status	as "repStatus",
+			rep_type	as "repType",
+			student_id 	as "studentId"
+		from reports
+		where 
+			to_char(rep_date, 'yyyy-MM-DD') =to_char(#{repDate}, 'yyyy-MM-DD')
+			and studentd_id = #{studentId}
+	</select>
+	
+	<delete id="deleteReports" parameterType="int">
+		delete from reports
+		where
+			rep_id=#{repId}
+	</delete>
+	
+	<insert id="insertReports" parameterType="com.coderby.myapp.attendance.model.ReportsVO" useGeneratedKeys="true" keyProperty="repId" keyColumn="rep_id">
+		insert into reports 
+			(rep_id, rep_date, reason, in_time, out_time, rep_status, rep_type, student_id)
+		values
+			(SEQ_ENTITY_ID.NEXTVAL, #{repDate}, #{reason}, #{inTime}, #{outTime}, '대기', #{repType}, #{studentId})
+	</insert>
+	
+	<select id="selectRep" parameterType="int" resultType="com.coderby.myapp.attendance.model.ReportsVO">
+		select 
+			rep_id		as "repId",
+			rep_date	as "repDate",
+			reason		as "reason",
+			in_time		as "inTime",
+			out_time	as "outTime",
+			rep_status	as "repStatus",
+			rep_type	as "repType",
+			student_id 	as "studentId"
+		from reports
+		where 
+			rep_id = #{repId}
+	</select>
+	
+	<select id="getReportsList" parameterType="map" resultType="com.coderby.myapp.attendance.model.ReportsVO">
+		select 
+			rep_id as "repId",
+			rep_date as "repDate",
+			reason as "reason",
+			in_time as "inTime",
+			out_time as "outTime",
+			rep_status as "repStatus",
+			rep_type as "repType",
+			student_id as "studentId"
+		from reports
+		<where>
+			<if test="classId != '전체'">
+				student_id in (select student_id from student where class_id = #{classId})
+			</if>
+				and extract(year from rep_date) = #{yearParam}
+				and extract(month from rep_date) = #{monthParam}
+			<if test="repType != '전체'">
+				and rep_type= #{repType}
+			</if>
+			<if test="repStatus != '전체'">
+				and rep_status= #{repStatus}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getStudentReportsList" parameterType="map" resultType="com.coderby.myapp.attendance.model.ReportsVO">
+		select 
+			rep_id as "repId",
+			rep_date as "repDate",
+			reason as "reason",
+			in_time as "inTime",
+			out_time as "outTime",
+			rep_status as "repStatus",
+			rep_type as "repType",
+			student_id as "studentId"
+			from reports
+		<where>
+			student_id = #{stdId}
+			and extract(year from rep_date) = #{yearParam}
+			and extract(month from rep_date) = #{monthParam}
+			<if test="repType != '전체'">
+				and rep_type= #{repType}
+			</if>
+			<if test="repStatus != '전체'">
+				and rep_status= #{repStatus}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getReportsDetail" parameterType="int" resultType="com.coderby.myapp.attendance.model.ReportsVO">
+		select 
+			rep_id as "repId",
+			rep_date as "repDate",
+			reason as "reason",
+			in_time as "inTime",
+			out_time as "outTime",
+			rep_status as "repStatus",
+			rep_type as "repType",
+			student_id as "studentId"
+		from reports
+		where rep_id = #{repId}
+	</select>
+	
+	<update id="updateRepStatus" parameterType="map">
+	 	update reports 
+	 	set rep_status = #{updateRepStatus}
+	 	where rep_id = #{repId}
+	</update>
+	
+	<update id="updateOutTime" parameterType="map">
+		update attendance
+			set 
+		<if test="outTime == null">
+			out_time = NULL
+		</if>
+		<if test="outTime != null">
+			out_time = #{outTime}
+		</if>
+		where 
+		student_id = #{studentId}
+		and to_char(attendance_date, 'yyyy-mm-dd') = to_char(#{repDate}, 'yyyy-mm-dd')
+	</update>
+	
+	<insert id="insertNineToSixAttendanceRow" parameterType="com.coderby.myapp.attendance.model.AttendanceVO">
+		insert into attendance
+		(attendance_date, in_time, out_time, student_id, status)
+		values
+		(#{attendanceDate}, #{inTime}, #{outTime}, #{studentId}, #{status})
+	</insert>   
+	
+	<delete id="deleteAttedanceRow" parameterType="map">
+		delete 
+		from attendance 
+		where to_char(attendance_date, 'yyyy-mm-dd') = to_char(#{repDate}, 'yyyy-mm-dd')
+		and student_id = #{studentId}
+	</delete>
+
+</mapper>

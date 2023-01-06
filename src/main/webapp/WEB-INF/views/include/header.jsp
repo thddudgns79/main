@@ -31,31 +31,13 @@
 					<c:if test="${not empty sessionScope.stdId}">
 					<ul id="tmMainNav" class="nav flex-column text-uppercase text-right tm-main-nav">
 						<li class="nav-item">
-							<a href="#intro" class="nav-link active">
+							<a href='<c:url value="/attend/today"/>'class="nav-link"> 
 								<span class="d-inline-block mr-3">출결</span> 
 								<span class="d-inline-block tm-white-rect"></span>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="#about" class="nav-link"> 
-								<span class="d-inline-block mr-3">About</span> 
-								<span class="d-inline-block tm-white-rect"></span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="#work" class="nav-link"> 
-								<span class="d-inline-block mr-3">Work</span> 
-								<span class="d-inline-block tm-white-rect"></span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="#clients" class="nav-link">
-								<span class="d-inline-block mr-3">Clients</span> 
-								<span class="d-inline-block tm-white-rect"></span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href='<c:url value="/student/logout"/>'> 
+							<a href='<c:url value="/student/logout"/>' class="nav-link"> 
 								<span class="d-inline-block mr-3">로그아웃</span> 
 								<span class="d-inline-block tm-white-rect"></span>
 							</a>

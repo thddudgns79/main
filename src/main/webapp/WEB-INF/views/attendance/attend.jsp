@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,21 +9,30 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
 	<table>
 		<tr>
-			<td>담당 기관</td>
-			<td>클래스 명</td>
-			<td>이수 시간</td>
-			<td>교육 시작일</td>
-			<td>교육 종료일</td>
+			<td>DAY : </td>
+			<td><fmt:formatDate pattern="yyyy년MM월dd" value="${attendVO.attendanceDate}"/> </td>
 		</tr>
-			<tr>
-				<td>${attendVO.attendanceDate}</td>
-				<td>${attendVO.inTime}</td>
-				<td>${attendVO.outTime}</td>
-				<td>${attendVO.status}시간</td>
-				<td>${attendVO.studentId}</td>
-			</tr>
+		<tr>
+			<td>start : </td>
+			<td><fmt:formatDate pattern="hh:mm:ss" value="${attendVO.inTime}"/> </td>
+		</tr>
+		<tr>
+			<td>out : </td>
+			<td><fmt:formatDate pattern="hh:mm:ss" value="${attendVO.outTime}"/> </td>
+		</tr>
+		<tr>
+			<td>시간 차 : </td>
+			<td>${result}</td>
+		</tr>
 	</table>
+
+	<a href='<c:url value="/attend/in"/>'>출근</a>
+	<a href='<c:url value="/attend/out"/>'>퇴근</a>
+	
+	<a href='<c:url value="/reports/write"/>'>휴가신청</a>
+	
 </body>
 </html>

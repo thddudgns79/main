@@ -41,4 +41,10 @@
 		delete from files
 		where file_id = #{fileId}
 	</delete>
+	
+	<!-- 해당 게시글 전체 삭제 -->
+	<delete id="deleteFiles" parameterType="int">
+		delete from files
+		where entity_id = #{entityId}
+	</delete>
 </mapper>

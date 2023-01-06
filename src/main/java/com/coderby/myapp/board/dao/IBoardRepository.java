@@ -12,5 +12,6 @@ public interface IBoardRepository {
 	int selectTotalBoardCountByClass(int classId);
 	BoardVO selectBoard(int boardId);
 	void insertBoard(BoardVO board);
-	
+	void updateBoard(BoardVO board);
+	void deleteBoard(int boardId);
 }

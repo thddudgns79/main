@@ -14,8 +14,9 @@ public class AttendanceVO {
 		return attendanceDate;
 	}
 	public void setAttendanceDate(Date attendanceDate) {
-		this.attendanceDate = attendanceDate;
+		this.attendanceDate = attendanceDate; 
 	}
+	
 	public Date getInTime() {
 		return inTime;
 	}

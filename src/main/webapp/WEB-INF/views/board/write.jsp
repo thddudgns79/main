@@ -31,7 +31,7 @@
 				<textarea class="form-control" rows="5" id="boardContent" name="boardContent"></textarea>
 				
 				<label for="bFile">파일: </label>
-				<input type="file" class="form-control" id="bFile" name="bFile">
+				<input type="file" class="form-control" id="bFile" name="bFile" multiple>
   			</div>
   			<button type="submit">제출</button>
 		</form>

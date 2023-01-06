@@ -16,7 +16,7 @@ public class BoardVO {
 	private String studentId;
 	private int classId;
 	private List<ReplyVO> replyList;
-	private MultipartFile bFile;
+	private List<MultipartFile> bFile;
 	private List<FileVO> bfileList;
 
 	public int getBoardId() {
@@ -83,11 +83,11 @@ public class BoardVO {
 		this.replyList = replyList;
 	}
 
-	public MultipartFile getbFile() {
+	public List<MultipartFile> getbFile() {
 		return bFile;
 	}
 
-	public void setbFile(MultipartFile bFile) {
+	public void setbFile(List<MultipartFile> bFile) {
 		this.bFile = bFile;
 	}
 
