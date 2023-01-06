@@ -18,7 +18,7 @@ public class StudentController {
 	@Autowired
 	IStudentService studentService;
 	
-	@RequestMapping(value="/student/login", method=RequestMethod.POST)
+	@RequestMapping(value="/attend", method=RequestMethod.POST)
 	public String login(String stdId, String password, HttpSession session, Model model) {
 //		System.out.println("id"+stdId);
 //		System.out.println("pw"+password);
@@ -33,7 +33,8 @@ public class StudentController {
 					//비밀번호 일치
 					session.setAttribute("stdId", stdId);
 					session.setAttribute("classId", student.getClassId());
-					return "attendance/attend";
+					session.setAttribute("isManager", student.getIsManager());
+					return "home";
 				}else {
 					//비밀번호 불일치
 					model.addAttribute("message", "WRONG_NOT_PASSWORD");
@@ -42,7 +43,7 @@ public class StudentController {
 		}else {
 			model.addAttribute("message", "USER_NOT_FOUND");
 		}
-		return "attendance/attend";
+		return "home";
 	}
 
 	@RequestMapping(value="/student/logout", method=RequestMethod.GET)

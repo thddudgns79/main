@@ -17,5 +17,6 @@ public interface IClassService {
 	void updateSectionDescription(int sectionId, String sectionDescription);
 	
 	void deleteSection(int sectionId);
-	
+
+	List<Integer> getClassIdList();
 }
