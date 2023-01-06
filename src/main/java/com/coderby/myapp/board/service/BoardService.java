@@ -52,8 +52,41 @@ public class BoardService implements IBoardService {
 	}
 
 	@Override
+	public void updateBoard(BoardVO board) {
+		boardRepository.updateBoard(board);
+	}
+
+	@Override
+	public void deleteBoard(int boardId) {
+		boardRepository.deleteBoard(boardId);
+	}
+	
+	@Override
 	public void insertReply(ReplyVO reply) {
 		replyRepository.insertReply(reply);
 	}
+	
+	@Override
+	public void updateReply(ReplyVO reply) {
+		replyRepository.updateReply(reply);
+	}
+
+	@Override
+	public void deleteReply(int replyId) {
+		replyRepository.deleteReply(replyId);
+	}
+	
+	@Override
+	public List<ReplyVO> selectReReplyList(int replyId) {
+		return replyRepository.selectReReplyList(replyId);
+	}
+
+	@Override
+	public void insertReReply(ReplyVO reply) {
+		replyRepository.insertReReply(reply);
+	}
+
+	
+
 	
 }

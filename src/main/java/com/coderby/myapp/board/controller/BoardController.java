@@ -16,6 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -73,6 +75,7 @@ public class BoardController {
 		return "board/detail";
 	}
 	
+	
 	//[게시글 추가(작성) - 폼]
 	@RequestMapping(value="/board/insert", method=RequestMethod.GET)
 	public String writeBoard(Model model) {
@@ -83,19 +86,20 @@ public class BoardController {
 	@RequestMapping(value="board/insert", method=RequestMethod.POST)
 	public String writeBoard(BoardVO board, BindingResult result, RedirectAttributes redirectAttr) {
 		try {
-			//DB에 게시판에 작성한 내용 등록
 			boardService.insertBoard(board);
 			
-			MultipartFile mfile = board.getbFile();
-
-			if(mfile!=null && !mfile.isEmpty()) {
-				FileVO fileVO = new FileVO();
-				fileVO.setFileName(mfile.getOriginalFilename());
-				fileVO.setFileType(mfile.getContentType());
-				fileVO.setFileSize(mfile.getSize());
-				fileVO.setFileData(mfile.getBytes());
-				
-				fileService.uploadFile(board.getBoardId(), fileVO);
+			List<MultipartFile> mfileList = board.getbFile();
+			
+			if(mfileList!=null && !mfileList.isEmpty()) {
+				for(MultipartFile mfile : mfileList) {
+					FileVO fileVO = new FileVO();
+					fileVO.setFileName(mfile.getOriginalFilename());
+					fileVO.setFileType(mfile.getContentType());
+					fileVO.setFileSize(mfile.getSize());
+					fileVO.setFileData(mfile.getBytes());
+					
+					fileService.uploadFile(board.getBoardId(), fileVO);
+				}
 			}
 		}catch (Exception e) {
 			redirectAttr.addFlashAttribute("message", e.getMessage());
@@ -117,24 +121,109 @@ public class BoardController {
 		return new ResponseEntity<byte[]>(file.getFileData(), headers, HttpStatus.OK);
 	}
 	
-	//[게시글 삭제]
+	//[게시글 수정 - 폼]
+	@RequestMapping(value="/board/update/{boardId}", method=RequestMethod.GET)
+	public String updateBoard(@PathVariable int boardId ,Model model) {
+		BoardVO board = boardService.selectBoard(boardId);
+		model.addAttribute("board", board);
+		return "board/update";
+	}
 	
-	//[게시글 수정]
+	//[게시글 수정 - DB]
+	@RequestMapping(value="/board/update", method=RequestMethod.POST)
+	public String updateBoard(BoardVO board, BindingResult result, RedirectAttributes redirectAttr) {
+		try {
+			boardService.updateBoard(board);
+			
+			List<MultipartFile> mfileList = board.getbFile();
+			
+			if(mfileList!=null && !mfileList.isEmpty()) {
+				for(MultipartFile mfile : mfileList) {
+					FileVO fileVO = new FileVO();
+					fileVO.setFileName(mfile.getOriginalFilename());
+					fileVO.setFileType(mfile.getContentType());
+					fileVO.setFileSize(mfile.getSize());
+					fileVO.setFileData(mfile.getBytes());
+					
+					fileService.uploadFile(board.getBoardId(), fileVO);
+				}
+			}
+		}catch (Exception e) {
+			redirectAttr.addFlashAttribute("message", e.getMessage());
+		}
+		
+		return "redirect:/board/detail/" + board.getBoardId();
+	}
+	
+	//[게시글 수정 - 기존 파일 삭제]
+	@RequestMapping(value="/board/file/delete", method=RequestMethod.GET)
+	public @ResponseBody int deleteBoardFile(@RequestParam int fileId) {
+		try {
+			fileService.deleteFile(fileId);
+		} catch (Exception e) {
+			e.getMessage();
+			return 0;
+		}
+		return 1;
+	}
+	
+	//[게시글 삭제]
+	@RequestMapping("board/delete/{boardId}")
+	public String deleteBoard(@PathVariable int boardId) {
+		boardService.deleteBoard(boardId);
+		return "redirect:/board/list";
+	}
 	
 	//[댓글 작성]
 	@RequestMapping(value="/board/reply/insert", method=RequestMethod.POST)
-	public String writeReply(ReplyVO reply, Model model) {
+	public String writeReply(ReplyVO reply) {
 		boardService.insertReply(reply);
 		return "redirect:/board/detail/" + reply.getBoardId();
 	}
 	
 	//[댓글 삭제]
+	@RequestMapping("/board/reply/delete")
+	public @ResponseBody int deleteReply(@RequestParam int replyId) {
+		try {
+			boardService.deleteReply(replyId);
+		} catch (Exception e) {
+			e.getMessage();
+			return 0;
+		}
+		return 1;
+	}
 	
 	//[댓글 수정]
+	@RequestMapping("board/reply/update")
+	public @ResponseBody int updateReply(ReplyVO reply) {
+		try {
+			boardService.updateReply(reply);
+		} catch (Exception e) {
+			e.getMessage();
+			return 0;
+		}
+		return 1;
+	}
+	
+	
+	//[답글 목록]
+	@RequestMapping(value="/board/rereply/list", method=RequestMethod.GET)
+	public String reReplyList(@RequestParam int replyId, Model model) {
+		List<ReplyVO> reReplyList = boardService.selectReReplyList(replyId);
+		model.addAttribute("reReplyList", reReplyList);
+		return "board/replyList";
+	}
 	
 	//[답글 추가]
-	public String writeReReply() {
-		return "안녕";
+	@RequestMapping(value="/board/rereply/insert", method=RequestMethod.POST)
+	public @ResponseBody int writeReReply(ReplyVO reply, Model model) {
+		try {
+			boardService.insertReReply(reply);
+		} catch (Exception e) {
+			e.getMessage();
+			return 0;
+		}
+		return 1;
 	}
 	
 	//[답글 삭제]
