@@ -6,6 +6,4 @@ public interface IAttendanceService {
 	void attendIn(String stdId);
 	void attendOut(String stdId);
 	AttendanceVO attendToday(String stdId);
-	
-	
 }

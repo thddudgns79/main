@@ -15,4 +15,6 @@ public interface IFileService {
 	void uploadFile(int entityId, FileVO file);
 	
 	void deleteFile(int fileId);
+	
+	void deleteFiles(int entityId);
 }

@@ -32,5 +32,7 @@
 	<a href='<c:url value="/attend/in"/>'>출근</a>
 	<a href='<c:url value="/attend/out"/>'>퇴근</a>
 	
+	<a href='<c:url value="/reports/write"/>'>휴가신청</a>
+	
 </body>
 </html>

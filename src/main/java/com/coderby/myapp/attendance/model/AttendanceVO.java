@@ -1,12 +1,12 @@
 package com.coderby.myapp.attendance.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
 
 public class AttendanceVO {
 	private Date attendanceDate;
-	private Timestamp inTime;
-	private Timestamp outTime;
+	private Date inTime;
+	private Date outTime;
 	private String status;
 	private String studentId;
 	
@@ -16,16 +16,17 @@ public class AttendanceVO {
 	public void setAttendanceDate(Date attendanceDate) {
 		this.attendanceDate = attendanceDate;
 	}
-	public Timestamp getInTime() {
+	
+	public Date getInTime() {
 		return inTime;
 	}
-	public void setInTime(Timestamp inTime) {
+	public void setInTime(Date inTime) {
 		this.inTime = inTime;
 	}
-	public Timestamp getOutTime() {
+	public Date getOutTime() {
 		return outTime;
 	}
-	public void setOutTime(Timestamp outTime) {
+	public void setOutTime(Date outTime) {
 		this.outTime = outTime;
 	}
 	public String getStatus() {

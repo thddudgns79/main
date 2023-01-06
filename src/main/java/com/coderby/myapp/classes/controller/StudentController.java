@@ -33,6 +33,7 @@ public class StudentController {
 					//비밀번호 일치
 					session.setAttribute("stdId", stdId);
 					session.setAttribute("classId", student.getClassId());
+					session.setAttribute("isManager", student.getIsManager());
 					return "home";
 				}else {
 					//비밀번호 불일치

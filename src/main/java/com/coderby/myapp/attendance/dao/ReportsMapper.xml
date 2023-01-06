@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.coderby.myapp.attendance.dao.IReportsRepository">
+
+	<select id="selectReports" parameterType="com.coderby.myapp.attendance.model.ReportsVO" resultType="com.coderby.myapp.attendance.model.ReportsVO">
+		select 
+			rep_id		as "repId",
+			rep_date	as "repDate",
+			reason		as "reason",
+			in_time		as "inTime",
+			out_time	as "outTime",
+			rep_status	as "repStatus",
+			rep_type	as "repType",
+			student_id 	as "studentId"
+		from reports
+		where 
+			to_char(rep_date, 'yyyy-MM-DD') =to_char(#{repDate}, 'yyyy-MM-DD')
+			and studentd_id = #{studentId}
+	</select>
+	
+	<delete id="deleteReports" parameterType="int">
+		delete from reports
+		where
+			rep_id=#{repId}
+	</delete>
+	
+	<insert id="insertReports" parameterType="com.coderby.myapp.attendance.model.ReportsVO" useGeneratedKeys="true" keyProperty="repId" keyColumn="rep_id">
+		insert into reports 
+			(rep_id, rep_date, reason, in_time, out_time, rep_status, rep_type, student_id)
+		values
+			(SEQ_ENTITY_ID.NEXTVAL, #{repDate}, #{reason}, #{inTime}, #{outTime}, '대기', #{repType}, #{studentId})
+	</insert>
+	
+	<select id="selectRep" parameterType="int" resultType="com.coderby.myapp.attendance.model.ReportsVO">
+		select 
+			rep_id		as "repId",
+			rep_date	as "repDate",
+			reason		as "reason",
+			in_time		as "inTime",
+			out_time	as "outTime",
+			rep_status	as "repStatus",
+			rep_type	as "repType",
+			student_id 	as "studentId"
+		from reports
+		where 
+			rep_id = #{repId}
+	</select>
+
+</mapper>
