@@ -1,7 +1,3 @@
-<%@page import="com.coderby.myapp.classes.service.StudentService"%>
-<%@page import="java.util.List"%>
-<%@page import="com.coderby.myapp.classes.model.StudentVO"%>
-<%@page import="com.coderby.myapp.classes.service.IStudentService"%>
 <%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@page import="org.springframework.web.context.WebApplicationContext"%>
 <%@page contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" %>
