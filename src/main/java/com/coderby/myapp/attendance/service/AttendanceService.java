@@ -29,10 +29,10 @@ public class AttendanceService implements IAttendanceService {
 
 	// 출근 버튼
 	@Override
-	public void attendIn(String stdId) {
+	public void attendIn(String stdId, String now) {
 		AttendanceVO selectAttend = attendanceRepository.attendToday(stdId);
 		if (selectAttend == null) {
-			attendanceRepository.attendIn(stdId);
+			attendanceRepository.attendIn(stdId, now);
 		} else {
 			// 출근한적 있음
 		}

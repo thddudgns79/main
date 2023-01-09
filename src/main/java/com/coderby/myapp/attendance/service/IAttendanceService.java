@@ -6,7 +6,7 @@ import com.coderby.myapp.attendance.model.AttendStat;
 import com.coderby.myapp.attendance.model.AttendanceVO;
 
 public interface IAttendanceService {
-	void attendIn(String stdId);
+	void attendIn(String stdId, String now);
 
 	void attendOut(String stdId);
 

@@ -9,7 +9,7 @@
 	<jsp:include page="/WEB-INF/views/include/header.jsp"/>
 
 		<div role="main" class="ml-sm-auto col-12">
-			<div class="parallax-window" data-parallax="scroll" data-image-src="img/dream-pulse-header.jpg">
+			<div class="parallax-window" data-parallax="scroll" data-image-src='<c:url value="/img/background.png"/>'>
 				<div class="tm-section-wrap">
 					<section id="intro" class="tm-section">
 						<div class="tm-bg-white-transparent tm-intro">
@@ -29,7 +29,7 @@
 		</div>
 		
 		
-		<!-- 
+		
 		<div class="tm-section-wrap bg-white">
 			<section id="about" class="row tm-section">
 				<div class="col-xl-6">
@@ -69,7 +69,7 @@
 					</div>
 				</div>
 			</section>
-		</div>  -->
+		</div> 
 
 		<jsp:include page="/WEB-INF/views/include/footer.jsp"/>
 	</body>
