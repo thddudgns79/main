@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.coderby.myapp.attendance.dao.IAttendanceRepository;
 import com.coderby.myapp.attendance.dao.IReportsRepository;
+import com.coderby.myapp.attendance.model.AttendStat;
 import com.coderby.myapp.attendance.model.AttendanceVO;
 import com.coderby.myapp.attendance.model.ReportsVO;
 
@@ -99,60 +100,63 @@ public class AttendanceService implements IAttendanceService {
 			attendanceRepository.insertBlank(stdId,"결석");
 		}
 	}
-
+	
 	// 전체 학생 근태(통계) 조회
-	@Override
-	public List<AttendanceVO> getAllAttendStat(int classId, String yearParam, String monthParam) {
-		List<AttendanceVO> attendStatList = new ArrayList<AttendanceVO>();
-		List<String> studentIdList = attendanceRepository.getClassStudentIdList(classId);
-
-		for (String stdId : studentIdList) {
-			List<Map<String, Object>> statMap = attendanceRepository.getStudentAttendStat(stdId, yearParam, monthParam);
-			AttendanceVO attendStat = new AttendanceVO();
-			attendStat.setStudentId(stdId);
-			for (Map<String, Object> map : statMap) {
+		@Override
+		public List<AttendStat> getAllAttendStat(int classId, String yearParam, String monthParam) {
+			List<AttendStat> attendStatList = new ArrayList<AttendStat>();
+			List<String> studentIdList = attendanceRepository.getClassStudentIdList(classId);
+			
+			for(String stdId : studentIdList) {
+				List<Map<String, Object>> statMap = attendanceRepository.getStudentAttendStat(stdId, yearParam, monthParam);
+				AttendStat attendStat = new AttendStat();
+				attendStat.setStudentId(stdId);
+				for(Map<String, Object> map : statMap) {
+					String status = (String) map.get("status");
+					int count = (Integer) map.get("count");
+					if(status.equals("지각")) {
+						attendStat.setLateCount(attendStat.getLateCount() + count);
+					}
+					else if(status.equals("결석")) {
+						attendStat.setAbsenceCount(attendStat.getAbsenceCount() + count);
+					}
+					if(status.equals("출석")) {
+						attendStat.setAttendCount(attendStat.getAttendCount() + count);
+					}
+				}
+				attendStatList.add(attendStat);
+			}
+			
+			return attendStatList;
+		}
+		
+		// 학생 월간 근태 통계 조회 
+		public AttendStat getStudentAttendStat(String studentId, String yearParam, String monthParam) {
+			List<Map<String, Object>> statMap = attendanceRepository.getStudentAttendStat(studentId, yearParam, monthParam);
+			AttendStat attendStat = new AttendStat();
+			attendStat.setStudentId(studentId);
+			for(Map<String, Object> map : statMap) {
 				String status = (String) map.get("status");
 				int count = (Integer) map.get("count");
-				if (status.equals("지각")) {
+				if(status.equals("지각")) {
 					attendStat.setLateCount(attendStat.getLateCount() + count);
-				} else if (status.equals("결석")) {
+				}
+				else if(status.equals("결석")) {
 					attendStat.setAbsenceCount(attendStat.getAbsenceCount() + count);
 				}
-				if (status.equals("출석")) {
+				if(status.equals("출석")) {
 					attendStat.setAttendCount(attendStat.getAttendCount() + count);
 				}
 			}
-			attendStatList.add(attendStat);
+			return attendStat;
+		}
+		
+		// 학생 월간 근태 목록 조회 
+		public List<AttendanceVO> getStudentAttendList(String studentId, String yearParam, String monthParam) {
+			return attendanceRepository.getStudentAttendList(studentId, yearParam, monthParam);
+			
 		}
 
-		return attendStatList;
-	}
-
-	// 학생 월간 근태 통계 조회
-	public AttendanceVO getStudentAttendStat(String studentId, String yearParam, String monthParam) {
-		List<Map<String, Object>> statMap = attendanceRepository.getStudentAttendStat(studentId, yearParam, monthParam);
-		AttendanceVO attendStat = new AttendanceVO();
-		attendStat.setStudentId(studentId);
-		for (Map<String, Object> map : statMap) {
-			String status = (String) map.get("status");
-			int count = (Integer) map.get("count");
-			if (status.equals("지각")) {
-				attendStat.setLateCount(attendStat.getLateCount() + count);
-			} else if (status.equals("결석")) {
-				attendStat.setAbsenceCount(attendStat.getAbsenceCount() + count);
-			}
-			if (status.equals("출석")) {
-				attendStat.setAttendCount(attendStat.getAttendCount() + count);
-			}
-		}
-		return attendStat;
-	}
-
-	// 학생 월간 근태 목록 조회
-	public List<AttendanceVO> getStudentAttendList(String studentId, String yearParam, String monthParam) {
-		return attendanceRepository.getStudentAttendList(studentId, yearParam, monthParam);
-
-	}
 
 	
 }
