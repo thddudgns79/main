@@ -36,6 +36,7 @@ public class StudentController {
 						session.setAttribute("stdId", stdId);
 						session.setAttribute("isManager", student.getIsManager());
 						session.setAttribute("classId", student.getClassId());
+						session.setAttribute("lookingStdId", stdId);
 						return "home";
 					}else {
 						//매니저일때

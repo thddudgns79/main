@@ -68,8 +68,11 @@ public class AttendanceController {
 	// 출석버튼 click
 	@RequestMapping("/attend/in")
 	public String attendIn(HttpSession session, Model model) {
+		Date nowDate = new Date(System.currentTimeMillis());
+		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
 		String stdId = (String) session.getAttribute("stdId");
-		attendanceService.attendIn(stdId);
+		String now =  format.format(nowDate);
+		attendanceService.attendIn(stdId, now);
 		return "redirect:/attend/today";
 	}
 

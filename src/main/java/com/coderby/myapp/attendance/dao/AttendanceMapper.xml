@@ -15,11 +15,11 @@
 			and student_id=#{stdId}
 	</select>
 
-	<insert id="attendIn" parameterType="string">
+	<insert id="attendIn" parameterType="map">
 		insert into attendance
 			(attendance_date, in_time, status, student_id) 
 		values
-			(sysdate, sysdate, '-', #{stdId})
+			(#{now}, sysdate, '-', #{stdId})
 	</insert>
 	
 	<update id="attendOut" parameterType="String">
