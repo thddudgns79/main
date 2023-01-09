@@ -38,7 +38,7 @@
 									<tr>
 										<td>${class.classId}</td>
 										<td>${class.orgName}</td>
-										<td><a href='<c:url value="/attend/getAllAttend/{class.classId}"/>'>${class.className}</a></td>
+										<td><a href='<c:url value="/attend/getAllAttend/${class.classId}"/>'>${class.className}</a></td>
 										<td>${class.classHours}시간</td>
 										<td>${class.classStartDate}</td>
 										<td>${class.classEndDate}</td>

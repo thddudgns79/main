@@ -27,29 +27,33 @@
 					    			<img src='<c:url value="/attend/filedownload/${file.fileId}"/>'/>
 					    		</c:forEach>
 					    	</div>
-					    	<form action='<c:url value="/attend/reportsstatusupdate"/>' method="POST">
-					    		<input type="hidden" name="repId" value="${reportsVO.repId}"/>
-					    		<input type="hidden" name="studentId" value="${reportsVO.studentId}"/>
-					    		<input type="hidden" name="repDateStr" value="${repDateStr}"/> 
-					    		<input type="hidden" name="repType" value="${reportsVO.repType}"/>
-					  			<input type="hidden" name="inTimeStr" value="${inTimeStr}"/>
-					    		<input type="hidden" name="outTimeStr" value="${outTimeStr}"/> 
-					    		<input type="hidden" name="reason" value="${reportsVO.reason}"/>
-					    		<input type="hidden" name="repStatus" value="${reportsVO.repStatus}"/>
-					    	 	<select name="updateRepStatus">
-					    			<c:if test ="${reportsVO.repStatus eq '승인'}">
-					    				<option value="반려">반려</option>
-					    			</c:if>
-					    			<c:if test ="${reportsVO.repStatus eq '대기'}">
-					    				<option value="승인">승인</option>
-					    				<option value="반려">반려</option>
-					    			</c:if>
-					    			<c:if test ="${reportsVO.repStatus eq '반려'}">
-					    				<option value="승인">승인</option>
-					    			</c:if>
-					    		</select> 
-					    		<input type="submit" value="제출"/>
-					    	</form>
+						    	<c:if test="isManager == 'Y'">
+			    				<form action='<c:url value="/attend/reportsstatusupdate"/>' method="POST">
+						    		<input type="hidden" name="repId" value="${reportsVO.repId}"/>
+						    		<input type="hidden" name="studentId" value="${reportsVO.studentId}"/>
+						    		<input type="hidden" name="repDateStr" value="${repDateStr}"/> 
+						    		<input type="hidden" name="repType" value="${reportsVO.repType}"/>
+						  			<input type="hidden" name="inTimeStr" value="${inTimeStr}"/>
+						    		<input type="hidden" name="outTimeStr" value="${outTimeStr}"/> 
+						    		<input type="hidden" name="reason" value="${reportsVO.reason}"/>
+						    		<input type="hidden" name="repStatus" value="${reportsVO.repStatus}"/>
+						    		
+						    	 	<select name="updateRepStatus">
+						    			<c:if test ="${reportsVO.repStatus eq '승인'}">
+						    				<option value="반려">반려</option>
+						    			</c:if>
+						    			<c:if test ="${reportsVO.repStatus eq '대기'}">
+						    				<option value="승인">승인</option>
+						    				<option value="반려">반려</option>
+						    			</c:if>
+						    			<c:if test ="${reportsVO.repStatus eq '반려'}">
+						    				<option value="승인">승인</option>
+						    			</c:if>
+						    		</select> 
+						    		<input type="submit" value="제출"/>
+						    	</form>
+				    		</c:if>
+				    		<a href='<c:url value="/reports/cancle/${reportsVO.repId}"/>'>취소</a>
 						</div>
 					</section>
 				</div>

@@ -21,142 +21,138 @@ public class AttendanceService implements IAttendanceService {
 	@Autowired
 	IReportsRepository reportsRepository;
 
-	//현재 상태 출력
+	// 현재 상태 출력
 	@Override
 	public AttendanceVO attendToday(String stdId) {
 		return attendanceRepository.attendToday(stdId);
 	}
-	
-	//출근 버튼
+
+	// 출근 버튼
 	@Override
 	public void attendIn(String stdId) {
 		AttendanceVO selectAttend = attendanceRepository.attendToday(stdId);
-		if(selectAttend == null) {
+		if (selectAttend == null) {
 			attendanceRepository.attendIn(stdId);
-		}else {
-			//출근한적 있음
+		} else {
+			// 출근한적 있음
 		}
-		
+
 	}
-	
-	//퇴근버튼
+
+	// 퇴근버튼
 	@Override
 	public void attendOut(String stdId) {
 		AttendanceVO selectAttend = attendanceRepository.attendToday(stdId);
-		if(selectAttend != null && selectAttend.getInTime()!=null && selectAttend.getOutTime()==null) {
-			//출근 기록이 있고 퇴근 기록이 없어야한다.
+		if (selectAttend != null && selectAttend.getInTime() != null && selectAttend.getOutTime() == null) {
+			// 출근 기록이 있고 퇴근 기록이 없어야한다.
 			attendanceRepository.attendOut(stdId);
-		}else {
-			//출근을 안했을수도 있고, 
+		} else {
+			// 출근을 안했을수도 있고,
 		}
-		
+
 	}
-	
+
 	@Override
 	public List<String> getAllStd() {
 		List<String> attendVO = attendanceRepository.getAllStd();
 		return attendVO;
 	}
-	
 
-	//24시 특정 학생 status 변경
+	// 24시 특정 학생 status 변경
 	@Override
 	public void updateStatus(String stdId) {
 		List<ReportsVO> getReports = reportsRepository.selectTodayReports(stdId);
 		AttendanceVO getAttend = attendanceRepository.attendToday(stdId);
-		
-		if(getAttend !=null) {
-			if(getAttend.getInTime()!=null && getAttend.getOutTime()==null) {
-				//update) 해당 attendance행의 status값을 '결석'으로 변경
+
+		if (getAttend != null) {
+			if (getAttend.getInTime() != null && getAttend.getOutTime() == null) {
+				// update) 해당 attendance행의 status값을 '결석'으로 변경
 				attendanceRepository.updateStatus(stdId, "결석");
-				//만약 관리자가 그 날 후에 승인을 해준다면 결석이 아니라 바뀌어야한다.(관리자 단에서 승인으로 바꿔주는 걸로 할까?)
-			//in과 out이 존재할떄
-			}else {
+				// 만약 관리자가 그 날 후에 승인을 해준다면 결석이 아니라 바뀌어야한다.(관리자 단에서 승인으로 바꿔주는 걸로 할까?)
+				// in과 out이 존재할떄
+			} else {
 				long cancleTime = 0;
 				for (ReportsVO repVO : getReports) {
-					if(repVO.getRepStatus().equals("반려")&&!(repVO.getRepType().equals("병가") || repVO.getRepType().equals("경조사") || repVO.getRepType().equals("예비군"))) {
-						cancleTime = repVO.getOutTime().getTime()-repVO.getInTime().getTime();
+					if (repVO.getRepStatus().equals("반려") && !(repVO.getRepType().equals("병가")
+							|| repVO.getRepType().equals("경조사") || repVO.getRepType().equals("예비군"))) {
+						cancleTime = repVO.getOutTime().getTime() - repVO.getInTime().getTime();
 						cancleTime += cancleTime;
-						//후에 관리자가 반려를 승인으로 바꿔준다면 status를 변경해주어야한다. ㅜㅜ
-						//휴가 목록을 뺀 이유는 값을 빼기 했을데 -값이 나올수도 있기 때문이다.
+						// 후에 관리자가 반려를 승인으로 바꿔준다면 status를 변경해주어야한다. ㅜㅜ
+						// 휴가 목록을 뺀 이유는 값을 빼기 했을데 -값이 나올수도 있기 때문이다.
 					}
 				}
-				long totalAttend = getAttend.getOutTime().getTime()-getAttend.getInTime().getTime()-cancleTime;
-				totalAttend = totalAttend-(totalAttend%1000);
-				if(totalAttend < 28800000) {
-					//update) 해당 attendance행의 status값을 '결석'으로 변경
-					attendanceRepository.updateStatus(stdId,"결석");
-				}else if(totalAttend >=28800000 ) {
-					if(getAttend.getInTime().getTime()<32400000&&getAttend.getInTime().getTime()>28800000) {
-						//출석
+				long totalAttend = getAttend.getOutTime().getTime() - getAttend.getInTime().getTime() - cancleTime;
+				totalAttend = totalAttend - (totalAttend % 1000);
+				if (totalAttend < 28800000) {
+					// update) 해당 attendance행의 status값을 '결석'으로 변경
+					attendanceRepository.updateStatus(stdId, "결석");
+				} else if (totalAttend >= 28800000) {
+					if (getAttend.getInTime().getTime() < 32400000 && getAttend.getInTime().getTime() > 28800000) {
+						// 출석
 						attendanceRepository.updateStatus(stdId, "출석");
-					}else if(getAttend.getInTime().getTime()>32400000) {
-						//지각
+					} else if (getAttend.getInTime().getTime() > 32400000) {
+						// 지각
 						attendanceRepository.updateStatus(stdId, "지각");
 					}
 				}
 			}
-		}else {
-			attendanceRepository.insertBlank(stdId,"결석");
+		} else {
+			attendanceRepository.insertBlank(stdId, "결석");
 		}
 	}
-	
+
 	// 전체 학생 근태(통계) 조회
-		@Override
-		public List<AttendStat> getAllAttendStat(int classId, String yearParam, String monthParam) {
-			List<AttendStat> attendStatList = new ArrayList<AttendStat>();
-			List<String> studentIdList = attendanceRepository.getClassStudentIdList(classId);
-			
-			for(String stdId : studentIdList) {
-				List<Map<String, Object>> statMap = attendanceRepository.getStudentAttendStat(stdId, yearParam, monthParam);
-				AttendStat attendStat = new AttendStat();
-				attendStat.setStudentId(stdId);
-				for(Map<String, Object> map : statMap) {
-					String status = (String) map.get("status");
-					int count = (Integer) map.get("count");
-					if(status.equals("지각")) {
-						attendStat.setLateCount(attendStat.getLateCount() + count);
-					}
-					else if(status.equals("결석")) {
-						attendStat.setAbsenceCount(attendStat.getAbsenceCount() + count);
-					}
-					if(status.equals("출석")) {
-						attendStat.setAttendCount(attendStat.getAttendCount() + count);
-					}
-				}
-				attendStatList.add(attendStat);
-			}
-			
-			return attendStatList;
-		}
-		
-		// 학생 월간 근태 통계 조회 
-		public AttendStat getStudentAttendStat(String studentId, String yearParam, String monthParam) {
-			List<Map<String, Object>> statMap = attendanceRepository.getStudentAttendStat(studentId, yearParam, monthParam);
+	@Override
+	public List<AttendStat> getAllAttendStat(int classId, String yearParam, String monthParam) {
+		List<AttendStat> attendStatList = new ArrayList<AttendStat>();
+		List<String> studentIdList = attendanceRepository.getClassStudentIdList(classId);
+
+		for (String stdId : studentIdList) {
+			List<Map<String, Object>> statMap = attendanceRepository.getStudentAttendStat(stdId, yearParam, monthParam);
 			AttendStat attendStat = new AttendStat();
-			attendStat.setStudentId(studentId);
-			for(Map<String, Object> map : statMap) {
-				String status = (String) map.get("status");
-				int count = (Integer) map.get("count");
-				if(status.equals("지각")) {
+			attendStat.setStudentId(stdId);
+			for (Map<String, Object> map : statMap) {
+				String status = (String) map.get("STATUS");
+				int count = Integer.parseInt(String.valueOf(map.get("COUNT")));
+				if (status.equals("지각")) {
 					attendStat.setLateCount(attendStat.getLateCount() + count);
-				}
-				else if(status.equals("결석")) {
+				} else if (status.equals("결석")) {
 					attendStat.setAbsenceCount(attendStat.getAbsenceCount() + count);
 				}
-				if(status.equals("출석")) {
+				if (status.equals("출석")) {
 					attendStat.setAttendCount(attendStat.getAttendCount() + count);
 				}
 			}
-			return attendStat;
-		}
-		
-		// 학생 월간 근태 목록 조회 
-		public List<AttendanceVO> getStudentAttendList(String studentId, String yearParam, String monthParam) {
-			return attendanceRepository.getStudentAttendList(studentId, yearParam, monthParam);
-			
+			attendStatList.add(attendStat);
 		}
 
+		return attendStatList;
+	}
 
-	
+	// 학생 월간 근태 통계 조회
+	public AttendStat getStudentAttendStat(String studentId, String yearParam, String monthParam) {
+		List<Map<String, Object>> statMap = attendanceRepository.getStudentAttendStat(studentId, yearParam, monthParam);
+		AttendStat attendStat = new AttendStat();
+		attendStat.setStudentId(studentId);
+		for (Map<String, Object> map : statMap) {
+			String status = (String) map.get("STATUS");
+			int count = Integer.parseInt(String.valueOf(map.get("COUNT")));
+			if (status.equals("지각")) {
+				attendStat.setLateCount(attendStat.getLateCount() + count);
+			} else if (status.equals("결석")) {
+				attendStat.setAbsenceCount(attendStat.getAbsenceCount() + count);
+			}
+			if (status.equals("출석")) {
+				attendStat.setAttendCount(attendStat.getAttendCount() + count);
+			}
+		}
+		return attendStat;
+	}
+
+	// 학생 월간 근태 목록 조회
+	public List<AttendanceVO> getStudentAttendList(String studentId, String yearParam, String monthParam) {
+		return attendanceRepository.getStudentAttendList(studentId, yearParam, monthParam);
+
+	}
+
 }
