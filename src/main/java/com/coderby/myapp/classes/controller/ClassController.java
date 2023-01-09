@@ -52,7 +52,7 @@ public class ClassController {
 		model.addAttribute("classList", classList);
 		return "classes/classList";
 	}
-
+	
 	// 클래스의 섹션 리스트 조회
 	@RequestMapping("/class/sectionlist")
 	public String getSectionList(Model model, HttpSession session) {
