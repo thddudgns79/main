@@ -197,11 +197,10 @@ public class AttendanceController {
 		return "attendance/reportsDetail";
 	}
 
-	// 관리자 status 업데이트
+	// 휴가 상태 변경(관리자)
 	@RequestMapping(value = "/attend/reportsstatusupdate", method = RequestMethod.POST)
 	public String updateReportsStatus(ReportsVO repVO, String updateRepStatus, String repDateStr, String inTimeStr,
 			String outTimeStr, Model model, HttpSession session) {
-		System.out.println("도착");
 		DateFormat repDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		DateFormat inOutTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		// String To Date
@@ -219,7 +218,7 @@ public class AttendanceController {
 			e.printStackTrace();
 		}
 		// 업데이트한 휴가의 상세페이지로 redirect
-		return "redirect:/attend/reportsdetail/" + repVO.getRepId();
+		return "redirect:/attend/reportslist";
 	}
 
 	// 전체 학생 월간 근태 조회 (관리자 메인)

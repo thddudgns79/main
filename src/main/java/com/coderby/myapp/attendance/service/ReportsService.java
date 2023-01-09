@@ -166,12 +166,10 @@ public class ReportsService implements IReportsService {
 
 			// 반려 -> 승인
 			else if (repVO.getRepStatus().equals("반려") && updateRepStatus.equals("승인")) {
-				// 승인,대기 휴가 건 중복 확인 필요
+				// 승인,대기 휴가 조퇴,외출건 중복 확인 필요
 				boolean isPossible = true;
 				for (ReportsVO rep : getReports) {
-					if ((rep.getRepType().equals("병가") || rep.getRepType().equals("경조사")
-							|| rep.getRepType().equals("예비군"))
-							&& (rep.getRepStatus().equals("승인") || rep.getRepStatus().equals("대기"))) {
+					if ((rep.getRepStatus().equals("승인") || rep.getRepStatus().equals("대기"))) {
 						isPossible = false;
 						break;
 					}
@@ -243,14 +241,14 @@ public class ReportsService implements IReportsService {
 				boolean isPossible = true;
 				// 휴가,조퇴 승인,대기가 있는지
 				for (ReportsVO rep : getReports) {
-					if ((rep.getRepType().equals("조퇴") || rep.getRepType().equals("휴가"))
+					if ((!rep.getRepType().equals("외출"))
 							&& (rep.getRepStatus().equals("승인") || rep.getRepStatus().equals("대기"))) {
 						isPossible = false;
 						break;
 					}
 				}
 
-				// 외출,조퇴 승인,대기랑 겹치는지
+				// 외출 승인,대기랑 겹치는지
 				for (ReportsVO rep : getReports) {
 					if ((rep.getRepType().equals("외출") || rep.getRepType().equals("지하철 연착"))
 							&& (rep.getRepStatus().equals("승인") || rep.getRepStatus().equals("대기"))) {
@@ -310,7 +308,7 @@ public class ReportsService implements IReportsService {
 				boolean isPossible = true;
 				// 휴가 승인,대기가 있는지
 				for (ReportsVO rep : getReports) {
-					if ((rep.getRepType().equals("휴가"))
+					if (repVO.getRepType().equals("병가") || repVO.getRepType().equals("경조사") || repVO.getRepType().equals("예비군")
 							&& (rep.getRepStatus().equals("승인") || rep.getRepStatus().equals("대기"))) {
 						isPossible = false;
 						break;
@@ -319,7 +317,8 @@ public class ReportsService implements IReportsService {
 
 				// 외출,조퇴 승인,대기랑 겹치는지
 				for (ReportsVO rep : getReports) {
-					if ((rep.getRepType().equals("외출") || rep.getRepType().equals("조퇴") || rep.getRepType().equals("지하철 연착"))
+					if ((rep.getRepType().equals("외출") || rep.getRepType().equals("조퇴")
+							|| rep.getRepType().equals("지하철 연착"))
 							&& (rep.getRepStatus().equals("승인") || rep.getRepStatus().equals("대기"))) {
 						if (repVO.getInTime().getTime() < rep.getOutTime().getTime()
 								|| repVO.getOutTime().getTime() > rep.getInTime().getTime()) {
