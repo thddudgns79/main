@@ -122,10 +122,16 @@ public class AttendanceController {
 
 	// 휴가 취소
 	@RequestMapping("/reports/cancle/{repId}")
-	public String cancleReport(@PathVariable("repId") int repId, Model model) {
+	public String cancleReport(@PathVariable("repId") int repId, Model model, HttpSession session) {
 		Date now = new Date(System.currentTimeMillis());
 		reportsService.deleteReprots(repId, now);
-		return "redirect:/attend/studentreportslist";
+		char isManager = (Character) session.getAttribute("isManager");
+		//관리자면 
+		if(isManager == 'Y') {
+			return "redirect:/attend/reportslist";
+		}else {
+			return "redirect:/attend/studentreportslist";
+		}
 	}
 
 	// 24시 일때 학생 status추가
@@ -155,7 +161,7 @@ public class AttendanceController {
 		model.addAttribute("monthParam", monthParam);
 		model.addAttribute("repType", repType);
 		model.addAttribute("repStatus", repStatus);
-		return "classes/reportsList";
+		return "attendance/reportsList";
 	}
 
 	// 학생의 휴가 신청 목록 조회(학생)
@@ -172,19 +178,19 @@ public class AttendanceController {
 		model.addAttribute("monthParam", monthParam);
 		model.addAttribute("repType", repType);
 		model.addAttribute("repStatus", repStatus);
-		return "classes/studentReportsList";
+		return "attendance/studentReportsList";
 	}
 
-	// 특정 학생 휴가 리스트
+	// 학생의 휴가 신청 목록 조회(학생)
 	@RequestMapping(value = "/attend/studentreportslist", method = RequestMethod.GET)
 	public String getStudentReportsList(Model model, HttpSession session) {
 		return getStudentReportsList("2023", "1", "전체", "전체", model, session);
 	}
 
-	// 전체 학생 휴가 리스트
+	// 반 휴가 신청 목록
 	@RequestMapping(value = "/attend/reportslist", method = RequestMethod.GET)
 	public String getReportsList(Model model) {
-		return getReportsList("전체", "2022", "12", "전체", "전체", model);
+		return getReportsList("전체", "2023", "1", "전체", "전체", model);
 	}
 
 	// 휴가 상세 조회
@@ -201,7 +207,7 @@ public class AttendanceController {
 		model.addAttribute("repDateStr", repDateStr);
 		model.addAttribute("inTimeStr", inTimeStr);
 		model.addAttribute("outTimeStr", outTimeStr);
-		return "classes/reportsDetail";
+		return "attendance/reportsDetail";
 	}
 
 	// 관리자 status 업데이트
@@ -235,18 +241,23 @@ public class AttendanceController {
 		int classId = (Integer) session.getAttribute("classId");
 		List<AttendStat> attendStatList = attendanceService.getAllAttendStat(classId, yearParam, monthParam);
 		model.addAttribute("attendStatList", attendStatList);
-		return "attend/adminMainPage";
+		model.addAttribute("yearParam", yearParam);
+		model.addAttribute("monthParam", monthParam);
+		return "attendance/adminMainPage";
 	}
 
-	// 전체 학생 월간 근태 조회 (관리자 메인)
-	@RequestMapping("/attend/getStudentAttend/{studentId}")
-	public String getStudentAttend(@PathVariable("studentId") String studentId, String yearParam, String monthParam,
+	// 특정 학생 월간 근태 조회
+	@RequestMapping("/attend/getStudentAttend")
+	public String getStudentAttend(String yearParam, String monthParam,
 			Model model, HttpSession session) {
+		String studentId = (String)session.getAttribute("lookingStdId");
 		AttendStat attendStat = attendanceService.getStudentAttendStat(studentId, yearParam, monthParam);
 		List<AttendanceVO> attendanceVoList = attendanceService.getStudentAttendList(studentId, yearParam, monthParam);
 		model.addAttribute("attendStat", attendStat);
 		model.addAttribute("attendanceVoList", attendanceVoList);
-		return "attend/studentAttend";
+		model.addAttribute("yearParam", yearParam);
+		model.addAttribute("monthParam", monthParam);
+		return "attendance/studentAttend";
 	}
 
 	// 전체 학생 월간 근태 조회 (관리자메인, 첫 요청)
@@ -254,6 +265,13 @@ public class AttendanceController {
 	public String getAllAttend(@PathVariable("classId") int classId, Model model, HttpSession session) {
 		session.setAttribute("classId", classId);
 		return getAllAttend("2023", "1", model, session);
+	}
+
+	// 특정 학생 월간 근태 조회 (첫 요청)
+	@RequestMapping("/attend/getStudentAttend/{studentId}")
+	public String getStudentAttend(@PathVariable("studentId") String studentId, Model model, HttpSession session) {
+		session.setAttribute("lookingStdId", studentId);
+		return getStudentAttend("2023", "1", model, session);
 	}
 
 	// 파일 다운로드

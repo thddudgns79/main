@@ -84,7 +84,7 @@
 					    			<tr>
 					    				<td>${report.repId}</td>
 					    				<td><a href='<c:url value="/attend/reportsdetail/${report.repId}"/>'>${report.studentId}</a></td>
-					    				<td>${report.repDate}</td>
+					    				<td><fmt:formatDate value="${report.repDate}" pattern="yyyy.MM.dd"/></td>
 					    				<td>${report.repType}</td>
 					    				<td>${report.repStatus}</td>
 					    			</tr>
