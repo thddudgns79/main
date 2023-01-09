@@ -10,7 +10,7 @@ import com.coderby.myapp.attendance.model.ReportsVO;
 
 public interface IReportsRepository {
 	List<ReportsVO> selectReports(ReportsVO reports);
-
+	List<ReportsVO> selectTodayReports(String stdId);
 	void insertReports(ReportsVO reports);
 
 	void deleteReports(int repId);

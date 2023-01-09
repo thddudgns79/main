@@ -144,7 +144,7 @@ public class BoardController {
 					fileVO.setFileType(mfile.getContentType());
 					fileVO.setFileSize(mfile.getSize());
 					fileVO.setFileData(mfile.getBytes());
-					
+								
 					fileService.uploadFile(board.getBoardId(), fileVO);
 				}
 			}
