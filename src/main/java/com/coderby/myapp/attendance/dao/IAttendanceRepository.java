@@ -13,10 +13,11 @@ public interface IAttendanceRepository {
 	void attendOut(String stdId);
 
 	List<String> getAllStd();
-	
+
 	void updateStatus(@Param("stdId") String stdId, @Param("status") String status);
-	
+
 	void insertBlank(@Param("stdId") String stdId, @Param("status") String status);
+
 	AttendanceVO attendToday(String stdId);
 
 	List<Map<String, Object>> getStudentAttendStat(@Param("studentId") String studentId,

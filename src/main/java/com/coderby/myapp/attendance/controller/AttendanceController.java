@@ -4,12 +4,8 @@ import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.Timer;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,13 +17,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.coderby.myapp.attendance.model.AttendStat;
 import com.coderby.myapp.attendance.model.AttendanceVO;
 import com.coderby.myapp.attendance.model.ReportsVO;
 import com.coderby.myapp.attendance.service.IAttendanceService;
@@ -91,8 +87,7 @@ public class AttendanceController {
 
 	// 휴가 신청
 	@RequestMapping(value = "/reports/write", method = RequestMethod.POST)
-	public String writeReport(ReportsVO reports, RedirectAttributes redirectAttr,
-			HttpSession session, Model model) {
+	public String writeReport(ReportsVO reports, RedirectAttributes redirectAttr, HttpSession session, Model model) {
 		Date now = new Date(System.currentTimeMillis());
 		// 내가 원하는 format으로 바꾸기
 		// SimpleDateFormat transFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
@@ -128,26 +123,24 @@ public class AttendanceController {
 		return "redirect:/attend/studentreportslist";
 	}
 
-	
-	//24시 일때 학생 status추가
+	// 24시 일때 학생 status추가
 	@Scheduled(cron = "0 0 0 * * *")
 	@RequestMapping("/attendance/getStatus")
 	public void getStudentStatus(ReportsVO reports, HttpSession session, Model model) {
-		//reports.getRepDate()의 값을 jsp단에서 hidden으로 주던지 sysdate를 넣어서 데이트를 넣어야함
-		//24시 일때마다 모든학생들을 더 해주어야한다.
+		// reports.getRepDate()의 값을 jsp단에서 hidden으로 주던지 sysdate를 넣어서 데이트를 넣어야함
+		// 24시 일때마다 모든학생들을 더 해주어야한다.
 		List<String> attend = attendanceService.getAllStd();
-		for(String attId : attend ) {
+		for (String attId : attend) {
 			String stdId = attId;
 			attendanceService.updateStatus(stdId);
 		}
 	}
-	
 
 	// 반 휴가 신청 목록
 	// classId, year, month, status, reqType
 	@RequestMapping(value = "/attend/reportslist", method = RequestMethod.POST)
 	public String getReportsList(String classId, String yearParam, String monthParam, String repType, String repStatus,
-			Model model) {	
+			Model model) {
 		List<ReportsVO> reportsList = reportsService.getReportsList(classId, yearParam, monthParam, repType, repStatus);
 		List<Integer> classIdList = classService.getClassIdList();
 		model.addAttribute("classIdList", classIdList);
@@ -230,21 +223,21 @@ public class AttendanceController {
 		// 업데이트한 휴가의 상세페이지로 redirect
 		return "redirect:/attend/reportsdetail/" + repVO.getRepId();
 	}
-	
+
 	// 전체 학생 월간 근태 조회 (관리자 메인)
 	@RequestMapping("/attend/getAllAttend")
 	public String getAllAttend(String yearParam, String monthParam, Model model, HttpSession session) {
 		int classId = (Integer) session.getAttribute("classId");
-		List<AttendanceVO> attendStatList = attendanceService.getAllAttendStat(classId, yearParam, monthParam);
+		List<AttendStat> attendStatList = attendanceService.getAllAttendStat(classId, yearParam, monthParam);
 		model.addAttribute("attendStatList", attendStatList);
 		return "attend/adminMainPage";
 	}
 
-	// 특정 학생 월간 근태 조회 (관리자 메인)
+	// 전체 학생 월간 근태 조회 (관리자 메인)
 	@RequestMapping("/attend/getStudentAttend/{studentId}")
 	public String getStudentAttend(@PathVariable("studentId") String studentId, String yearParam, String monthParam,
 			Model model, HttpSession session) {
-		AttendanceVO attendStat = attendanceService.getStudentAttendStat(studentId, yearParam, monthParam);
+		AttendStat attendStat = attendanceService.getStudentAttendStat(studentId, yearParam, monthParam);
 		List<AttendanceVO> attendanceVoList = attendanceService.getStudentAttendList(studentId, yearParam, monthParam);
 		model.addAttribute("attendStat", attendStat);
 		model.addAttribute("attendanceVoList", attendanceVoList);
@@ -252,11 +245,11 @@ public class AttendanceController {
 	}
 
 	// 전체 학생 월간 근태 조회 (관리자메인, 첫 요청)
-	   @RequestMapping("/attend/getAllAttend/{classId}")
-	   public String getAllAttend(@PathVariable("classId") int classId, Model model, HttpSession session) {
-	      session.setAttribute("classId", classId);
-	      return getAllAttend("2023", "1", model, session);
-	   }
+	@RequestMapping("/attend/getAllAttend/{classId}")
+	public String getAllAttend(@PathVariable("classId") int classId, Model model, HttpSession session) {
+		session.setAttribute("classId", classId);
+		return getAllAttend("2023", "1", model, session);
+	}
 
 	// 파일 다운로드
 	@RequestMapping("/attend/filedownload/{fileId}")
@@ -270,25 +263,17 @@ public class AttendanceController {
 		headers.setContentDispositionFormData("attachment", file.getFileName(), Charset.forName("UTF-8"));
 		return new ResponseEntity<byte[]>(file.getFileData(), headers, HttpStatus.OK);
 	}
-	
-	   /*
-		// String to Date
-		public Date stringToDate(String date, String toFormatString) {
-			SimpleDateFormat formFormat = new SimpleDateFormat(toFormatString);
-			Date formDate = null;
-			try {
-				formDate = formFormat.parse(date);
-			} catch (ParseException e) {
-				formDate = new Date();
-			}
-			return formDate;
-		}
 
-		// Date to String
-		public String dateToString(Date date, String toFormatString) {
-			SimpleDateFormat formFormat = new SimpleDateFormat(toFormatString);
-			String dateToStr = formFormat.format(date);
-			System.out.println("after:" + dateToStr);
-			return dateToStr;
-		}*/
+	/*
+	 * // String to Date public Date stringToDate(String date, String
+	 * toFormatString) { SimpleDateFormat formFormat = new
+	 * SimpleDateFormat(toFormatString); Date formDate = null; try { formDate =
+	 * formFormat.parse(date); } catch (ParseException e) { formDate = new Date(); }
+	 * return formDate; }
+	 * 
+	 * // Date to String public String dateToString(Date date, String
+	 * toFormatString) { SimpleDateFormat formFormat = new
+	 * SimpleDateFormat(toFormatString); String dateToStr = formFormat.format(date);
+	 * System.out.println("after:" + dateToStr); return dateToStr; }
+	 */
 }
