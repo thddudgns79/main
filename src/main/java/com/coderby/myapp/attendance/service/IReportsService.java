@@ -5,11 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import com.coderby.myapp.attendance.model.ReportsVO;
-import com.coderby.myapp.file.model.FileVO;
 
 public interface IReportsService {
-	void insertReports(ReportsVO reports, Date now, FileVO fileVO);
-
+	boolean insertReports(ReportsVO reports, Date now);
+	
 	void deleteReprots(int repId, Date now);
 
 	List<ReportsVO> getReportsList(String classId, String yearParam, String monthParam, String repType,
@@ -21,4 +20,6 @@ public interface IReportsService {
 	ReportsVO getReportsDetail(int repId);
 
 	void updateRepStatus(ReportsVO repVO, String updateRepStatus) throws ParseException;
+	
+	
 }
