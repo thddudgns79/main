@@ -30,8 +30,8 @@
 			student_id 	as "studentId"
 		from reports
 		where
-			to_char(attendance_date, 'yyyy-MM-DD') =to_char(sysdate, 'yyyy-MM-DD')
-			and studentd_id = #{studentId}
+			to_char(rep_date, 'yyyy-MM-DD') =to_char(sysdate, 'yyyy-MM-DD')
+			and student_id = #{stdId}
 	</select>
 	
 	<delete id="deleteReports" parameterType="int">

@@ -13,64 +13,52 @@
 				<div class="tm-section-wrap">
 					<section id="intro" class="tm-section">
 						<div class="tm-bg-white-transparent tm-intro">
-							<h2 class="tm-section-title mb-5 text-uppercase tm-color-primary">
-								Introducing Dream Pulse</h2>
-							<p class="tm-color-gray">
-								This box alpha 30 percent. Left sidebar is a sticky element. Right side Contents are scrolling up
-								and down. This background has a parallax effect.</p>
-							<p class="mb-0 tm-color-gray">
-								Dream Pulse is a Bootstrap 4.3.1
-								template designed for your websites. You can modify this layout
-								as you like.</p>
-						</div>
+						
+							<!-- 로그인 form -->
+							<div class="container">
+								<div class="pg-opt">
+									<div class="row">
+										<div class="col-md-6">
+											<c:if test="${empty sessionScope.stdId}">
+												<h2 style="color:black;">로그인</h2>
+											</c:if>
+											<c:if test="${!empty sessionScope.stdId}">
+												<h3 style="color:black;">환영합니다.</h3>
+											</c:if>
+										</div>
+									</div>
+								</div>
+								<div class="content">
+									<c:if test="${empty sessionScope.stdId}">
+										<form action="<c:url value='/attend'/>" method="post" class="form-horizontal">
+											<div class="form-group">
+												<label class="control-label col-sm-2" for="id" style="color:black;">ID</label>
+												<div class="col-sm-8">
+													<input type="text" name="stdId" id="id" class="form-control" placeholder="<fmt:message key='stdId'/>" aria-describedby="basic-addon1">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-sm-2" for="pw" style="color:black;">PW</label>
+												<div class="col-sm-8">
+													<input type="password" name="password" id="pw" class="form-control" placeholder="password" aria-describedby="basic-addon1">
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-8">
+													<input type="submit" class="form-control" aria-describedby="basic-addon1">
+												</div>
+											</div>
+										</form>
+									</c:if>
+								</div>
+							</div>
+							<!--  -->
+					</div>
 					</section>
 				</div>
 			</div>
 		</div>
 		
-		
-		
-		<div class="tm-section-wrap bg-white">
-			<section id="about" class="row tm-section">
-				<div class="col-xl-6">
-					<div class="tm-section-half">
-						<div>
-							<i class="fas fa-6x fa-balance-scale mb-5 tm-section-icon"></i>
-						</div>
-						<h2 class="tm-section-title tm-color-primary mb-5">About Us</h2>
-						<p class="mb-5">
-							When first section is scrolled up, BG image will
-							be disappeared with a parallax effect. Donec ac tempor tellus, a
-							eleifend ligula. Fusce vitae sem sed purus euismod condimentum.
-						</p>
-						<p>Sed at orci non metus tristique suscipit vitae in nibh. Sed
-							rutrum odio ac est hendrerit, at vestibulum felis condimentum.
-						</p>
-					</div>
-				</div>
-				<div class="col-xl-6">
-					<div class="tm-section-half">
-						<div>
-							<i class="far fa-6x fa-building mb-5 tm-section-icon"></i>
-						</div>
-						<h2 class="tm-section-title tm-color-primary mb-5">
-							Company Profile
-						</h2>
-						<p class="mb-5">
-							You can use this template for your commercial
-							websites or for your clients. You are NOT allowed to re-post this
-							template as a downloadable ZIP file on your template collection
-							sites. It is illegal.
-						</p>
-						<p>Suspendisse fermentum orci eget lorem euismod suscipit. Morbi
-							condimentum odio metus, at finibus dolor sollicitudin quis.
-							Curabitur eu congue erat.
-						</p>
-					</div>
-				</div>
-			</section>
-		</div> 
-
 		<jsp:include page="/WEB-INF/views/include/footer.jsp"/>
 	</body>
 </html>

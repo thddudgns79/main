@@ -33,7 +33,7 @@
 	<!-- 모든 학생 아이디 -->
 	<select id="getAllStd" resultType="string">
 		select student_id
-		from attendance
+		from student
 	</select>
 	
 	<!-- 24시 일때 status 변경 -->
@@ -50,7 +50,7 @@
 		insert into attendance
 			(attendance_date, status, student_id) 
 		values
-			(sysdate, #{status}, #{stdId})
+			(to_date(to_char(sysdate, 'yyyy-mm-dd'),'yyyy-mm-dd'), #{status}, #{stdId})
 	</insert>
 	
 	<!-- 반 소속 학생들 ID 리스트 조회-->

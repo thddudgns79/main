@@ -33,6 +33,18 @@
 							</a>
 						</li>
 						<li class="nav-item">
+							<a href='<c:url value="/attend/getStudentAttend/${stdId}"/>' class="nav-link"> 
+								<span class="d-inline-block mr-3">출결LIST</span> 
+								<span class="d-inline-block tm-white-rect"></span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href='<c:url value="/attend/studentreportslist"/>' class="nav-link"> 
+								<span class="d-inline-block mr-3">휴가LIST</span> 
+								<span class="d-inline-block tm-white-rect"></span>
+							</a>
+						</li>
+						<li class="nav-item">
 							<a href='<c:url value="/student/logout"/>' class="nav-link"> 
 								<span class="d-inline-block mr-3">로그아웃</span> 
 								<span class="d-inline-block tm-white-rect"></span>
@@ -63,7 +75,7 @@
 						</li>
 					</ul>
 					<footer class="text-center text-white small">
-						<p class="mb--0 mb-2">2023 오티아이 SpringProject </p>
+						<p class="mb-2">2023 오티아이 SpringProject </p>
 					</footer>
 				</div>
 			</nav>
