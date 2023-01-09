@@ -21,22 +21,26 @@
 						<div class="tm-section" style="background:white; color:black; width:50%; height: 300px;">
 						
 						
-							<dl >
-								<dt  class="bi bi-calendar-check" style="font-size:25px;">&nbsp;&nbsp;&nbsp;<%= sf.format(nowTime) %>	</dt>
-								<dd> &nbsp;</dd>
-								<dt class="bi bi-alarm" style="font-size:20px;">&nbsp;&nbsp;IN</dt>
-								<dd style="text-align: right">
+							<ul class="list-group" style="list-style: none;">
+								<li  class="bi bi-calendar-check m-2" style="font-size:35px;">&nbsp;&nbsp;&nbsp;<%= sf.format(nowTime) %>	</li>
+								<li> &nbsp;</li>
+								<li class="bi bi-alarm mb-1" style="font-size:30px;">&nbsp;&nbsp;IN</li>
+								<li class="bi bi-alarm mt-1" style="font-size:30px;">&nbsp;&nbsp;OUT</li>
+							</ul>
+							<ul class="list-group" style="list-style: none;">
+								<li class="m-2"style="font-size:35px;"> &nbsp;</li>
+								<li> &nbsp;</li>
+								<li class="mb-1" style="font-size:30px;">
 									<fmt:formatDate pattern="hh:mm:ss" value="${attendVO.inTime}" />
-								</dd>
-								<dt class="bi bi-alarm" style="font-size:20px;">&nbsp;&nbsp;OUT</dt>
-								<dd style="text-align: right">
-									<fmt:formatDate pattern="hh:mm:ss" value="${attendVO.outTime}" />
-								</dd>
-							</dl>
+								</li>
+								<li class="mt-1" style="font-size:30px;">
+									<fmt:formatDate pattern="hh:mm:ss" value="${attendVO.inTime}" />
+								</li>
+							</ul>
 							<c:if test="${empty attendVO.inTime}">
 								<a href='<c:url value="/attend/in"/>'>출근</a>
 							</c:if>
-							<c:if test="${!empty attendVO.inTime && empty attendVO.outTime}">
+							<c:if test="${!empty attendVO.inTime && empty attendVO.outTime}" >
 								<a href='<c:url value="/attend/out"/>'>퇴근</a>
 							</c:if>
 							<c:if test="${!empty attendVO.inTime && !empty attendVO.outTime }">

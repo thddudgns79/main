@@ -14,8 +14,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -134,18 +132,7 @@ public class AttendanceController {
 		}
 	}
 
-	// 24시 일때 학생 status추가
-	@Scheduled(cron = "0 0 0 * * *")
-	@RequestMapping("/attendance/getStatus")
-	public void getStudentStatus(ReportsVO reports, HttpSession session, Model model) {
-		// reports.getRepDate()의 값을 jsp단에서 hidden으로 주던지 sysdate를 넣어서 데이트를 넣어야함
-		// 24시 일때마다 모든학생들을 더 해주어야한다.
-		List<String> attend = attendanceService.getAllStd();
-		for (String attId : attend) {
-			String stdId = attId;
-			attendanceService.updateStatus(stdId);
-		}
-	}
+	
 
 	// 반 휴가 신청 목록
 	// classId, year, month, status, reqType

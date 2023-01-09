@@ -34,7 +34,7 @@
 											<div class="form-group">
 												<label class="control-label col-sm-2" for="id" style="color:black;">ID</label>
 												<div class="col-sm-8">
-													<input type="text" name="stdId" id="id" class="form-control" placeholder="ID" aria-describedby="basic-addon1">
+													<input type="text" name="stdId" id="id" class="form-control" placeholder="<fmt:message key='stdId'/>" aria-describedby="basic-addon1">
 												</div>
 											</div>
 											<div class="form-group">
