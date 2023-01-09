@@ -23,9 +23,9 @@
 								method="post" class="sectionTitleUpdateForm" style="font-size:20px">
 									<span class="mr-3">섹션 ${status.index}.</span>
 									<input type="text" name="sectionTitle" style="border:none; background: transparent;" 
-										value="${section.sectionTitle}" <c:if test="isManager == 'N'"> disabled="disabled"</c:if>/>
+										value="${section.sectionTitle}" <c:if test="${isManager == 'N'.charAt(0)}"> disabled="disabled"</c:if>/>
 									<input type="hidden" name="sectionId" value="${section.sectionId}"/>
-									<c:if test="isManager == 'Y'">
+									<c:if test="${isManager == 'Y'.charAt(0)}">
 										<input type="submit" class="btn btn-sm btn-info" value="수정"/>
 										<a href='<c:url value="/class/sectiondelete/${section.sectionId}"/>' 
 											class="btn btn-sm btn-info">
@@ -45,10 +45,10 @@
 								<form action='<c:url value="/class/sectionupdatedescription"/>' method="post">
 									<input type="hidden" name="sectionId" value="${section.sectionId}"/>
 									<textarea rows="4" cols="50" name="sectionDescription" value="${section.sectionDescription}" 
-										<c:if test="isManager == 'N'"> disabled="disabled"</c:if>>
+										<c:if test="${isManager == 'N'.charAt(0)}"> disabled="disabled"</c:if>>
 										${section.sectionDescription}
 									</textarea>
-									<c:if test="isManager == 'Y'">
+									<c:if test="${isManager == 'Y'.charAt(0)}">
 										<input type="submit" class="btn btn-sm btn-info" value="수정"/>
 									</c:if>
 								</form>
@@ -57,14 +57,14 @@
 										<a href='<c:url value="/class/filedownload/${file.fileId}"/>'>
 											${file.fileName}
 										</a>
-										<c:if test="isManager == 'Y'">
+										<c:if test="${isManager == 'Y'.charAt(0)}">
 											<a href='<c:url value="/class/filedelete/${file.fileId}"/>' class="ml-3 btn btn-sm btn-info">
 												삭제
 											</a>
 										</c:if>
 									</div>
 								</c:forEach>
-								<c:if test="isManager == 'Y'">
+								<c:if test="${isManager == 'Y'.charAt(0)}">
 									<form action='<c:url value="/class/fileupload"/>' method="post" enctype="multipart/form-data">
 										<input type="hidden" name="sectionId" value="${section.sectionId}"/>
 										<input type="file" name="file"/>
@@ -77,7 +77,7 @@
 				</c:forEach>
 			</div>
 		</div>
-		<c:if test="isManager == 'Y'">
+		<c:if test="${isManager == 'Y'.charAt(0)}">
 			<form action='<c:url value="/class/sectioninsert"/>' method="post">
 				<input type="text" name="sectionTitle"/>
 				<input type="text" name="sectionDescription" placeholder="섹션 설명글 작성"/>

@@ -27,7 +27,7 @@
 					    			<img src='<c:url value="/attend/filedownload/${file.fileId}"/>'/>
 					    		</c:forEach>
 					    	</div>
-						    	<c:if test="isManager == 'Y'">
+						    	<c:if test="${isManager== 'Y'.charAt(0)}">
 			    				<form action='<c:url value="/attend/reportsstatusupdate"/>' method="POST">
 						    		<input type="hidden" name="repId" value="${reportsVO.repId}"/>
 						    		<input type="hidden" name="studentId" value="${reportsVO.studentId}"/>
@@ -53,7 +53,9 @@
 						    		<input type="submit" value="제출"/>
 						    	</form>
 				    		</c:if>
-				    		<a href='<c:url value="/reports/cancle/${reportsVO.repId}"/>'>취소</a>
+				    		<c:if test="${isManager == 'N'.charAt(0)}">
+				    			<a href='<c:url value="/reports/cancle/${reportsVO.repId}"/>'>취소</a>
+				    		</c:if>
 						</div>
 					</section>
 				</div>
