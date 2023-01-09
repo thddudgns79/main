@@ -15,7 +15,7 @@
 		from reports
 		where
 			to_char(rep_date, 'yyyy-MM-DD') =to_char(#{repDate}, 'yyyy-MM-DD')
-			and studentd_id = #{studentId}
+			and student_id = #{studentId}
 	</select>
 	
 	<select id="selectTodayReports" parameterType="string" resultType="com.coderby.myapp.attendance.model.ReportsVO">
