@@ -1,5 +1,6 @@
 package com.coderby.myapp.attendance.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +64,8 @@ public class AttendanceService implements IAttendanceService {
 	public void updateStatus(String stdId) {
 		List<ReportsVO> getReports = reportsRepository.selectTodayReports(stdId);
 		AttendanceVO getAttend = attendanceRepository.attendToday(stdId);
-
+		SimpleDateFormat format = new SimpleDateFormat("H");
+		
 		if (getAttend != null) {
 			if (getAttend.getInTime() != null && getAttend.getOutTime() == null) {
 				// update) 해당 attendance행의 status값을 '결석'으로 변경
@@ -75,22 +77,21 @@ public class AttendanceService implements IAttendanceService {
 				for (ReportsVO repVO : getReports) {
 					if (repVO.getRepStatus().equals("반려") && !(repVO.getRepType().equals("병가")
 							|| repVO.getRepType().equals("경조사") || repVO.getRepType().equals("예비군"))) {
-						cancleTime = repVO.getOutTime().getTime() - repVO.getInTime().getTime();
-						cancleTime += cancleTime;
+						cancleTime += repVO.getOutTime().getTime() - repVO.getInTime().getTime();
 						// 후에 관리자가 반려를 승인으로 바꿔준다면 status를 변경해주어야한다. ㅜㅜ
 						// 휴가 목록을 뺀 이유는 값을 빼기 했을데 -값이 나올수도 있기 때문이다.
 					}
 				}
 				long totalAttend = getAttend.getOutTime().getTime() - getAttend.getInTime().getTime() - cancleTime;
-				totalAttend = totalAttend - (totalAttend % 1000);
 				if (totalAttend < 28800000) {
 					// update) 해당 attendance행의 status값을 '결석'으로 변경
 					attendanceRepository.updateStatus(stdId, "결석");
 				} else if (totalAttend >= 28800000) {
-					if (getAttend.getInTime().getTime() < 32400000 && getAttend.getInTime().getTime() > 28800000) {
+					String inTimeStr =  format.format(getAttend.getInTime());
+					if (Integer.parseInt(inTimeStr) < 9) {
 						// 출석
 						attendanceRepository.updateStatus(stdId, "출석");
-					} else if (getAttend.getInTime().getTime() > 32400000) {
+					} else  {
 						// 지각
 						attendanceRepository.updateStatus(stdId, "지각");
 					}
