@@ -15,7 +15,6 @@ import com.coderby.myapp.attendance.dao.IReportsRepository;
 import com.coderby.myapp.attendance.model.AttendanceVO;
 import com.coderby.myapp.attendance.model.ReportsVO;
 import com.coderby.myapp.file.dao.IFileRepository;
-import com.coderby.myapp.file.model.FileVO;
 
 @Service
 public class ReportsService implements IReportsService {
@@ -30,92 +29,87 @@ public class ReportsService implements IReportsService {
 	IFileRepository fileRepository;
 
 	// 휴가신청 만들기
-	@Override
-	public void insertReports(ReportsVO reports, Date now, FileVO fileVO) {
-		// reports에는 내가 신청한 휴가가 있음
-		// getReports에는 해당날짜에 해당하는 값이 있다면 있음
-		List<ReportsVO> getReports = reportsRepository.selectReports(reports);
-		AttendanceVO getAttend = attendanceRepository.attendToday(reports.getStudentId());
-
-		if (getReports != null && getAttend != null) {
-			// select해온 값이 있다면(신청한 기록이 있다면)
+		@Override
+		public boolean insertReports(ReportsVO reports, Date now) {
+			// reports에는 내가 신청한 휴가가 있음
+			// getReports에는 해당날짜에 해당하는 값이 있다면 있음
+			boolean isFinal = true;
+			List<ReportsVO> getReports = reportsRepository.selectReports(reports);
+			AttendanceVO getAttend = attendanceRepository.attendToday(reports.getStudentId());
+			
 			if (reports.getInTime().getTime() < now.getTime()) {
-				if (reports.getRepType().equals("병가") || reports.getRepType().equals("예비군")
-						|| reports.getRepType().equals("경조사")) {
-					// 현재 신청한 type이 휴가인 경우
+				//현재 신청한 type이 휴가
+				if (reports.getRepType().equals("병가") || reports.getRepType().equals("경조사") || reports.getRepType().equals("예비군")) {
+					boolean isPossible = true;
 					for (ReportsVO repVO : getReports) {
-						if (repVO.getRepStatus().equals("반려") && (repVO.getRepType().equals("병가")
-								|| repVO.getRepType().equals("경조사") || repVO.getRepType().equals("예비군"))) {
-							fileRepository.deleteFiles(repVO.getRepId());
-							reportsRepository.deleteReports(repVO.getRepId());
-							reportsRepository.insertReports(reports);
-							fileRepository.uploadFile(reports.getRepId(), fileVO);
-							// System.out.println();
+						if (!repVO.getRepStatus().equals("반려")) {
+							isPossible = false;
 							break;
 						}
 					}
-				} else if (reports.getRepType().equals("조퇴")) {
-					// 현재 신청한 type이 조퇴인 경우
-					if (getAttend.getInTime() != null && getAttend.getOutTime() == null) {
-						for (ReportsVO repVO : getReports) {
-							if (repVO.getRepStatus().equals("반려") && repVO.getRepType().equals("조퇴")) {
-								fileRepository.deleteFiles(repVO.getRepId());
-								reportsRepository.deleteReports(repVO.getRepId());
-								reportsRepository.insertReports(reports);
-								fileRepository.uploadFile(reports.getRepId(), fileVO);
-								// System.out.println();
-								break;
-							}
-						}
+					//for문을 돌지 않아도 isPossible이 true가 되어 값이 들어간다.
+					if(isPossible) {
+						reportsRepository.insertReports(reports);
+						isFinal = true;
 					}
-				} else {
-					// 현재 신청한 type이 외출인 경우
-					if (getAttend.getInTime() != null && getAttend.getOutTime() == null) {
-						boolean isPossible = true;
-						for (ReportsVO repVO : getReports) {
+					
+				//현재 신청한 type이 조퇴
+				}else if(reports.getRepType().equals("조퇴")) {
+					boolean isPossible = true;
+					for (ReportsVO repVO : getReports) {
+						//휴가가 존재 한다면
+						if (!repVO.getRepStatus().equals("반려")&&
+								(repVO.getRepType().equals("병가") || repVO.getRepType().equals("경조사") || repVO.getRepType().equals("예비군")||repVO.getRepType().equals("조퇴"))) {
+							isPossible = false;
+							break;
+						}else {
 							if (!repVO.getRepStatus().equals("반려")
 									&& (repVO.getRepType().equals("외출") || repVO.getRepType().equals("지할철 연착"))) {
-
 								if (repVO.getInTime().getTime() < reports.getOutTime().getTime()
 										|| repVO.getOutTime().getTime() > reports.getInTime().getTime()) {
 									isPossible = false;
-									break;
 								}
 							}
 						}
-						if (isPossible) {
-							fileRepository.uploadFile(reports.getRepId(), fileVO);
+					}
+					if(isPossible) {
+						//현재 출근상태이면서 퇴근이 되어있지 않아야한다.
+						if (getAttend!=null && getAttend.getInTime() != null && getAttend.getOutTime() == null) {
 							reportsRepository.insertReports(reports);
+							isFinal = true;
+						}
+					}
+					
+				//현재신청한 type이 외출일때
+				}else {
+					boolean isPossible = true;
+					for (ReportsVO repVO : getReports) {
+						//휴가가 있다면
+						if (!repVO.getRepStatus().equals("반려")&&(repVO.getRepType().equals("병가") || repVO.getRepType().equals("경조사") || repVO.getRepType().equals("예비군"))) {
+							isPossible = false;
+							break;
+						//휴가가 존재하지 않을때
+						}else {
+							if (!repVO.getRepStatus().equals("반려")
+									&& (repVO.getRepType().equals("외출") || repVO.getRepType().equals("지할철 연착")||repVO.getRepType().equals("조퇴"))) {
+								if (repVO.getInTime().getTime() < reports.getOutTime().getTime()
+										|| repVO.getOutTime().getTime() > reports.getInTime().getTime()) {
+									isPossible = false;
+								}
+							}
+						}
+					}
+					if(isPossible) {
+						//현재 출근상태이면서 퇴근이 되어있지 않아야한다.
+						if (getAttend!=null &&  getAttend.getInTime() != null && getAttend.getOutTime() == null) {
+							reportsRepository.insertReports(reports);
+							isFinal = true;
 						}
 					}
 				}
-			} else {
-				// return "현재시간보다 미래의 시간을 입력해주세요";
 			}
-		} else if (getAttend == null) {
-			// 오늘 출근 기록이 없다?
-
-		} else {
-			if (reports.getInTime().getTime() < now.getTime()) {
-				if (reports.getRepType().equals("병가") || reports.getRepType().equals("예비군")
-						|| reports.getRepType().equals("경조사")) {
-					// 신청 타입이 휴가
-					reportsRepository.insertReports(reports);
-					fileRepository.uploadFile(reports.getRepId(), fileVO);
-				} else {
-					// 신청 타입이 외출, 조퇴
-					if (getAttend.getInTime() != null && getAttend.getOutTime() == null) {
-						reportsRepository.insertReports(reports);
-						fileRepository.uploadFile(reports.getRepId(), fileVO);
-					} else {
-						// 출근 안함 또는 퇴근함
-					}
-				}
-			} else {
-				// return "현재시간보다 미래의 시간을 입력해주세요";
-			}
+			return isFinal;
 		}
-	}
 
 	// 휴가 취소
 	@Override
@@ -129,17 +123,20 @@ public class ReportsService implements IReportsService {
 
 	}
 	
+	//특정 학생 휴가 리스트
 	@Override
 	public List<ReportsVO> getStudentReportsList(String yearParam, String monthParam, String repType,String repStatus, String stdId) {
 	      return reportsRepository.getStudentReportsList(yearParam, monthParam, repType, repStatus, stdId);
 	}
 	
+	//전체 학생 휴가 리스트
 	@Override
 	public List<ReportsVO> getReportsList(String classId, String yearParam, String monthParam, String repType,
 			String repStatus) {
 		return reportsRepository.getReportsList(classId, yearParam, monthParam, repType, repStatus);
 	}
 
+	//휴가 상세 조회
 	@Override
 	@Transactional
 	public ReportsVO getReportsDetail(int repId) {
@@ -148,6 +145,7 @@ public class ReportsService implements IReportsService {
 		return repVO;
 	}
 
+	//관리자 status 변경
 	@Override
 	@Transactional
 	public void updateRepStatus(ReportsVO repVO, String updateRepStatus) throws ParseException {

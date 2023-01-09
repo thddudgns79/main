@@ -13,8 +13,24 @@
 			rep_type	as "repType",
 			student_id 	as "studentId"
 		from reports
-		where 
+		where
 			to_char(rep_date, 'yyyy-MM-DD') =to_char(#{repDate}, 'yyyy-MM-DD')
+			and studentd_id = #{studentId}
+	</select>
+	
+	<select id="selectTodayReports" parameterType="string" resultType="com.coderby.myapp.attendance.model.ReportsVO">
+		select 
+			rep_id		as "repId",
+			rep_date	as "repDate",
+			reason		as "reason",
+			in_time		as "inTime",
+			out_time	as "outTime",
+			rep_status	as "repStatus",
+			rep_type	as "repType",
+			student_id 	as "studentId"
+		from reports
+		where
+			to_char(attendance_date, 'yyyy-MM-DD') =to_char(sysdate, 'yyyy-MM-DD')
 			and studentd_id = #{studentId}
 	</select>
 	

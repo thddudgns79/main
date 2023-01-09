@@ -9,6 +9,9 @@ public class AttendanceVO {
 	private Date outTime;
 	private String status;
 	private String studentId;
+	private int lateCount;			// 지각 횟수
+	private int absenceCount;		// 결석 횟수
+	private int attendCount;		// 출석 횟수
 	
 	public Date getAttendanceDate() {
 		return attendanceDate;
@@ -41,10 +44,24 @@ public class AttendanceVO {
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
-	@Override
-	public String toString() {
-		return "AttendanceVO [attendanceDate=" + attendanceDate + ", inTime=" + inTime + ", outTime=" + outTime
-				+ ", status=" + status + ", studentId=" + studentId + "]";
+	public int getLateCount() {
+		return lateCount;
 	}
+	public void setLateCount(int lateCount) {
+		this.lateCount = lateCount;
+	}
+	public int getAbsenceCount() {
+		return absenceCount;
+	}
+	public void setAbsenceCount(int absenceCount) {
+		this.absenceCount = absenceCount;
+	}
+	public int getAttendCount() {
+		return attendCount;
+	}
+	public void setAttendCount(int attendCount) {
+		this.attendCount = attendCount;
+	}
+	
 
 }

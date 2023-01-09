@@ -19,6 +19,7 @@ public class ReportsVO {
 	
 	private MultipartFile File;
 	private List<FileVO> fileList;
+	private List<MultipartFile> multiFile;
 	
 	public int getRepId() {
 		return repId;
@@ -81,6 +82,14 @@ public class ReportsVO {
 	}
 	public void setFileList(List<FileVO> fileList) {
 		this.fileList = fileList;
+	}
+
+	public List<MultipartFile> getMultiFile() {
+		return multiFile;
+	}
+
+	public void setMultiFile(List<MultipartFile> multiFile) {
+		this.multiFile = multiFile;
 	}
 	
 	

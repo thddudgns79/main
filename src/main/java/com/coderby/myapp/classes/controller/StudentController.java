@@ -31,10 +31,18 @@ public class StudentController {
 			}else {
 				if(dbPassword.equals(password)) {
 					//비밀번호 일치
-					session.setAttribute("stdId", stdId);
-					session.setAttribute("classId", student.getClassId());
-					session.setAttribute("isManager", student.getIsManager());
-					return "home";
+					if(student.getIsManager()=='N') {
+						//학생일때
+						session.setAttribute("stdId", stdId);
+						session.setAttribute("isManager", student.getIsManager());
+						session.setAttribute("classId", student.getClassId());
+						return "home";
+					}else {
+						//매니저일때
+						session.setAttribute("stdId", stdId);
+						session.setAttribute("isManager", student.getIsManager());
+						return "redirect:/class/classlist";
+					}
 				}else {
 					//비밀번호 불일치
 					model.addAttribute("message", "WRONG_NOT_PASSWORD");
