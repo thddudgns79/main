@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,7 @@ import com.coderby.myapp.file.model.FileVO;
 import com.coderby.myapp.file.service.IFileService;
 
 @Controller
+//@EnableScheduling
 public class AttendanceController {
 
 	@Autowired
@@ -66,8 +68,11 @@ public class AttendanceController {
 	// 출석버튼 click
 	@RequestMapping("/attend/in")
 	public String attendIn(HttpSession session, Model model) {
+		Date nowDate = new Date(System.currentTimeMillis());
+		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
 		String stdId = (String) session.getAttribute("stdId");
-		attendanceService.attendIn(stdId);
+		String now =  format.format(nowDate);
+		attendanceService.attendIn(stdId, now);
 		return "redirect:/attend/today";
 	}
 

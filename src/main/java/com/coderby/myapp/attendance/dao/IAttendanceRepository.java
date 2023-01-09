@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.coderby.myapp.attendance.model.AttendanceVO;
 
 public interface IAttendanceRepository {
-	void attendIn(String stdId);
+	void attendIn(@Param("stdId") String stdId, @Param("now") String now);
 
 	void attendOut(String stdId);
 
