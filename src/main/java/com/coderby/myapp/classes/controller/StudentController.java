@@ -52,7 +52,7 @@ public class StudentController {
 		}else {
 			model.addAttribute("message", "USER_NOT_FOUND");
 		}
-		return "home";
+		return "main";
 	}
    
 	@RequestMapping(value="/student/logout", method=RequestMethod.GET)
