@@ -41,7 +41,7 @@ public class StudentController {
 						//매니저일때
 						session.setAttribute("stdId", stdId);
 						session.setAttribute("isManager", student.getIsManager());
-						return "redirect:/class/classlist?orgName=" + "전체" + "&className=" + "";
+						return "redirect:/attend/today";
 					}
 				}else {
 					//비밀번호 불일치
