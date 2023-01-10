@@ -14,7 +14,6 @@
 			</div>
 			<div class="sidebar-wrapper" id="sidebar-wrapper">
 				<ul class="nav">
-					<li class="pt-3 ml-3 text-light font-weight-bold" style="width:50px; border-bottom: 1px solid rgba(255,255,255,0.5);" >출석 </li> 
 					<li>
 						<a href="./dashboard.html"> 
 							<i class="now-ui-icons design_app"></i>
@@ -27,27 +26,27 @@
 							<p>출결 목록</p>
 						</a>
 					</li>
-					<li>
+					<li >
 						<a href="./dashboard.html"> 
 							<i class="now-ui-icons design_app"></i>
 							<p>휴가 신청</p>
 						</a>
-					</li>
+					</li >
 					<li>
 						<a href="./dashboard.html"> 
 							<i class="now-ui-icons design_app"></i>
 							<p>휴가 목록</p>
 						</a>
-					</li>
-					<li class="pt-3  ml-3 text-light font-weight-bold" style="width:65px; border-bottom: 1px solid rgba(255,255,255,0.5);">자료실</li>
+					</li >
+					<li class="my-3 ml-4" style=" width:70%; border-bottom: 1px solid rgba(255,255,255,0.5);">
 					<li>
 						<a href="#"> 
 							<i class="now-ui-icons design_bullet-list-67"></i>
 							<p>수업 자료</p>
 						</a>
 					</li>
-					<li class="ml-3 pt-3  text-light font-weight-bold" style="width:65px; border-bottom: 1px solid rgba(255,255,255,0.5);">게시판</li>
-					<li>
+					<li class="my-3 ml-4" style=" width:70%; border-bottom: 1px solid rgba(255,255,255,0.5);">
+					<li >
 						<a href="#"> 
 							<i class="now-ui-icons design_bullet-list-67"></i>
 							<p>공지 사항</p>
