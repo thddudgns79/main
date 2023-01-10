@@ -2,6 +2,7 @@ package com.coderby.myapp.attendance.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -172,5 +173,11 @@ public class AttendanceService implements IAttendanceService {
 		return attendanceRepository.getStudentAttendList(studentId, yearParam, monthParam);
 
 	}
+	
+	@Override
+	public void updateAttendStatus(Date attendanceDate, String studentId, String updateStatus) {
+		attendanceRepository.updateAttendStatus(attendanceDate, studentId, updateStatus);
+	}
+	
 
 }

@@ -69,7 +69,7 @@ public class AttendanceController {
 		Date nowDate = new Date(System.currentTimeMillis());
 		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
 		String stdId = (String) session.getAttribute("stdId");
-		String now =  format.format(nowDate);
+		String now = format.format(nowDate);
 		attendanceService.attendIn(stdId, now);
 		return "redirect:/attend/today";
 	}
@@ -124,15 +124,13 @@ public class AttendanceController {
 		Date now = new Date(System.currentTimeMillis());
 		reportsService.deleteReprots(repId, now);
 		char isManager = (Character) session.getAttribute("isManager");
-		//관리자면 
-		if(isManager == 'Y') {
+		// 관리자면
+		if (isManager == 'Y') {
 			return "redirect:/attend/reportslist";
-		}else {
+		} else {
 			return "redirect:/attend/studentreportslist";
 		}
 	}
-
-	
 
 	// 반 휴가 신청 목록
 	// classId, year, month, status, reqType
@@ -234,9 +232,8 @@ public class AttendanceController {
 
 	// 특정 학생 월간 근태 조회
 	@RequestMapping("/attend/getStudentAttend")
-	public String getStudentAttend(String yearParam, String monthParam,
-			Model model, HttpSession session) {
-		String studentId = (String)session.getAttribute("lookingStdId");
+	public String getStudentAttend(String yearParam, String monthParam, Model model, HttpSession session) {
+		String studentId = (String) session.getAttribute("lookingStdId");
 		AttendStat attendStat = attendanceService.getStudentAttendStat(studentId, yearParam, monthParam);
 		List<AttendanceVO> attendanceVoList = attendanceService.getStudentAttendList(studentId, yearParam, monthParam);
 		model.addAttribute("attendStat", attendStat);
@@ -271,6 +268,20 @@ public class AttendanceController {
 		headers.setContentLength(file.getFileSize());
 		headers.setContentDispositionFormData("attachment", file.getFileName(), Charset.forName("UTF-8"));
 		return new ResponseEntity<byte[]>(file.getFileData(), headers, HttpStatus.OK);
+	}
+
+	// 출석 상태 변경
+	@RequestMapping("/attend/updateAttendStatus")
+	public String updateAttendStatus(String attendanceDate, String studentId, String updateStatus, Model model) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date attendDate = null;
+		try {
+			attendDate = format.parse(attendanceDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		attendanceService.updateAttendStatus(attendDate, studentId, updateStatus);
+		return "redirect:/attend/getStudentAttend/" + studentId;
 	}
 
 	/*
