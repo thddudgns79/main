@@ -10,7 +10,7 @@ import com.coderby.myapp.attendance.model.ReportsVO;
 
 public interface IReportsRepository {
 	List<ReportsVO> selectReports(ReportsVO reports);
-	List<ReportsVO> selectTodayReports(String stdId);
+	List<ReportsVO> selectStdReports(@Param("stdId") String stdId, @Param("date") Date date);
 	void insertReports(ReportsVO reports);
 
 	void deleteReports(int repId);
