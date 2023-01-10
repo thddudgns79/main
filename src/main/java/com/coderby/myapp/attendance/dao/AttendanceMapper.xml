@@ -95,7 +95,13 @@
 		and extract(month from attendance_date) = #{monthParam}
 	</select>
 	
-	
+	<!-- attendance행 출석 상태 변경 -->
+	<update id="updateAttendStatus" parameterType="map">
+		update attendance
+		set status = #{updateStatus}
+		where student_id = #{studentId}
+		and to_char(attendance_date, 'yyyy-mm-dd') = to_char(#{attendanceDate}, 'yyyy-mm-dd')
+	</update>
 	
 	
 </mapper>

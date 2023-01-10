@@ -2,6 +2,7 @@ package com.coderby.myapp.attendance.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -65,7 +66,7 @@ public class AttendanceService implements IAttendanceService {
 		List<ReportsVO> getReports = reportsRepository.selectTodayReports(stdId);
 		AttendanceVO getAttend = attendanceRepository.attendToday(stdId);
 		SimpleDateFormat format = new SimpleDateFormat("H");
-		
+		System.out.println(stdId);
 		if (getAttend != null) {
 			if (getAttend.getInTime() != null && getAttend.getOutTime() == null) {
 				// update) 해당 attendance행의 status값을 '결석'으로 변경
@@ -154,6 +155,11 @@ public class AttendanceService implements IAttendanceService {
 	public List<AttendanceVO> getStudentAttendList(String studentId, String yearParam, String monthParam) {
 		return attendanceRepository.getStudentAttendList(studentId, yearParam, monthParam);
 
+	}
+
+	@Override
+	public void updateAttendStatus(Date attendanceDate, String studentId, String updateStatus) {
+		attendanceRepository.updateAttendStatus(attendanceDate, studentId, updateStatus);
 	}
 
 }

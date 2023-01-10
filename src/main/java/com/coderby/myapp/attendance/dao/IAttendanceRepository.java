@@ -30,4 +30,7 @@ public interface IAttendanceRepository {
 			@Param("monthParam") String monthParam);
 
 	List<String> getClassStudentIdList(@Param("classId") int classId);
+	
+	void updateAttendStatus(@Param("attendanceDate") Date attendanceDate, 
+			@Param("studentId") String studentId, @Param("updateStatus") String updateStatus);
 }
