@@ -99,7 +99,7 @@
 			<li class="mt-5 ml-4 rounded-pill " style=" width:70%; border: 5px solid rgba(255,255,255,0.5);">
 				<a href='<c:url value="/student/logout"/>'> 
 					<i class="now-ui-icons design_bullet-list-67"></i>
-					<p>로그아웃</p>
+					<p>로그아웃 </p>
 				</a>
 			</li>
 		</ul>
