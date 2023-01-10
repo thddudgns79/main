@@ -45,15 +45,6 @@
 		from student
 	</select>
 	
-	<!-- 24시 일때 status 변경 -->
-	<update id="updateStatus" parameterType="map">
-		update attendance
-		set status = #{status}
-		where
-			to_char(attendance_date, 'yyyy-MM-DD') =to_char(sysdate, 'yyyy-MM-DD')
-			and student_id=#{stdId}
-	</update>
-	
 	<!-- 하루 status일때  아무 행도 없을씨 빈칸의 행을 만들어준다 -->
 	<insert id="insertBlank" parameterType="map">
 		insert into attendance
@@ -62,12 +53,34 @@
 			(to_date(to_char(sysdate, 'yyyy-mm-dd'),'yyyy-mm-dd'), #{status}, #{stdId})
 	</insert>
 	
+	<!-- 24시 일때 status 변경 -->
+	<update id="updateStatus" parameterType="map">
+		update attendance
+		set status = #{status}
+		where
+			to_char(attendance_date, 'yyyy-MM-DD') =to_char(#{date}, 'yyyy-MM-DD')
+			and student_id=#{stdId}
+	</update>
+	
+	
 	<!-- 반 소속 학생들 ID 리스트 조회-->
 	<select id="getClassStudentIdList" parameterType="int" resultType="string">
 		select student_id
 		from student
 		where class_id = #{classId}
 	</select>	
+	
+	<select id="attendAll" parameterType="String" resultType="com.coderby.myapp.attendance.model.AttendanceVO" >
+		 select
+    		in_time 		as "inTime", 
+   			out_time		as "outTime",
+   			status			as "status",
+   			attendance_date as "attendanceDate"
+		from 
+    		attendance 
+		where 
+			student_id=#{stdId}
+	</select>
 	
 	<!-- 학생 월간 근태 통계 -->
 	<select id="getStudentAttendStat" parameterType="map" resultType="map">

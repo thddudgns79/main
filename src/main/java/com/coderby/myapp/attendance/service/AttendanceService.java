@@ -62,17 +62,21 @@ public class AttendanceService implements IAttendanceService {
 	// 24시 특정 학생 status 변경
 	@Override
 	public void updateStatus(String stdId) {
-		List<ReportsVO> getReports = reportsRepository.selectTodayReports(stdId);
-		AttendanceVO getAttend = attendanceRepository.attendToday(stdId);
+		AttendanceVO attendToday = attendanceRepository.attendToday(stdId);
+		if (attendToday == null) {
+			attendanceRepository.insertBlank(stdId, "결석");
+		}
+		List<AttendanceVO> getAttends = attendanceRepository.attendAll(stdId);
 		SimpleDateFormat format = new SimpleDateFormat("H");
 		
-		if (getAttend != null) {
+		for(AttendanceVO getAttend : getAttends) {
 			if (getAttend.getInTime() != null && getAttend.getOutTime() == null) {
 				// update) 해당 attendance행의 status값을 '결석'으로 변경
-				attendanceRepository.updateStatus(stdId, "결석");
+				attendanceRepository.updateStatus(stdId, getAttend.getAttendanceDate(), "결석");
 				// 만약 관리자가 그 날 후에 승인을 해준다면 결석이 아니라 바뀌어야한다.(관리자 단에서 승인으로 바꿔주는 걸로 할까?)
 				// in과 out이 존재할떄
 			} else {
+				List<ReportsVO> getReports = reportsRepository.selectStdReports(stdId, getAttend.getAttendanceDate());
 				long cancleTime = 0;
 				for (ReportsVO repVO : getReports) {
 					if (repVO.getRepStatus().equals("반려") && !(repVO.getRepType().equals("병가")
@@ -101,19 +105,18 @@ public class AttendanceService implements IAttendanceService {
 				if (totalAttend < 32400000) {
 					// update) 해당 attendance행의 status값을 '결석'으로 변경
 					if(Integer.parseInt(outTimeStr) < 18 ) {
-						attendanceRepository.updateStatus(stdId, "결석");
+						attendanceRepository.updateStatus(stdId, getAttend.getAttendanceDate(), "결석");
 					}else if(inTime < 34200000) {
-						attendanceRepository.updateStatus(stdId, "지각");
+						attendanceRepository.updateStatus(stdId,getAttend.getAttendanceDate(),  "지각");
 					}else {
-						attendanceRepository.updateStatus(stdId, "결석");
+						attendanceRepository.updateStatus(stdId,getAttend.getAttendanceDate(), "결석");
 					}
 				} else if (totalAttend >= 32400000 ) {
-					attendanceRepository.updateStatus(stdId, "출석");
+					attendanceRepository.updateStatus(stdId, getAttend.getAttendanceDate(), "출석");
 				}
 			}
-		} else {
-			attendanceRepository.insertBlank(stdId, "결석");
-		}
+		} 
+			
 	}
 
 	// 전체 학생 근태(통계) 조회
