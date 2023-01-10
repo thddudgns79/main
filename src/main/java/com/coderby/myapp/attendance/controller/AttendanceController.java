@@ -51,16 +51,18 @@ public class AttendanceController {
 	public String attendToday(HttpSession session, Model model) {
 		AttendanceVO attendVO = new AttendanceVO();
 		String stdId = (String) session.getAttribute("stdId");
-		attendVO = attendanceService.attendToday(stdId);
-		if (attendVO != null) {
-			if (attendVO.getOutTime() != null) {
+		if(stdId!=null) {
+			attendVO = attendanceService.attendToday(stdId);
+			if (attendVO != null) {
+				if (attendVO.getOutTime() != null) {
+				}
+				model.addAttribute("attendVO", attendVO);
+			} else {
+				return "main";
 			}
-			model.addAttribute("attendVO", attendVO);
-		} else {
-			return "attendance/attend";
+			System.out.println("VO:  " + attendVO.toString());
 		}
-		System.out.println("VO:  " + attendVO.toString());
-		return "attendance/attend";
+		return "main";
 	}
 
 	// 출석버튼 click
