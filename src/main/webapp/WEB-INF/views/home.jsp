@@ -9,7 +9,7 @@
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 <body class="body">
 	<div class="card">
-		
+		 	
 	</div>
 	<jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
 </body>
