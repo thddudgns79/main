@@ -40,6 +40,7 @@
 	
 	<view-controller path="/" view-name="home"/>
 	
+	<!-- 메인보드 -->
  	<resources location="/WEB-INF/resources/" mapping="/**/"/>
 	<resources location="/WEB-INF/resources/js/" mapping="/js/**/"/>
 	<resources location="/WEB-INF/resources/js/core/" mapping="/js/core/**/"/>
@@ -54,6 +55,16 @@
 	<resources location="/WEB-INF/resources/scss/now-ui-dashboard/plugins/" mapping="/scss/now-ui-dashboard/plugins/**/"/>
 	<resources location="/WEB-INF/resources/demo/" mapping="/demo/**/"/> 
 	<resources location="/WEB-INF/resources/fonts/" mapping="/fonts/**/"/> 
+	
+	<!-- 로그인 -->
+	 	<resources location="/WEB-INF/resources/login/" mapping="/login/**/"/>
+	 	<resources location="/WEB-INF/resources/login/css/" mapping="/login/css/**/"/>
+	 	<resources location="/WEB-INF/resources/login/css/bootstrap/" mapping="/login/css/bootstrap/**/"/>
+	 	<resources location="/WEB-INF/resources/login/css/bootstrap/utilities/" mapping="/login/css/bootstrap/utilities/**/"/>
+	 	<resources location="/WEB-INF/resources/login/fonts/" mapping="/login/fonts/**/"/>
+	 	<resources location="/WEB-INF/resources/login/images/" mapping="/login/images/**/"/>
+	 	<resources location="/WEB-INF/resources/login/js/" mapping="/login/js/**/"/>
+	 	<resources location="/WEB-INF/resources/login/scss/" mapping="/login/scss/**/"/>
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize">

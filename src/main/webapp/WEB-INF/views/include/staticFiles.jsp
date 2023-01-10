@@ -10,7 +10,7 @@
  <script src="<c:url value='/js/core/jquery.min.js'/>"></script>
  <script src="<c:url value='/js/core/popper.min.js'/>"></script>
  <script src="<c:url value='/js/core/bootstrap.min.js'/>"></script>
- <script src="<c:url value='/js/plugins/perfect-scrollbar.jquery.min.js'/>"></script>
+<%--  <script src="<c:url value='/js/plugins/perfect-scrollbar.jquery.min.js'/>"></script> --%>
 
  <!--  Google Maps Plugin    -->
  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
