@@ -82,19 +82,33 @@ public class AttendanceService implements IAttendanceService {
 						// 휴가 목록을 뺀 이유는 값을 빼기 했을데 -값이 나올수도 있기 때문이다.
 					}
 				}
-				long totalAttend = getAttend.getOutTime().getTime() - getAttend.getInTime().getTime() - cancleTime;
-				if (totalAttend < 28800000) {
+				long inTime = 0;
+				long outTime = 0;
+				if( getAttend.getInTime().getTime() < 32400000) {
+					inTime = 32399999; //8시59분59초
+				}else {
+					inTime = getAttend.getInTime().getTime();
+				}
+				if(getAttend.getOutTime().getTime() >= 64800000) {
+					outTime = 64800000; //18시
+				}else {
+					outTime=getAttend.getOutTime().getTime();
+				}
+				long totalAttend = outTime - inTime - cancleTime;
+				String inTimeStr =  format.format(inTime);
+				String outTimeStr = format.format(outTime);
+				//
+				if (totalAttend < 32400000) {
 					// update) 해당 attendance행의 status값을 '결석'으로 변경
-					attendanceRepository.updateStatus(stdId, "결석");
-				} else if (totalAttend >= 28800000) {
-					String inTimeStr =  format.format(getAttend.getInTime());
-					if (Integer.parseInt(inTimeStr) < 9) {
-						// 출석
-						attendanceRepository.updateStatus(stdId, "출석");
-					} else  {
-						// 지각
+					if(Integer.parseInt(outTimeStr) < 18 ) {
+						attendanceRepository.updateStatus(stdId, "결석");
+					}else if(inTime < 34200000) {
 						attendanceRepository.updateStatus(stdId, "지각");
+					}else {
+						attendanceRepository.updateStatus(stdId, "결석");
 					}
+				} else if (totalAttend >= 32400000 ) {
+					attendanceRepository.updateStatus(stdId, "출석");
 				}
 			}
 		} else {
