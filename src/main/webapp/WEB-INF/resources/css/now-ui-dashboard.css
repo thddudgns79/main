@@ -22,6 +22,12 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 
 Copyright (c) 2015 Daniel Eden
 */
+
+.body{
+	background-image: url("../img/login.png"); 
+	background-size: cover;
+}
+
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -4176,8 +4182,7 @@ Created using IcoMoon - icomoon.io
 }
 
 .main-panel>.content {
-  padding: 0 30px 30px;
-  min-height: calc(100vh - 123px);
+  padding: 0 30px 10px;
   margin-top: -30px;
 }
 
@@ -4204,8 +4209,6 @@ Created using IcoMoon - icomoon.io
 
 .panel-header {
   height: 260px;
-  padding-top: 80px;
-  padding-bottom: 45px;
   background: #141E30;
   /* fallback for old browsers */
   background: -webkit-gradient(linear, left top, right top, from(#0c2646), color-stop(60%, #204065), to(#2a5788));
@@ -4234,7 +4237,7 @@ Created using IcoMoon - icomoon.io
 }
 
 .panel-header-lg {
-  height: 380px;
+  height: 700px;
 }
 
 .footer {
@@ -4743,7 +4746,7 @@ Created using IcoMoon - icomoon.io
 
 .card-chart .chart-area {
   height: 190px;
-  width: calc(100% + 30px);
+  width: calc(100%bigDashboardChart
   margin-left: -15px;
   margin-right: -15px;
 }
