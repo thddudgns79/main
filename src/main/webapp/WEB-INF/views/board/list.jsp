@@ -22,7 +22,7 @@
 				                <span class="navbar-toggler-bar bar2"></span>
 				                <span class="navbar-toggler-bar bar3"></span>
 				              </button>
-				            </div>
+				            </div> 
 				            <a class="navbar-brand" href="#">커뮤니티</a>
 				          </div>
 				          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
