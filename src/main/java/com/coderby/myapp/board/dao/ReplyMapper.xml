@@ -30,7 +30,7 @@
 			UPDATE 
 				REPLY
 			SET
-				REPLY_CONTENT=#{replyContent}, CREATED_DATE=SYSDATE
+				REPLY_CONTENT=#{replyContent}, CREATED_DATE=sysdate
 			WHERE
 				REPLY_ID=#{replyId}
 		]]>

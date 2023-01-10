@@ -45,7 +45,7 @@
 				BOARD
 					(BOARD_ID, BOARD_CATEGORY, BOARD_TITLE, BOARD_CONTENT, CREATED_DATE, STUDENT_ID, CLASS_ID)
 			VALUES
-				(SEQ_ENTITY_ID.NEXTVAL, #{boardCategory}, #{boardTitle}, #{boardContent}, SYSDATE, 'song', 3)
+				(SEQ_ENTITY_ID.NEXTVAL, #{boardCategory}, #{boardTitle}, #{boardContent}, sysdate, 'song', 3)
 		]]>
 	</insert>
 	
@@ -55,7 +55,7 @@
 				BOARD
 			SET
 				BOARD_CATEGORY=#{boardCategory}, BOARD_TITLE=#{boardTitle}, BOARD_CONTENT=#{boardContent},
-				CREATED_DATE=SYSDATE
+				CREATED_DATE=sysdate
 			WHERE
 				BOARD_ID=#{boardId}
 		]]>
