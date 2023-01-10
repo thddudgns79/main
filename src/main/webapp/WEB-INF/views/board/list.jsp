@@ -12,7 +12,7 @@
 	<div class="wrapper ">
 		<jsp:include page="/WEB-INF/views/include/list.jsp" />
 		    <div class="main-panel" id="main-panel">
-		      	<!-- Navbar -->
+		      	<!-- Navbar --> 
 		      	<nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
 				        <div class="container-fluid">
 				          <div class="navbar-wrapper">
