@@ -6,6 +6,7 @@ public class ReplyVO {
 	private int replyId;
 	private String replyContent;
 	private Date createdDate;
+	private String calculateTime;
 	private int masterId;
 	private String studentId;
 	private int boardId;
@@ -57,4 +58,13 @@ public class ReplyVO {
 	public void setBoardId(int boardId) {
 		this.boardId = boardId;
 	}
+
+	public String getCalculateTime() {
+		return calculateTime;
+	}
+
+	public void setCalculateTime(String calculateTime) {
+		this.calculateTime = calculateTime;
+	}
+	
 }

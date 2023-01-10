@@ -13,6 +13,7 @@ public class BoardVO {
 	private String boardTitle;
 	private String boardContent;
 	private Date createdDate;
+	private String calculateTime;
 	private String studentId;
 	private int classId;
 	private List<ReplyVO> replyList;
@@ -97,6 +98,14 @@ public class BoardVO {
 
 	public void setBfileList(List<FileVO> bfileList) {
 		this.bfileList = bfileList;
+	}
+
+	public String getCalculateTime() {
+		return calculateTime;
+	}
+
+	public void setCalculateTime(String calculateTime) {
+		this.calculateTime = calculateTime;
 	}
 	
 }

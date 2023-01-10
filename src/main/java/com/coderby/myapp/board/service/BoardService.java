@@ -1,5 +1,6 @@
 package com.coderby.myapp.board.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.coderby.myapp.board.dao.IReplyRepository;
 import com.coderby.myapp.board.model.BoardVO;
 import com.coderby.myapp.board.model.ReplyVO;
 import com.coderby.myapp.file.dao.IFileRepository;
+import com.fasterxml.jackson.core.format.DataFormatDetector;
 
 @Service
 public class BoardService implements IBoardService {
@@ -27,7 +29,13 @@ public class BoardService implements IBoardService {
  	@Override
 	public List<BoardVO> selectBoardListByClass(int classId, int page) {
 		int start = ((page-1)*10)-1;
-		return boardRepository.selectBoardListByClass(classId, start, start+9);
+		
+		List<BoardVO> boardList = boardRepository.selectBoardListByClass(classId, start, start+9);
+		for(BoardVO vo : boardList) {
+			vo.setCalculateTime(CalculateBeforeTime(vo.getCreatedDate()));
+		}
+
+		return boardList;
 	}
 
 	@Override
@@ -39,8 +47,17 @@ public class BoardService implements IBoardService {
 	@Override
 	public BoardVO selectBoard(int boardId) {
 		BoardVO board = boardRepository.selectBoard(boardId);
+		//Board객체 시간
+		board.setCalculateTime(CalculateBeforeTime(board.getCreatedDate()));
+		
 		//Board 객체에 댓글 리스트 넣기
-		board.setReplyList(replyRepository.selectReplyList(boardId));
+		List<ReplyVO> replyList = replyRepository.selectReplyList(boardId);
+		//댓글객체 시간
+		for(ReplyVO vo : replyList) {
+			vo.setCalculateTime(CalculateBeforeTime(vo.getCreatedDate()));
+		}
+		board.setReplyList(replyList);
+		
 		//Board객체에 파일 데이터 넣기
 		board.setBfileList(fileRepository.getFileList(boardId));
 		return board;
@@ -78,7 +95,14 @@ public class BoardService implements IBoardService {
 	
 	@Override
 	public List<ReplyVO> selectReReplyList(int replyId) {
-		return replyRepository.selectReReplyList(replyId);
+		List<ReplyVO> replyList = replyRepository.selectReReplyList(replyId);
+		
+		//댓글객체 시간
+		for(ReplyVO vo : replyList) {
+			vo.setCalculateTime(CalculateBeforeTime(vo.getCreatedDate()));
+		}
+		
+		return replyList;
 	}
 
 	@Override
@@ -86,7 +110,30 @@ public class BoardService implements IBoardService {
 		replyRepository.insertReReply(reply);
 	}
 
-	
-
+ 	//★시간 계산★
+	private String CalculateBeforeTime(Date createdDate) {
+		//현재시간
+		long curTime = System.currentTimeMillis();
+		long reqTime = createdDate.getTime();
+		long diffTime = (curTime - reqTime) / 1000;
+		
+		String msg = null;
+		
+		if(diffTime < 60) { //sec
+			msg = "방금 전";
+		} else if((diffTime /= 60) < 60) { //min
+			msg = diffTime + "분 전";
+		} else if((diffTime /= 60) < 24) { //hour
+			msg = diffTime + "시간 전";
+		} else if((diffTime /= 24) < 30) { //day
+			msg = diffTime + "일 전";
+		} else if((diffTime /= 30) < 12) { //month
+			msg = diffTime + "달 전";
+		} else {
+			msg = diffTime + "년 전";
+		}
+		
+		return msg;
+	}
 	
 }

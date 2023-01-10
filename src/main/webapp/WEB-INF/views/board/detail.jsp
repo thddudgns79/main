@@ -45,7 +45,7 @@
 					<div>게시글 카테고리: ${board.boardCategory}</div>
 					<div>게시글 제목: ${board.boardTitle}</div>
 					<div>게시글 내용: ${board.boardContent}</div>
-					<div>게시날짜: ${board.createdDate}</div>
+					<div>게시날짜: ${board.calculateTime}</div>
 					<div>아이디: ${board.studentId}</div>
 					<div>
 						<c:forEach var="file" items="${board.bfileList}">
@@ -82,7 +82,7 @@
 								<tr id="replyOne${reply.replyId}">
 									<td>
 										<span class="text-primary mr-2"><strong>${reply.studentId}</strong></span>
-										<span class="text-muted"><small>${reply.createdDate}</small></span>
+										<span class="text-muted"><small>${reply.calculateTime}</small></span>
 										<div class="my-1">${reply.replyContent}</div>
 											<!-- 답글작성 -->
 											<div class="accordion" id="accordionExample" style="width:500px;">
