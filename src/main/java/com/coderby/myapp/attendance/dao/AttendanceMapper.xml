@@ -14,6 +14,15 @@
 			to_char(attendance_date, 'yyyy-MM-DD') =to_char(sysdate, 'yyyy-MM-DD')
 			and student_id=#{stdId}
 	</select>
+	
+	<select id="selectAttend" parameterType="map" resultType="com.coderby.myapp.attendance.model.AttendanceVO">
+		select 
+		from attendance
+		where student_id = #{studentId}
+		and 
+		to_char(attendance_date,'yyyy-MM-dd') = to_char(#{date}, 'yyyy-MM-dd')
+	</select>
+
 
 	<insert id="attendIn" parameterType="map">
 		insert into attendance
