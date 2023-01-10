@@ -24,7 +24,7 @@
  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
  <script src="<c:url value='/js/now-ui-dashboard.min.js?v=1.5.0' />" ></script>
  <script src="<c:url value='/demo/demo.js'/>"></script>
- <script>
+ <script> 
    $(document).ready(function() {
      // Javascript method's body can be found in assets/js/demos.js
      demo.initDashboardPageCharts();
