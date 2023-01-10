@@ -1,7 +1,3 @@
-<%@page import="com.coderby.myapp.classes.service.StudentService"%>
-<%@page import="java.util.List"%>
-<%@page import="com.coderby.myapp.classes.model.StudentVO"%>
-<%@page import="com.coderby.myapp.classes.service.IStudentService"%>
 <%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@page import="org.springframework.web.context.WebApplicationContext"%>
 <%@page contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" %>
@@ -46,6 +42,7 @@
 <!-- 						</div> -->
 <!-- 					</div> -->
 					
+<<<<<<< HEAD
 <%-- 					<c:if test="${not empty sessionScope.stdId}"> --%>
 <!-- 					<ul id="tmMainNav" class="nav flex-column text-uppercase text-right tm-main-nav"> -->
 <!-- 						<li class="nav-item"> -->
@@ -89,3 +86,60 @@
 <!-- 					</footer> -->
 <!-- 				</div> -->
 <!-- 			</nav> -->
+=======
+					<c:if test="${not empty sessionScope.stdId}">
+					<ul id="tmMainNav" class="nav flex-column text-uppercase text-right tm-main-nav">
+						<li class="nav-item">
+							<a href='<c:url value="/attend/today"/>'class="nav-link"> 
+								<span class="d-inline-block mr-3">출결</span> 
+								<span class="d-inline-block tm-white-rect"></span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href='<c:url value="/attend/getStudentAttend/${stdId}"/>' class="nav-link"> 
+								<span class="d-inline-block mr-3">출결LIST</span> 
+								<span class="d-inline-block tm-white-rect"></span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href='<c:url value="/attend/studentreportslist"/>' class="nav-link"> 
+								<span class="d-inline-block mr-3">휴가LIST</span> 
+								<span class="d-inline-block tm-white-rect"></span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href='<c:url value="/student/logout"/>' class="nav-link"> 
+								<span class="d-inline-block mr-3">로그아웃</span> 
+								<span class="d-inline-block tm-white-rect"></span>
+							</a>
+						</li>
+					</ul>
+					</c:if>
+					<ul class="nav flex-row tm-social-links">
+						<li class="nav-item">
+							<a href="https://facebook.com" class="nav-link tm-social-link"> 
+								<i class="fab fa-facebook-f"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="https://twitter.com" class="nav-link tm-social-link"> 
+								<i class="fab fa-twitter"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="https://dribbble.com" class="nav-link tm-social-link">
+								 <i class="fab fa-dribbble"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="https://linkedin.com" class="nav-link tm-social-link"> 
+								<i class="fab fa-linkedin-in"></i>
+							</a>
+						</li>
+					</ul>
+					<footer class="text-center text-white small">
+						<p class="mb-2">2023 오티아이 SpringProject </p>
+					</footer>
+				</div>
+			</nav>
+>>>>>>> branch 'master' of https://github.com/oti-project3/main.git

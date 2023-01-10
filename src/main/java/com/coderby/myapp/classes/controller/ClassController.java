@@ -34,10 +34,6 @@ public class ClassController {
 	// 클래스 리스트 조회
 	@RequestMapping("/class/classlist")
 	public String getClassList(String orgName, String className, Model model, HttpSession session) {
-		// 테스트 용도 - 지워야 함
-		session.setAttribute("classId", 3);
-		session.setAttribute("userId", "thddudgns79");
-		session.setAttribute("isManager", 'Y');
 		model.addAttribute("orgName",orgName);
 		model.addAttribute("className",className);
 		// 검색 키워드 있을 경우
@@ -52,7 +48,7 @@ public class ClassController {
 		model.addAttribute("classList", classList);
 		return "classes/classList";
 	}
-
+	
 	// 클래스의 섹션 리스트 조회
 	@RequestMapping("/class/sectionlist")
 	public String getSectionList(Model model, HttpSession session) {

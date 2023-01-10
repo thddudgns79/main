@@ -5,8 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
-  <html>
-    <head>
+<html>
+      <head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -14,10 +14,12 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	</head>
 
-    <body>
-    	<!-- classId, year, month, status, reqType -->
-    	<form action='<c:url value="/attend/reportslist"/>' method="POST">
-	    	<select name="yearParam">
+     <body>
+     	<h2>
+     		${classId} 반의 ${yearParam}년 ${monthParam}월의 근태입니다.
+     	</h2>
+     	<form action='<c:url value="/attend/getAllAttend"/>' method="POST">
+     		<select name="yearParam">
 		    	<option <c:if test ="${yearParam eq '2013'}">selected="selected"</c:if> value="2013">2013</option>
 		    	<option <c:if test ="${yearParam eq '2014'}">selected="selected"</c:if> value="2014">2014</option>
 		    	<option <c:if test ="${yearParam eq '2015'}">selected="selected"</c:if> value="2015">2015</option>
@@ -45,51 +47,29 @@
 	    		<option <c:if test ="${monthParam eq '11'}">selected="selected"</c:if> value="11">11</option>
 	    		<option <c:if test ="${monthParam eq '12'}">selected="selected"</c:if> value="12">12</option>
 	    	</select>
-	    	
-	    	<select name="classId">
-	    		<option value="전체">전체</option>
-	    		<c:forEach var="classId" items="${classIdList}">
-	    			<option <c:if test ="${selectedClassId != '전체' && selectedClassId eq classId}">selected="selected"</c:if> value="${classId}">${classId}</option>
-	    		</c:forEach>
-	    	</select>
-	    	
-	    	<select name="repType">
-	    		<option <c:if test ="${repType eq '전체'}">selected="selected"</c:if> value="전체">전체</option>
-	    		<option <c:if test ="${repType eq '병가'}">selected="selected"</c:if> value="병가">병가</option>
-	    		<option <c:if test ="${repType eq '경조사'}">selected="selected"</c:if> value="경조사">경조사</option>
-	    		<option <c:if test ="${repType eq '예비군'}">selected="selected"</c:if> value="예비군">예비군</option>
-	    		<option <c:if test ="${repType eq '조퇴'}">selected="selected"</c:if> value="조퇴">조퇴</option>
-	    		<option <c:if test ="${repType eq '외출'}">selected="selected"</c:if> value="외출">외출</option>
-	    		<option <c:if test ="${repType eq '지하철 연착'}">selected="selected"</c:if> value="지하철 연착">지하철 연착</option>
-	    	</select>
-	    	
-	    	<select name="repStatus">
-	    		<option <c:if test ="${repStatus eq '전체'}">selected="selected"</c:if> value="전체">전체</option>
-	    		<option <c:if test ="${repStatus eq '대기'}">selected="selected"</c:if> value="대기">대기</option>
-	    		<option <c:if test ="${repStatus eq '승인'}">selected="selected"</c:if> value="승인">승인</option>
-	    		<option <c:if test ="${repStatus eq '반려'}">selected="selected"</c:if> value="반려">반려</option>
-	    	</select>
-	    	
 	    	<input type="submit" value="검색"/>
-    	</form>
-    	
-    	<table>
-    		<tr>
-    			<td>신청 번호</td>
-    			<td>신청인</td>
-    			<td>휴가 날짜</td>
-    			<td>신청 유형</td>
-    			<td>상태</td>
-    		</tr>
-    		<c:forEach var="report" items="${reportsList}">
-    			<tr>
-    				<td>${report.repId}</td>
-    				<td><a href='<c:url value="/attend/reportsdetail/${report.repId}"/>'>${report.studentId}</a></td>
-    				<td>${report.repDate}</td>
-    				<td>${report.repType}</td>
-    				<td>${report.repStatus}</td>
-    			</tr>
-    		</c:forEach>
-    	</table>
-    </body>
+     	</form>
+
+   		<c:forEach var="attendStat" items="${attendStatList}"> 
+   				<div class="card mt-3" style="width: 350px">
+			  <div class="card-body">
+			    <h4 class="card-title"><a href='<c:url value="/attend/getStudentAttend/${attendStat.studentId}"/>'>${attendStat.studentId}</a></h4>
+			    <hr/>
+			    <p class="card-text">
+				    <ul class="list-group list-group-horizontal">
+					  <li class="list-group-item" style="width:25%; border: 0">지각</li>
+					  <li class="list-group-item" style="width:25%; border: 0">결석</li>
+					  <li class="list-group-item" style="width:25%; border: 0">출석</li>
+					</ul>
+					<ul class="list-group list-group-horizontal">
+					  <li class="list-group-item" style="width:25%; border: 0">${attendStat.lateCount}회</li>
+					  <li class="list-group-item" style="width:25%; border: 0">${attendStat.absenceCount}회</li>
+					  <li class="list-group-item" style="width:25%; border: 0">${attendStat.attendCount}회</li>
+					</ul>
+			    </p>
+			  </div>
+		    </div>
+
+   		</c:forEach>
+     </body>
 </html>

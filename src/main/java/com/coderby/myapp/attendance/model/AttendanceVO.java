@@ -41,10 +41,7 @@ public class AttendanceVO {
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
-	@Override
-	public String toString() {
-		return "AttendanceVO [attendanceDate=" + attendanceDate + ", inTime=" + inTime + ", outTime=" + outTime
-				+ ", status=" + status + ", studentId=" + studentId + "]";
-	}
+
+	
 
 }

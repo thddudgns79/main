@@ -9,12 +9,12 @@
 	<jsp:include page="/WEB-INF/views/include/header.jsp"/>
 
 		<div role="main" class="ml-sm-auto col-12">
-			<div class="parallax-window" data-parallax="scroll" data-image-src="img/background.png">
+			<div class="parallax-window" data-parallax="scroll" data-image-src='<c:url value="/img/background.png"/>'>
 				<div class="tm-section-wrap">
 					<section id="intro" class="tm-section">
 						<div class="tm-bg-white-transparent tm-intro">
 						
-							로그인 form
+							<!-- 로그인 form -->
 							<div class="container">
 								<div class="pg-opt">
 									<div class="row">
@@ -34,7 +34,7 @@
 											<div class="form-group">
 												<label class="control-label col-sm-2" for="id" style="color:black;">ID</label>
 												<div class="col-sm-8">
-													<input type="text" name="stdId" id="id" class="form-control" placeholder="ID" aria-describedby="basic-addon1">
+													<input type="text" name="stdId" id="id" class="form-control" placeholder="<fmt:message key='stdId'/>" aria-describedby="basic-addon1">
 												</div>
 											</div>
 											<div class="form-group">
@@ -52,7 +52,7 @@
 									</c:if>
 								</div>
 							</div>
-							
+							<!--  -->
 					</div>
 					</section>
 				</div>

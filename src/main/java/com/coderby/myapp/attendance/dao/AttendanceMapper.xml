@@ -14,12 +14,21 @@
 			to_char(attendance_date, 'yyyy-MM-DD') =to_char(sysdate, 'yyyy-MM-DD')
 			and student_id=#{stdId}
 	</select>
+	
+	<select id="selectAttend" parameterType="map" resultType="com.coderby.myapp.attendance.model.AttendanceVO">
+		select 
+		from attendance
+		where student_id = #{studentId}
+		and 
+		to_char(attendance_date,'yyyy-MM-dd') = to_char(#{date}, 'yyyy-MM-dd')
+	</select>
 
-	<insert id="attendIn" parameterType="string">
+
+	<insert id="attendIn" parameterType="map">
 		insert into attendance
 			(attendance_date, in_time, status, student_id) 
 		values
-			(sysdate, sysdate, '-', #{stdId})
+			(#{now}, sysdate, '-', #{stdId})
 	</insert>
 	
 	<update id="attendOut" parameterType="String">
@@ -29,6 +38,64 @@
 			to_char(attendance_date, 'yyyy-MM-DD') =to_char(sysdate, 'yyyy-MM-DD')
 			and student_id=#{stdId}
 	</update>
+	
+	<!-- 모든 학생 아이디 -->
+	<select id="getAllStd" resultType="string">
+		select student_id
+		from student
+	</select>
+	
+	<!-- 24시 일때 status 변경 -->
+	<update id="updateStatus" parameterType="map">
+		update attendance
+		set status = #{status}
+		where
+			to_char(attendance_date, 'yyyy-MM-DD') =to_char(sysdate, 'yyyy-MM-DD')
+			and student_id=#{stdId}
+	</update>
+	
+	<!-- 하루 status일때  아무 행도 없을씨 빈칸의 행을 만들어준다 -->
+	<insert id="insertBlank" parameterType="map">
+		insert into attendance
+			(attendance_date, status, student_id) 
+		values
+			(to_date(to_char(sysdate, 'yyyy-mm-dd'),'yyyy-mm-dd'), #{status}, #{stdId})
+	</insert>
+	
+	<!-- 반 소속 학생들 ID 리스트 조회-->
+	<select id="getClassStudentIdList" parameterType="int" resultType="string">
+		select student_id
+		from student
+		where class_id = #{classId}
+	</select>	
+	
+	<!-- 학생 월간 근태 통계 -->
+	<select id="getStudentAttendStat" parameterType="map" resultType="map">
+		select 
+			status as status,
+			count(*) as count
+		from attendance
+		where student_id = #{studentId}
+		and extract(year from attendance_date) = #{yearParam}
+		and extract(month from attendance_date) = #{monthParam}
+		group by status
+	</select>
+	
+	<!-- 학생 월간 근태 목록 조회 -->
+	<select id="getStudentAttendList"  parameterType="map" resultType="com.coderby.myapp.attendance.model.AttendanceVO">
+		select 
+			attendance_date as attendanceDate,
+			student_id as studentId,
+			in_time as inTime,
+			out_time as outTime,
+			status as status
+		from attendance
+		where student_id = #{studentId}
+		and extract(year from attendance_date) = #{yearParam}
+		and extract(month from attendance_date) = #{monthParam}
+	</select>
+	
+	
 	
 	
 </mapper>

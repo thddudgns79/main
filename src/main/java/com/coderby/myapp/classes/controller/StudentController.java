@@ -31,10 +31,19 @@ public class StudentController {
 			}else {
 				if(dbPassword.equals(password)) {
 					//비밀번호 일치
-					session.setAttribute("stdId", stdId);
-					session.setAttribute("classId", student.getClassId());
-					session.setAttribute("isManager", student.getIsManager());
-					return "home";
+					if(student.getIsManager()=='N') {
+						//학생일때
+						session.setAttribute("stdId", stdId);
+						session.setAttribute("isManager", student.getIsManager());
+						session.setAttribute("classId", student.getClassId());
+						session.setAttribute("lookingStdId", stdId);
+						return "home";
+					}else {
+						//매니저일때
+						session.setAttribute("stdId", stdId);
+						session.setAttribute("isManager", student.getIsManager());
+						return "redirect:/class/classlist?orgName=" + "전체" + "&className=" + "";
+					}
 				}else {
 					//비밀번호 불일치
 					model.addAttribute("message", "WRONG_NOT_PASSWORD");
@@ -45,7 +54,7 @@ public class StudentController {
 		}
 		return "home";
 	}
-
+   
 	@RequestMapping(value="/student/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session, HttpServletRequest request) {
 		session.invalidate();//로그아웃
