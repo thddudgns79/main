@@ -16,7 +16,7 @@ public class AttendScheduler {
 
 	// 24시 일때 학생 status추가
 	//@Scheduled(cron = "0 0 0 * * *")
-	@Scheduled(cron = "* * * * * *")
+	@Scheduled(cron = "0 0 0 * * *")
 	public void getStudentStatus() {
 		// reports.getRepDate()의 값을 jsp단에서 hidden으로 주던지 sysdate를 넣어서 데이트를 넣어야함
 		// 24시 일때마다 모든학생들을 더 해주어야한다.
