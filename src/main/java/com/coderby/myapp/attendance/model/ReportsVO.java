@@ -17,7 +17,6 @@ public class ReportsVO {
 	private String repType;	//휴가, 공가 등등
 	private String studentId;
 	
-	private MultipartFile File;
 	private List<FileVO> fileList;
 	private List<MultipartFile> multiFile;
 	
@@ -71,12 +70,7 @@ public class ReportsVO {
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
-	public MultipartFile getFile() {
-		return File;
-	}
-	public void setFile(MultipartFile file) {
-		File = file;
-	}
+	
 	public List<FileVO> getFileList() {
 		return fileList;
 	}
