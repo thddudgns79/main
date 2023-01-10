@@ -174,6 +174,12 @@ public class ReportsService implements IReportsService {
 						break;
 					}
 				}
+				
+				// 이 날 이 학생의 출석행이 존재하면 insert 불가능하게 
+				if(attendanceRepository.selectAttend(repVO.getRepDate(), repVO.getStudentId()) != null){
+					isPossible = false;
+				}
+				
 				if (isPossible) {
 					AttendanceVO attendance = new AttendanceVO();
 					attendance.setAttendanceDate(repVO.getRepDate());

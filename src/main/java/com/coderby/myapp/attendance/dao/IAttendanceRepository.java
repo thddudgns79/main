@@ -1,5 +1,6 @@
 package com.coderby.myapp.attendance.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,9 @@ public interface IAttendanceRepository {
 	void attendIn(@Param("stdId") String stdId, @Param("now") String now);
 
 	void attendOut(String stdId);
-
+	
+	AttendanceVO selectAttend(@Param("date") Date date, @Param("studentId") String studentId);
+	
 	List<String> getAllStd();
 
 	void updateStatus(@Param("stdId") String stdId, @Param("status") String status);
