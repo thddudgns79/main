@@ -74,7 +74,7 @@
      	<c:forEach var="attendanceVO" items="${attendanceVoList}">
      		<div class="card mt-3" style="width: 350px">
 			  <div class="card-body">
-			    <h4 class="card-title"><fmt:formatDate value="${attendanceVO.attendanceDate}" pattern="yyyy.MM.dd"/></h4>
+			    <h4 class="card-title"><fmt:formatDate value="${attendanceVO.attendanceDate}" pattern="yyyy-MM-dd"/></h4>
 			    <hr/>
 			    <p class="card-text">
 				    <ul class="list-group list-group-horizontal">
@@ -87,6 +87,18 @@
 					  <li class="list-group-item" style="width:33%; border: 0"><fmt:formatDate value="${attendanceVO.outTime}" pattern="HH:mm:ss"/></li>
 					  <li class="list-group-item" style="width:33%; border: 0">${attendanceVO.status}</li>
 					</ul>
+					<c:if test="${isManager == 'Y'.charAt(0)}">
+						<form action='<c:url value="/attend/updateAttendStatus"/>' method="POST">
+							<input type="hidden" name="attendanceDate" value='<fmt:formatDate value="${attendanceVO.attendanceDate}" pattern="yyyy-MM-dd"/>'/>
+							<input type="hidden" name="studentId" value="${attendanceVO.studentId}"/>
+							<select name="updateStatus">
+								<option value="지각">지각</option>
+								<option value="결석">결석</option>
+								<option value="출석">출석</option>
+							</select>
+							<input type="submit" value="변경"/>
+						</form>
+					</c:if>
 			    </p>
 			  </div>
 		    </div>

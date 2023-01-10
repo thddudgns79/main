@@ -1,5 +1,6 @@
 package com.coderby.myapp.attendance.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.coderby.myapp.attendance.model.AttendStat;
@@ -22,5 +23,5 @@ public interface IAttendanceService {
 		
 	List<AttendanceVO> getStudentAttendList(String studentId, String yearParam, String monthParam);
 
-	
+	void updateAttendStatus(Date attendanceDate, String studentId, String updateStatus);
 }
