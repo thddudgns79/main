@@ -207,6 +207,10 @@ public class ReportsService implements IReportsService {
 			}
 			// 대기 -> 승인
 			else if (repVO.getRepStatus().equals("대기") && updateRepStatus.equals("승인")) {
+				// 이 날 이 학생의 출석행이 존재하면 insert 불가능하게 
+				if(attendanceRepository.selectAttend(repVO.getRepDate(), repVO.getStudentId()) != null) {
+					return;
+				}
 				// 출석행 추가
 				AttendanceVO attendance = new AttendanceVO();
 				attendance.setAttendanceDate(repVO.getRepDate());
