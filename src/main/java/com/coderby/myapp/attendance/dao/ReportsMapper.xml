@@ -18,7 +18,7 @@
 			and student_id = #{studentId}
 	</select>
 	
-	<select id="selectTodayReports" parameterType="string" resultType="com.coderby.myapp.attendance.model.ReportsVO">
+	<select id="selectStdReports" parameterType="map" resultType="com.coderby.myapp.attendance.model.ReportsVO">
 		select 
 			rep_id		as "repId",
 			rep_date	as "repDate",
@@ -30,7 +30,7 @@
 			student_id 	as "studentId"
 		from reports
 		where
-			to_char(rep_date, 'yyyy-MM-DD') =to_char(sysdate, 'yyyy-MM-DD')
+			to_char(rep_date, 'yyyy-MM-DD') =to_char(#{date}, 'yyyy-MM-DD')
 			and student_id = #{stdId}
 	</select>
 	

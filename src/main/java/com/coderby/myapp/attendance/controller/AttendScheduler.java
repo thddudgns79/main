@@ -22,7 +22,9 @@ public class AttendScheduler {
 		List<String> attend = attendanceService.getAllStd();
 		System.out.println(attend.size());
 		for (String stdId : attend) {
+			System.out.println("stdId:"+stdId);
 			attendanceService.updateStatus(stdId);
+			System.out.println("\n");
 		}
 	}
 }
