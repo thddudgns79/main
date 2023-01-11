@@ -15,6 +15,7 @@ import com.coderby.myapp.attendance.dao.IReportsRepository;
 import com.coderby.myapp.attendance.model.AttendanceVO;
 import com.coderby.myapp.attendance.model.ReportsVO;
 import com.coderby.myapp.file.dao.IFileRepository;
+import com.coderby.myapp.util.Pager;
 
 @Service
 public class ReportsService implements IReportsService {
@@ -129,17 +130,28 @@ public class ReportsService implements IReportsService {
 	// 특정 학생 휴가 리스트
 	@Override
 	public List<ReportsVO> getStudentReportsList(String yearParam, String monthParam, String repType, String repStatus,
-			String stdId) {
-		return reportsRepository.getStudentReportsList(yearParam, monthParam, repType, repStatus, stdId);
+			String stdId, Pager pager) {
+		return reportsRepository.getStudentReportsList(yearParam, monthParam, repType, repStatus, stdId, pager);
 	}
 
+	@Override
+	public int getStudentReportsListCount(String yearParam, String monthParam, String repType, String repStatus,
+			String stdId) {
+		return reportsRepository.getStudentReportsListCount(yearParam, monthParam, repType, repStatus, stdId);
+	}
 	// 전체 학생 휴가 리스트
 	@Override
 	public List<ReportsVO> getReportsList(String classId, String yearParam, String monthParam, String repType,
-			String repStatus) {
-		return reportsRepository.getReportsList(classId, yearParam, monthParam, repType, repStatus);
+			String repStatus, Pager pager) {
+		return reportsRepository.getReportsList(classId, yearParam, monthParam, repType, repStatus, pager);
 	}
 
+	@Override
+	public int getReportsListCount(String classId, String yearParam, String monthParam, String repType,
+			String repStatus) {
+		return reportsRepository.getReportsListCount(classId, yearParam, monthParam, repType, repStatus);
+	}
+	
 	// 휴가 상세 조회
 	@Override
 	@Transactional
@@ -356,5 +368,7 @@ public class ReportsService implements IReportsService {
 		}
 
 	}
+
+	
 
 }

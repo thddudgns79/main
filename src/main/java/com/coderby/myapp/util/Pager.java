@@ -170,11 +170,5 @@ public class Pager {
 		public int getEndRowIndex() {
 			return endRowIndex;
 		}
-
-
-		public void setEndRowIndex(int endRowIndex) {
-			this.endRowIndex = endRowIndex;
-		}
-		
 		
 }
