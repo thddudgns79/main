@@ -11,8 +11,8 @@
 				STUDENT_ID			AS "studentId"
 			FROM board
 			WHERE class_id=#{classId}
-			OFFSET #{start}-1 ROWS
-			FETCH FIRST 10 ROWS ONLY
+			OFFSET (#{pageNo}-1)*#{rowsPerPage} ROWS
+			FETCH FIRST #{rowsPerPage} ROWS ONLY
 		]]>
 	</select>
 

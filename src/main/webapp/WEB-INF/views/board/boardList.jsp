@@ -8,7 +8,20 @@
 <html>
 <jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
+
+<!--datePicker  -->
+<!-- jQuery가 먼저 로드 된 후 datepicker가 로드 되어야함.-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+<link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css">
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <body>
+<div>
+	<input type="text" id="datePicker" class="form-control" value="2019-06-27" />
+</div>
+
 	<div class="wrapper ">
 		<jsp:include page="/WEB-INF/views/include/list.jsp" />
 		    <div class="main-panel" id="main-panel">
@@ -87,20 +100,27 @@
 				                <a class="btn btn-secondary" href="<c:url value='/board/insert'/>" >게시글 작성</a>
 				              </div>
 				              <div class="card-body">
-				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
 				                <div class="table-responsive">
-				                  <table class="table">
+				                  <table id="boardListTable" class="table">
 				                    	<thead class=" text-primary">
 				                      		<th>Title</th>
 				                      		<th class="text-right">Writer </th>
 				                      		<th class="text-right">Date</th>
 				                    	</thead>
 				                    	<tbody>
-
+				                    		<c:forEach var="board" items="${boardList}">
+							                      <tr>
+							                        <td>${board.boardTitle}</td>
+							                        <td class="text-right">${board.studentId}</td>
+							                        <td class="text-right">${board.calculateTime}</td>
+							                      </tr>
+							                 </c:forEach>
 				                    	</tbody>
 				                  </table>
 				                </div>
 				              </div>
+			              	  <!-- Pagination -->
+					  		  <jsp:include page="/WEB-INF/views/include/pagination.jsp" />
 				            </div>
 				          </div>
 				        </div>

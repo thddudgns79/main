@@ -15,9 +15,7 @@ public class Pager {
 		private int endRowNo;		//페이지의 마지막 행 번호
 		private int endRowIndex;	//페이지의 마지막 행 인덱스
 		
-		public Pager() {	}
-		
-	
+		public Pager() {}
 		
 		public Pager(int rowsPerPage, int pagesPerGroup, int totalRows, int pageNo) {
 			//rowsPerPage 한 페이지에 나올 행수
@@ -49,32 +47,9 @@ public class Pager {
 			endRowIndex = endRowNo - 1; 
 		}
 		
-		public void calPage() {
-			totalPageNo = totalRows / rowsPerPage;
-			if(totalRows % rowsPerPage != 0) totalPageNo++;
-			
-			totalGroupNo = totalPageNo / pagesPerGroup;
-			if(totalPageNo % pagesPerGroup != 0) totalGroupNo++;
-			
-			groupNo = (pageNo - 1) / pagesPerGroup + 1;
-			
-			startPageNo = (groupNo-1) * pagesPerGroup + 1;
-			
-			endPageNo = startPageNo + pagesPerGroup - 1;
-			if(groupNo == totalGroupNo) endPageNo = totalPageNo;
-			
-			startRowNo = (pageNo - 1) * rowsPerPage + 1;
-			startRowIndex = startRowNo - 1;
-			endRowNo = pageNo * rowsPerPage;
-			endRowIndex = endRowNo - 1; 
-		}
-
-
-
 		public int getTotalRows() {
 			return totalRows;
 		}
-
 
 
 		public void setTotalRows(int totalRows) {
@@ -82,11 +57,9 @@ public class Pager {
 		}
 
 
-
 		public int getTotalPageNo() {
 			return totalPageNo;
 		}
-
 
 
 		public void setTotalPageNo(int totalPageNo) {
@@ -94,11 +67,9 @@ public class Pager {
 		}
 
 
-
 		public int getTotalGroupNo() {
 			return totalGroupNo;
 		}
-
 
 
 		public void setTotalGroupNo(int totalGroupNo) {
@@ -106,11 +77,9 @@ public class Pager {
 		}
 
 
-
 		public int getStartPageNo() {
 			return startPageNo;
 		}
-
 
 
 		public void setStartPageNo(int startPageNo) {
@@ -118,11 +87,9 @@ public class Pager {
 		}
 
 
-
 		public int getEndPageNo() {
 			return endPageNo;
 		}
-
 
 
 		public void setEndPageNo(int endPageNo) {
@@ -130,11 +97,9 @@ public class Pager {
 		}
 
 
-
 		public int getPageNo() {
 			return pageNo;
 		}
-
 
 
 		public void setPageNo(int pageNo) {
@@ -142,11 +107,9 @@ public class Pager {
 		}
 
 
-
 		public int getPagesPerGroup() {
 			return pagesPerGroup;
 		}
-
 
 
 		public void setPagesPerGroup(int pagesPerGroup) {
@@ -154,11 +117,9 @@ public class Pager {
 		}
 
 
-
 		public int getGroupNo() {
 			return groupNo;
 		}
-
 
 
 		public void setGroupNo(int groupNo) {
@@ -166,11 +127,9 @@ public class Pager {
 		}
 
 
-
 		public int getRowsPerPage() {
 			return rowsPerPage;
 		}
-
 
 
 		public void setRowsPerPage(int rowsPerPage) {
@@ -178,11 +137,9 @@ public class Pager {
 		}
 
 
-
 		public int getStartRowNo() {
 			return startRowNo;
 		}
-
 
 
 		public void setStartRowNo(int startRowNo) {
@@ -190,11 +147,9 @@ public class Pager {
 		}
 
 
-
 		public int getStartRowIndex() {
 			return startRowIndex;
 		}
-
 
 
 		public void setStartRowIndex(int startRowIndex) {
@@ -202,11 +157,9 @@ public class Pager {
 		}
 
 
-
 		public int getEndRowNo() {
 			return endRowNo;
 		}
-
 
 
 		public void setEndRowNo(int endRowNo) {
@@ -214,16 +167,8 @@ public class Pager {
 		}
 
 
-
 		public int getEndRowIndex() {
 			return endRowIndex;
 		}
-
-
-
-		public void setEndRowIndex(int endRowIndex) {
-			this.endRowIndex = endRowIndex;
-		}
-		
 		
 }
