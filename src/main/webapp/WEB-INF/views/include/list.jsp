@@ -68,7 +68,7 @@
 				<li>
 					<a href='<c:url value="/class/sectionlist"/>'>
 						<i class="now-ui-icons design_bullet-list-67"></i>
-						<p>수업 자료</p>
+						<p>${classId}반 수업 자료</p>
 					</a>
 				</li>
 				<li class="my-3 ml-4" style=" width:70%; border-bottom: 1px solid rgba(255,255,255,0.5);"></li>
