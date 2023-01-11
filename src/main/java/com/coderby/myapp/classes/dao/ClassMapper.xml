@@ -20,6 +20,22 @@
 				and class_name like #{className}
 			</if>
 		</where>
+		OFFSET (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS
+		FETCH NEXT #{pager.rowsPerPage} ROWS ONLY
+	</select>
+	
+	<!-- 클래스 리스트 totalRows -->
+	<select id="getClassListTotal" parameterType="map" resultType="int">
+		select count(*)
+		from class
+		<where>
+			<if test="orgName != '전체'">
+				org_name = #{orgName}
+			</if>
+			<if test="className != null">
+				and class_name like #{className}
+			</if>
+		</where>
 	</select>
 	
 	<!-- 클래스의 섹션 리스트 조회 -->

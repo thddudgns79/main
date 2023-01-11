@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.coderby.myapp.attendance.model.AttendanceVO;
 import com.coderby.myapp.attendance.model.ReportsVO;
+import com.coderby.myapp.util.Pager;
 
 public interface IReportsRepository {
 	List<ReportsVO> selectReports(ReportsVO reports);
@@ -19,11 +20,18 @@ public interface IReportsRepository {
 
 	List<ReportsVO> getReportsList(@Param("classId") String classId, @Param("yearParam") String yearParam,
 			@Param("monthParam") String monthParam, @Param("repType") String repType,
+			@Param("repStatus") String repStatus, @Param("pager") Pager pager);
+	
+	int getReportsListCount(@Param("classId") String classId, @Param("yearParam") String yearParam,
+			@Param("monthParam") String monthParam, @Param("repType") String repType,
 			@Param("repStatus") String repStatus);
 
 	List<ReportsVO> getStudentReportsList(@Param("yearParam") String yearParam, @Param("monthParam") String monthParam,
-			@Param("repType") String repType, @Param("repStatus") String repStatus, @Param("stdId") String stdId);
+			@Param("repType") String repType, @Param("repStatus") String repStatus, @Param("stdId") String stdId, @Param("pager") Pager pager);
 
+	int getStudentReportsListCount(@Param("yearParam") String yearParam, @Param("monthParam") String monthParam,
+			@Param("repType") String repType, @Param("repStatus") String repStatus, @Param("stdId") String stdId);
+	
 	ReportsVO getReportsDetail(int repId);
 
 	void updateRepStatus(@Param("repId") int repId, @Param("updateRepStatus") String updateRepStatus);

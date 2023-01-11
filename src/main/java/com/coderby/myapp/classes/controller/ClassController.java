@@ -22,6 +22,7 @@ import com.coderby.myapp.classes.model.SectionVO;
 import com.coderby.myapp.classes.service.IClassService;
 import com.coderby.myapp.file.model.FileVO;
 import com.coderby.myapp.file.service.IFileService;
+import com.coderby.myapp.util.Pager;
 
 @Controller
 public class ClassController {
@@ -30,12 +31,12 @@ public class ClassController {
 
 	@Autowired
 	IFileService fileService;
-
+	
 	// 클래스 리스트 조회
-	@RequestMapping("/class/classlist")
-	public String getClassList(String orgName, String className, Model model, HttpSession session) {
-		model.addAttribute("orgName",orgName);
-		model.addAttribute("className",className);
+	@RequestMapping("/class/classlist/{pageNo}")
+	public String getClassList(String orgName, String className, @PathVariable("pageNo") int pageNo, Model model, HttpSession session) {
+		model.addAttribute("orgName", orgName);
+		model.addAttribute("className", className);
 		// 검색 키워드 있을 경우
 		if (!className.equals("")) {
 			className = "%" + className + "%";
@@ -44,18 +45,20 @@ public class ClassController {
 		else {
 			className = null;
 		}
-		List<ClassVO> classList = classService.getClassList(orgName, className);
+		int totalRows = classService.getClassListTotal(orgName, className);
+		Pager pager = new Pager(5, 5, totalRows, pageNo);
+		List<ClassVO> classList = classService.getClassList(orgName, className, pager);
+		model.addAttribute("pager", pager);
 		model.addAttribute("classList", classList);
 		return "classes/classList";
 	}
-	
+
 	// 클래스 리스트 조회(첫 요청)
-		@RequestMapping("/class/classlistdefault")
-		public String getClassList(Model model, HttpSession session) {
-			return getClassList("전체", "", model, session);
-		}
-	
-		
+	@RequestMapping("/class/classlistdefault")
+	public String getClassList(Model model, HttpSession session) {
+		return getClassList("전체", "", 1, model, session);
+	}
+
 	// 클래스의 섹션 리스트 조회
 	@RequestMapping("/class/sectionlist")
 	public String getSectionList(Model model, HttpSession session) {

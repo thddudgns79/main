@@ -10,6 +10,7 @@ import com.coderby.myapp.classes.dao.IClassRepository;
 import com.coderby.myapp.classes.model.ClassVO;
 import com.coderby.myapp.classes.model.SectionVO;
 import com.coderby.myapp.file.dao.IFileRepository;
+import com.coderby.myapp.util.Pager;
 
 @Service
 public class ClassService implements IClassService {
@@ -20,8 +21,13 @@ public class ClassService implements IClassService {
 	IFileRepository fileRepository;
 	
 	@Override
-	public List<ClassVO> getClassList(String orgName, String className) {
-		return classRepository.getClassList(orgName, className);
+	public List<ClassVO> getClassList(String orgName, String className, Pager pager) {
+		return classRepository.getClassList(orgName, className, pager);
+	}
+	
+	@Override
+	public int getClassListTotal(String orgName, String className) {
+		return classRepository.getClassListTotal(orgName, className);
 	}
 
 	@Override
@@ -80,5 +86,6 @@ public class ClassService implements IClassService {
 	public List<Integer> getClassIdList() {
 		return classRepository.getClassIdList();
 	}
+
 
 }
