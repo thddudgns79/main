@@ -4,9 +4,10 @@ import java.util.List;
 
 import com.coderby.myapp.board.model.BoardVO;
 import com.coderby.myapp.board.model.ReplyVO;
+import com.coderby.myapp.util.Pager;
 
 public interface IBoardService {
-	List<BoardVO> selectBoardListByClass(int classId, int page);
+	List<BoardVO> selectBoardListByClass(int classId, Pager pager);
 	int selectTotalBoardCountByClass(int classId);
 	BoardVO selectBoard(int boardId);
 	List<ReplyVO> selectReReplyList(int replyId);

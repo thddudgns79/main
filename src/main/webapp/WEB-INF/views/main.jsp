@@ -15,7 +15,7 @@
 		
 			
 			<div class="panel-header panel-header-lg">
-				<video  autoplay loop controls muted style="whidth:100%">
+				<video  autoplay loop controls muted>
 					<source src="<c:url value='/video/school.mp4'/>" typd="video/mp4">
 				</video>
 			</div>
