@@ -4,10 +4,13 @@ import java.util.List;
 
 import com.coderby.myapp.classes.model.ClassVO;
 import com.coderby.myapp.classes.model.SectionVO;
+import com.coderby.myapp.util.Pager;
 
 public interface IClassService {
-	List<ClassVO> getClassList(String orgName, String className);
+	List<ClassVO> getClassList(String orgName, String className, Pager pager);
 
+	int getClassListTotal(String orgName, String className);
+	
 	List<SectionVO> getSectionList(int classId);
 
 	boolean insertSection(int classId, String sectionTitle, String sectionDescription);
@@ -19,4 +22,5 @@ public interface IClassService {
 	void deleteSection(int sectionId);
 
 	List<Integer> getClassIdList();
+
 }

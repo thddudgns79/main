@@ -26,7 +26,7 @@
 			<div class="row justify-content-center mt-4">
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
-						<form action="<c:url value='/attend'/>" method="post" class="signin-form">
+						<form action="<c:url value='/student/login'/>" method="post" class="signin-form">
 							<div class="form-group">
 								<input type="text" class="form-control" name="stdId" placeholder="Username" required>
 							</div>

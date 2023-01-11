@@ -86,6 +86,27 @@
 				and rep_status= #{repStatus}
 			</if>
 		</where>
+		OFFSET (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS
+		FETCH NEXT #{pager.rowsPerPage} ROWS ONLY
+	</select>
+	
+	<select id="getReportsListCount" parameterType="map" resultType="int">
+		select 
+			count(*)
+		from reports
+		<where>
+			<if test="classId != '전체'">
+				student_id in (select student_id from student where class_id = #{classId})
+			</if>
+				and extract(year from rep_date) = #{yearParam}
+				and extract(month from rep_date) = #{monthParam}
+			<if test="repType != '전체'">
+				and rep_type= #{repType}
+			</if>
+			<if test="repStatus != '전체'">
+				and rep_status= #{repStatus}
+			</if>
+		</where>
 	</select>
 	
 	<select id="getStudentReportsList" parameterType="map" resultType="com.coderby.myapp.attendance.model.ReportsVO">
@@ -98,6 +119,24 @@
 			rep_status as "repStatus",
 			rep_type as "repType",
 			student_id as "studentId"
+			from reports
+		<where>
+			student_id = #{stdId}
+			and extract(year from rep_date) = #{yearParam}
+			and extract(month from rep_date) = #{monthParam}
+			<if test="repType != '전체'">
+				and rep_type= #{repType}
+			</if>
+			<if test="repStatus != '전체'">
+				and rep_status= #{repStatus}
+			</if>
+		</where>
+		OFFSET (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS
+		FETCH NEXT #{pager.rowsPerPage} ROWS ONLY
+	</select>
+	
+	<select id="getStudentReportsListCount" parameterType="map" resultType="int">
+		select count(*)
 			from reports
 		<where>
 			student_id = #{stdId}

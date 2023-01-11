@@ -1,95 +1,170 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setBundle basename="i18n/board"/>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:setBundle basename="i18n/board" />
+
 <!DOCTYPE html>
 <html>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-	<jsp:include page="/WEB-INF/views/include/staticFiles.jsp"/>
-	<body>
-	<jsp:include page="/WEB-INF/views/include/header.jsp"/>
-			<div class="accordion" id="accordionPanelsStayOpenExample">
-			<div class="row">
-				<c:forEach var="section" items="${sectionList}" varStatus="status">
-					<div class="accordion-item mt-5 container-fluid" style="width:50%; margin-left:350px">
-						<h2 class="accordion-header row" id="panelsStayOpen-headingOne">
-							<div class="col-10 p-2">
-								<form class="sectionTitleUpdateForm" action='<c:url value="/class/sectionupdatetitle"/>' 
-								method="post" class="sectionTitleUpdateForm" style="font-size:20px">
-									<span class="mr-3">섹션 ${status.index}.</span>
-									<input type="text" name="sectionTitle" style="border:none; background: transparent;" 
-										value="${section.sectionTitle}" <c:if test="${isManager == 'N'.charAt(0)}"> disabled="disabled"</c:if>/>
-									<input type="hidden" name="sectionId" value="${section.sectionId}"/>
-									<c:if test="${isManager == 'Y'.charAt(0)}">
-										<input type="submit" class="btn btn-sm btn-info" value="수정"/>
-										<a href='<c:url value="/class/sectiondelete/${section.sectionId}"/>' 
-											class="btn btn-sm btn-info">
-											삭제
-										</a>
-									</c:if>
-								</form>
-							</div> 
-							<button class="accordion-button col-2" type="button" data-bs-toggle="collapse" 
-								data-bs-target="#panelsStayOpen-collapse${status.index}"
-								aria-expanded="true" aria-controls="panelsStayOpen-collapseOne"
-								style="width:100px"> 
-							</button>
-						</h2>
-						<div id="panelsStayOpen-collapse${status.index}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-							<div class="accordion-body">
-								<form action='<c:url value="/class/sectionupdatedescription"/>' method="post">
-									<input type="hidden" name="sectionId" value="${section.sectionId}"/>
-									<textarea rows="4" cols="50" name="sectionDescription" value="${section.sectionDescription}" 
-										<c:if test="${isManager == 'N'.charAt(0)}"> disabled="disabled"</c:if>>
-										${section.sectionDescription}
-									</textarea>
-									<c:if test="${isManager == 'Y'.charAt(0)}">
-										<input type="submit" class="btn btn-sm btn-info" value="수정"/>
-									</c:if>
-								</form>
-								<c:forEach var="file" items="${section.fileList}">
-									<div class = "fileList">
-										<a href='<c:url value="/class/filedownload/${file.fileId}"/>'>
-											${file.fileName}
-										</a>
-										<c:if test="${isManager == 'Y'.charAt(0)}">
-											<a href='<c:url value="/class/filedelete/${file.fileId}"/>' class="ml-3 btn btn-sm btn-info">
-												삭제
-											</a>
-										</c:if>
+<jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
+<jsp:include page="/WEB-INF/views/include/header.jsp" />
+<body>
+	<div class="wrapper ">
+		<jsp:include page="/WEB-INF/views/include/list.jsp" />
+		    <div class="main-panel" id="main-panel">
+		      	<!-- Navbar --> 
+		      	<nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+				        <div class="container-fluid">
+				          <div class="navbar-wrapper">
+				            <div class="navbar-toggle">
+				              <button type="button" class="navbar-toggler">
+				                <span class="navbar-toggler-bar bar1"></span>
+				                <span class="navbar-toggler-bar bar2"></span>
+				                <span class="navbar-toggler-bar bar3"></span>
+				              </button>
+				            </div> 
+				          </div>
+				          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+				            <span class="navbar-toggler-bar navbar-kebab"></span>
+				            <span class="navbar-toggler-bar navbar-kebab"></span>
+				            <span class="navbar-toggler-bar navbar-kebab"></span>
+				          </button>
+				          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+				            <form>
+					              <div class="input-group no-border">
+					                <input type="text" value="" class="form-control" placeholder="Search..." style="left: -1.5px;">
+					                <div class="input-group-append">
+					                  <div class="input-group-text">
+					                    <i class="now-ui-icons ui-1_zoom-bold"></i>
+					                  </div>
+					                </div>
+					              </div>
+				            </form>
+				            <ul class="navbar-nav">
+				              <li class="nav-item">
+				                <a class="nav-link" href="#pablo">
+				                  <i class="now-ui-icons media-2_sound-wave"></i>
+				                  <p>
+				                    <span class="d-lg-none d-md-block">Stats</span>
+				                  </p>
+				                </a>
+				              </li>
+				              <li class="nav-item dropdown">
+				                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				                  <i class="now-ui-icons location_world"></i>
+				                  <p>
+				                    <span class="d-lg-none d-md-block">Some Actions</span>
+				                  </p>
+				                </a>
+				                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+				                  <a class="dropdown-item" href="#">Action</a>
+				                  <a class="dropdown-item" href="#">Another action</a>
+				                  <a class="dropdown-item" href="#">Something else here</a>
+				                </div>
+				              </li>
+				              <li class="nav-item">
+				                <a class="nav-link" href="#pablo">
+				                  <i class="now-ui-icons users_single-02"></i>
+				                  <p>
+				                    <span class="d-lg-none d-md-block">Account</span>
+				                  </p>
+				                </a>
+				              </li>
+				            </ul>
+				          </div>
+				        </div>
+		      	</nav>
+		      	<!-- End Navbar -->
+		      	<div class="panel-header panel-header-sm">
+		      	</div>
+		      	<div class="content">
+				        <div class="row">
+				          <div class="col-md-12">
+				            <div class="card">
+				              <div class="card-header d-flex flex-row justify-content-between">
+				                <h4 class="card-title">${classId}반 강의 자료실</h4>
+				              </div>
+				              <div class="card-body">
+				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
+				              	<div class="accordion" id="accordionPanelsStayOpenExample">
+									<div class="row">
+										<c:forEach var="section" items="${sectionList}" varStatus="status">
+											<div class="accordion-item mt-5 container-fluid" style="width:50%; margin-left:350px">
+												<h2 class="accordion-header row" id="panelsStayOpen-headingOne">
+													<div class="col-10 p-2">
+														<form class="sectionTitleUpdateForm" action='<c:url value="/class/sectionupdatetitle"/>' 
+														method="post" class="sectionTitleUpdateForm" style="font-size:20px">
+															<span class="mr-3">섹션 ${status.index}.</span>
+															<input type="text" name="sectionTitle" style="border:none; background: transparent;" 
+																value="${section.sectionTitle}" <c:if test="${isManager == 'N'.charAt(0)}"> disabled="disabled"</c:if>/>
+															<input type="hidden" name="sectionId" value="${section.sectionId}"/>
+															<c:if test="${isManager == 'Y'.charAt(0)}">
+																<input type="submit" class="btn btn-sm btn-info" value="수정"/>
+																<a href='<c:url value="/class/sectiondelete/${section.sectionId}"/>' 
+																	class="btn btn-sm btn-info">
+																	삭제
+																</a>
+															</c:if>
+														</form>
+													</div> 
+													<button class="accordion-button col-2" type="button" data-bs-toggle="collapse" 
+														data-bs-target="#panelsStayOpen-collapse${status.index}"
+														aria-expanded="true" aria-controls="panelsStayOpen-collapseOne"
+														style="width:100px"> 
+													</button>
+												</h2>
+												<div id="panelsStayOpen-collapse${status.index}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+													<div class="accordion-body">
+														<form action='<c:url value="/class/sectionupdatedescription"/>' method="post">
+															<input type="hidden" name="sectionId" value="${section.sectionId}"/>
+															<textarea rows="4" cols="50" name="sectionDescription" value="${section.sectionDescription}" 
+																<c:if test="${isManager == 'N'.charAt(0)}"> disabled="disabled"</c:if>>
+																${section.sectionDescription}
+															</textarea>
+															<c:if test="${isManager == 'Y'.charAt(0)}">
+																<input type="submit" class="btn btn-sm btn-info" value="수정"/>
+															</c:if>
+														</form>
+														<c:forEach var="file" items="${section.fileList}">
+															<div class = "fileList">
+																<a href='<c:url value="/class/filedownload/${file.fileId}"/>'>
+																	${file.fileName}
+																</a>
+																<c:if test="${isManager == 'Y'.charAt(0)}">
+																	<a href='<c:url value="/class/filedelete/${file.fileId}"/>' class="ml-3 btn btn-sm btn-info">
+																		삭제
+																	</a>
+																</c:if>
+															</div>
+														</c:forEach>
+														<c:if test="${isManager == 'Y'.charAt(0)}">
+															<form action='<c:url value="/class/fileupload"/>' method="post" enctype="multipart/form-data">
+																<input type="hidden" name="sectionId" value="${section.sectionId}"/>
+																<input type="file" name="file"/>
+																<input type="submit" value="전송" class="btn btn-sm btn-info"/>
+															</form>
+														</c:if>
+													</div>
+												</div>
+											</div>
+										</c:forEach>
 									</div>
-								</c:forEach>
+								</div>
 								<c:if test="${isManager == 'Y'.charAt(0)}">
-									<form action='<c:url value="/class/fileupload"/>' method="post" enctype="multipart/form-data">
-										<input type="hidden" name="sectionId" value="${section.sectionId}"/>
-										<input type="file" name="file"/>
-										<input type="submit" value="전송" class="btn btn-sm btn-info"/>
+									<form action='<c:url value="/class/sectioninsert"/>' method="post">
+										<input type="text" name="sectionTitle"/>
+										<input type="text" name="sectionDescription" placeholder="섹션 설명글 작성"/>
+										<input type="submit" value="섹션 추가"/>
 									</form>
 								</c:if>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-		</div>
-		<c:if test="${isManager == 'Y'.charAt(0)}">
-			<form action='<c:url value="/class/sectioninsert"/>' method="post">
-				<input type="text" name="sectionTitle"/>
-				<input type="text" name="sectionDescription" placeholder="섹션 설명글 작성"/>
-				<input type="submit" value="섹션 추가"/>
-			</form>
-		</c:if>
-
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"/>
-	</body>
+				              </div>
+				            </div>
+				          </div>
+				        </div>
+			      </div>
+			      <jsp:include page="/WEB-INF/views/include/footer.jsp" />
+		    </div>
+	</div>
+</body>
 </html>
-
-
-
-
 

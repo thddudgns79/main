@@ -18,7 +18,7 @@ public class StudentController {
 	@Autowired
 	IStudentService studentService;
 	
-	@RequestMapping(value="/attend", method=RequestMethod.POST)
+	@RequestMapping(value="/student/login", method=RequestMethod.POST)
 	public String login(String stdId, String password, HttpSession session, Model model) {
 		StudentVO student = studentService.selectStudent(stdId);
 		if(student !=null) {
@@ -54,6 +54,7 @@ public class StudentController {
 		return "home";
 	}
    
+	
 	@RequestMapping(value="/student/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session, HttpServletRequest request) {
 		session.invalidate();//로그아웃

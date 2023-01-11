@@ -69,6 +69,7 @@ public class AttendanceService implements IAttendanceService {
 		}
 		List<AttendanceVO> getAttends = attendanceRepository.attendAll(stdId);
 		SimpleDateFormat format = new SimpleDateFormat("H");
+		SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm:ss");
 		
 		for(AttendanceVO getAttend : getAttends) {
 			if (getAttend.getInTime() != null && getAttend.getOutTime() == null) {
@@ -76,43 +77,132 @@ public class AttendanceService implements IAttendanceService {
 				attendanceRepository.updateStatus(stdId, getAttend.getAttendanceDate(), "결석");
 				// 만약 관리자가 그 날 후에 승인을 해준다면 결석이 아니라 바뀌어야한다.(관리자 단에서 승인으로 바꿔주는 걸로 할까?)
 				// in과 out이 존재할떄
-			} else {
+			} else if(getAttend.getInTime() != null && getAttend.getOutTime() != null){
 				List<ReportsVO> getReports = reportsRepository.selectStdReports(stdId, getAttend.getAttendanceDate());
 				long cancleTime = 0;
+				boolean isExist = false;
 				for (ReportsVO repVO : getReports) {
 					if (repVO.getRepStatus().equals("반려") && !(repVO.getRepType().equals("병가")
 							|| repVO.getRepType().equals("경조사") || repVO.getRepType().equals("예비군"))) {
 						cancleTime += repVO.getOutTime().getTime() - repVO.getInTime().getTime();
+						isExist = true;
 						// 후에 관리자가 반려를 승인으로 바꿔준다면 status를 변경해주어야한다. ㅜㅜ
 						// 휴가 목록을 뺀 이유는 값을 빼기 했을데 -값이 나올수도 있기 때문이다.
 					}
 				}
+				String strIn = formatTime.format(getAttend.getInTime());
+				String strOut = formatTime.format(getAttend.getOutTime());
+				System.out.println("strIn : " + strIn);
+				System.out.println("strOut : " + strOut);
+				
+				String[] inSplit = strIn.split(":");
+				String[] outSplit = strOut.split(":");
 				long inTime = 0;
 				long outTime = 0;
-				if( getAttend.getInTime().getTime() < 32400000) {
+				for(int i = 0; i < 3; i++) {
+					// 시 
+					if(i == 0) {
+						// ex) 01 ~ 09시
+						if(inSplit[i].charAt(0) == '0') {
+							inTime = inTime + (3600 * Integer.parseInt(inSplit[i].charAt(1)+""));
+						}
+						else {
+							inTime = inTime + (3600 * Integer.parseInt(inSplit[i]));
+						}
+						
+						// ex) 01시 ~ 09시
+						if(outSplit[i].charAt(0) == '0') {
+							outTime = outTime + (3600 * Integer.parseInt(outSplit[i].charAt(1)+""));
+						}
+						else {
+							outTime = outTime + (3600 * Integer.parseInt(outSplit[i]));
+						}
+					}
+					// 분
+					else if(i == 1) {
+						// ex) 01 ~ 09분
+						if(inSplit[i].charAt(0) == '0') {
+							inTime = inTime + (60 * Integer.parseInt(inSplit[i].charAt(1)+""));
+						}
+						else {
+							inTime = inTime + (60 * Integer.parseInt(inSplit[i]));
+						}
+						
+						// ex) 01 ~ 09분
+						if(outSplit[i].charAt(0) == '0') {
+							outTime = outTime + (60 * Integer.parseInt(outSplit[i].charAt(1)+""));
+						}
+						else {
+							outTime = outTime + (60 * Integer.parseInt(outSplit[i]));
+						}
+					}
+					// 초
+					else {
+						// ex) 01 ~ 09초
+						if(inSplit[i].charAt(0) == '0') {
+							inTime = inTime + Integer.parseInt(inSplit[i].charAt(1)+"");
+						}
+						else {
+							inTime = inTime + Integer.parseInt(inSplit[i]);
+						}
+						
+						// ex) 01 ~ 09초
+						if(outSplit[i].charAt(0) == '0') {
+							outTime = outTime + Integer.parseInt(outSplit[i].charAt(1)+"");
+						}
+						else {
+							outTime = outTime + Integer.parseInt(outSplit[i]);
+						}
+					}
+				}
+				
+				// 밀리초 변환
+				inTime = inTime * 1000;
+				outTime = outTime * 1000;
+				System.out.println("inTime : " + inTime);
+				System.out.println("outTime : " + outTime);
+
+				if(inTime < 32400000) {
 					inTime = 32399999; //8시59분59초
-				}else {
-					inTime = getAttend.getInTime().getTime();
 				}
-				if(getAttend.getOutTime().getTime() >= 64800000) {
+				
+				if(outTime >= 64800000) {
 					outTime = 64800000; //18시
-				}else {
-					outTime=getAttend.getOutTime().getTime();
 				}
+				
+				System.out.println("updatedInTime : " + inTime);
+				System.out.println("updatedOutTime : " + outTime);
 				long totalAttend = outTime - inTime - cancleTime;
-				String inTimeStr =  format.format(inTime);
-				String outTimeStr = format.format(outTime);
-				//
+				String inTimeStr =  format.format(getAttend.getInTime());
+				String outTimeStr = format.format(getAttend.getOutTime());
+				System.out.println("attendanceDate : " + getAttend.getAttendanceDate());
+				System.out.println("inTimeStr : " + inTimeStr);
+				System.out.println("outTimeStr : " + outTimeStr);
+				System.out.println("totalAttend : " + totalAttend);
+				System.out.println();
+				// 9시간 미만 수업 참여
 				if (totalAttend < 32400000) {
 					// update) 해당 attendance행의 status값을 '결석'으로 변경
-					if(Integer.parseInt(outTimeStr) < 18 ) {
-						attendanceRepository.updateStatus(stdId, getAttend.getAttendanceDate(), "결석");
-					}else if(inTime < 34200000) {
-						attendanceRepository.updateStatus(stdId,getAttend.getAttendanceDate(),  "지각");
-					}else {
-						attendanceRepository.updateStatus(stdId,getAttend.getAttendanceDate(), "결석");
+					// 8시간 30분 이상 수업 참여
+					if(totalAttend >= 30600000) {
+						if(Integer.parseInt(outTimeStr) < 18) {
+							attendanceRepository.updateStatus(stdId, getAttend.getAttendanceDate(), "결석");
+						}
+						// 반려된 외출,지하철 연착,조퇴가 없을 경우만 지각 처리  
+						else if(Integer.parseInt(inTimeStr) >= 9 && !isExist) {
+							attendanceRepository.updateStatus(stdId,getAttend.getAttendanceDate(),  "지각");
+						}else {
+							attendanceRepository.updateStatus(stdId, getAttend.getAttendanceDate(), "결석");
+						}
 					}
-				} else if (totalAttend >= 32400000 ) {
+					// 8시간 30분 미만 수업 참여
+					else {
+						attendanceRepository.updateStatus(stdId, getAttend.getAttendanceDate(), "결석");
+					}
+					
+				}
+				// 9시간 이상 수업 참여
+				else if (totalAttend >= 32400000 ) {
 					attendanceRepository.updateStatus(stdId, getAttend.getAttendanceDate(), "출석");
 				}
 			}
