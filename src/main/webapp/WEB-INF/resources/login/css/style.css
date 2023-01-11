@@ -39,6 +39,14 @@
 *::after {
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
+    
+.mys-5{
+	hight:10px;
+	padding: 0.5rem 0.7rem;
+	text-align:right; 
+	width:50%; 
+	border-bottom: 1px solid rgba(255,255,255,0.5);
+}
 
 html {
   font-family: sans-serif;

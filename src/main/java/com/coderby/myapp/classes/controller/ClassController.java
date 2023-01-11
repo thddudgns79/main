@@ -49,6 +49,13 @@ public class ClassController {
 		return "classes/classList";
 	}
 	
+	// 클래스 리스트 조회(첫 요청)
+		@RequestMapping("/class/classlistdefault")
+		public String getClassList(Model model, HttpSession session) {
+			return getClassList("전체", "", model, session);
+		}
+	
+		
 	// 클래스의 섹션 리스트 조회
 	@RequestMapping("/class/sectionlist")
 	public String getSectionList(Model model, HttpSession session) {
