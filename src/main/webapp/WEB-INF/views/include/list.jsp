@@ -4,9 +4,8 @@
 
 <div class="sidebar" data-color="orange">
 	<div class="logo">
-		<a href='<c:url value="/"/>'> <img
-			src="<c:url value="/img/songyoung.png"/>"
-			style="width: 50%; margin: 0em 3.5em;">
+		<a href='<c:url value="/attend/today"/>'>
+			<img src="<c:url value="/img/songyoung.png"/>" style="width: 50%; margin: 0em 3.5em;">
 		</a>
 	</div>
 	<div class="sidebar-wrapper" id="sidebar-wrapper">
@@ -21,7 +20,7 @@
 				</li>
 			
 				<li>
-					<a href='<c:url value=""/>'> 
+					<a href='<c:url value="/reports/write"/>'> 
 						<i class="now-ui-icons design_app"></i>
 						<p>휴가 신청</p>
 					</a>
