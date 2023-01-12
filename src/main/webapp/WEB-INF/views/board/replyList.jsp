@@ -5,6 +5,7 @@
 <!-- 자바스크립트 -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="<c:url value='/js/board.js'/>"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
 <div>
 	<c:forEach var="reReply" items="${reReplyList}">

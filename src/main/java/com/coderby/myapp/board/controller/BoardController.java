@@ -53,8 +53,7 @@ public class BoardController {
 		
 		int pagerNo = Integer.parseInt(strPageNo);
 		
-		int classId = 3;
-//		int classId = (Integer) session.getAttribute("classId");
+		int classId = (Integer) session.getAttribute("classId");
 		int totalBoardCount = boardService.selectTotalBoardCountByClass(classId);
 		
 		//Pager 객체
@@ -85,8 +84,10 @@ public class BoardController {
 	
 	//[게시글 추가 - DB]
 	@RequestMapping(value="board/insert", method=RequestMethod.POST)
-	public String writeBoard(BoardVO board, BindingResult result, RedirectAttributes redirectAttr) {
+	public String writeBoard(BoardVO board, HttpSession session,BindingResult result, RedirectAttributes redirectAttr) {
 		try {
+			board.setStudentId(session.getAttribute("stdId").toString());
+			board.setClassId((Integer) session.getAttribute("classId"));
 			boardService.insertBoard(board);
 			
 			List<MultipartFile> mfileList = board.getbFile();
@@ -226,11 +227,5 @@ public class BoardController {
 		}
 		return 1;
 	}
-	
-	//[답글 삭제]
-	
-	//[답글 수정]
-	
-	
 	
 }

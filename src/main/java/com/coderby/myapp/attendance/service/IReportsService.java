@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.coderby.myapp.attendance.model.ReportsVO;
+import com.coderby.myapp.util.Pager;
 
 public interface IReportsService {
 	String insertReports(ReportsVO reports, Date now);

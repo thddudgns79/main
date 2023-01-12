@@ -1,8 +1,8 @@
 //================================================================================================
 //게시판 상세보기창 
-$().ready(function(){
-	$("#accordionbtn").trigger("click");
-});
+//$().ready(function(){
+//	$("#accordionbtn").trigger("click");
+//});
 
 function replyInputBox(i) {
 	 $('#replyForm'+ i).css("display", "block");
