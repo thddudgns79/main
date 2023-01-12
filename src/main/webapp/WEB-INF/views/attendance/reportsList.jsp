@@ -159,9 +159,9 @@
 			                    	</thead>
 			                    	<tbody>
 										<c:forEach var="report" items="${reportsList}">
-							    			<tr>
+							    			<tr onclick='location.href="<c:url value='/attend/reportsdetail/${report.repId}'/>" '>
 							    				<td class="text-right">${report.repId}</td>
-							    				<td class="text-right"><a href='<c:url value="/attend/reportsdetail/${report.repId}"/>'>${report.studentId}</a></td>
+							    				<td class="text-right">${report.studentId}</td>
 							    				<td class="text-right"><fmt:formatDate value="${report.repDate}" pattern="yyyy.MM.dd"/></td>
 							    				<td class="text-right">${report.repType}</td>
 							    				<td class="text-right">${report.repStatus}</td>
