@@ -79,7 +79,7 @@
 		      	<!-- End Navbar -->
 		      	<div class="panel-header panel-header-sm">
 		      	</div>
-		      	<div class="content">
+		      	<div class="content" style="padding-bottom: 360px;">
 				        <div class="row">
 				          <div class="col-md-12">
 				            <div class="card">
