@@ -7,7 +7,7 @@ import java.util.List;
 import com.coderby.myapp.attendance.model.ReportsVO;
 
 public interface IReportsService {
-	boolean insertReports(ReportsVO reports, Date now);
+	String insertReports(ReportsVO reports, Date now);
 	
 	void deleteReprots(int repId, Date now);
 

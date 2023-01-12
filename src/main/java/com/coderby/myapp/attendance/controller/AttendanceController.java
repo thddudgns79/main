@@ -93,13 +93,13 @@ public class AttendanceController {
 	// 휴가 신청
 	@RequestMapping(value = "/reports/write", method = RequestMethod.POST)
 	public String writeReport(ReportsVO reports, RedirectAttributes redirectAttr, HttpSession session, Model model) {
+//		System.out.println("reports:"+reports.toString());
 		Date now = new Date(System.currentTimeMillis());
-		// 내가 원하는 format으로 바꾸기
-		// SimpleDateFormat transFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
-		boolean isFinal = reportsService.insertReports(reports, now);
+		reports.setStudentId((String) session.getAttribute("stdId"));
+		String message = reportsService.insertReports(reports, now);
 		try {
 			// DB에 게시판에 작성한 내용 등록
-			if (isFinal) {
+			if (message.equals("성공")) {
 				List<MultipartFile> mfileList = reports.getMultiFile();
 
 				if (mfileList != null && !mfileList.isEmpty()) {
@@ -113,10 +113,14 @@ public class AttendanceController {
 						fileService.uploadFile(reports.getRepId(), fileVO);
 					}
 				}
+			}else {
+				model.addAttribute("message", message);
+				return "attendance/reportsWrite";
 			}
 		} catch (Exception e) {
 			redirectAttr.addFlashAttribute("message", e.getMessage());
 		}
+		
 		return "redirect:/attend/studentreportslist";
 	}
 

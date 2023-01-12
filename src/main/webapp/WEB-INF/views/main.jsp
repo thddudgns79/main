@@ -25,42 +25,52 @@
 					<source src="<c:url value='/video/school.mp4'/>" type="video/mp4">
 				</video>
 			</div>
-			<div class="content">
+			<div class="content" >
 				<div class="row">
-					<div class="card mx-auto" style="width: 70%;">
-						<div class="card-header">
-							<p class="bi bi-calendar-check m-2">
-								&nbsp;&nbsp;&nbsp;<%=sf.format(nowTime)%>
+					<div class="card mx-auto p-3" style="width:70%;">
+						<div class="card-header d-flex justify-content-between" >
+							<p class="bi bi-calendar-check m-2" style="font-size: 30px;">
+								&nbsp;<%=sf.format(nowTime)%>
 							</p>
+							<div >
+								<c:if test="${empty attendVO.inTime}">
+									<a style="none;" href='<c:url value="/attend/in"/>'>출근</a>
+								</c:if>
+								<c:if test="${!empty attendVO.inTime && empty attendVO.outTime}">
+									<a style="none;" href='<c:url value="/attend/out"/>'>퇴근</a>
+								</c:if>
+								<c:if test="${!empty attendVO.inTime && !empty attendVO.outTime }" />
+							</div>
 						</div>
 						<div class="card-body ">
-							<div class="content">
-								<div class="row">
-									<p>
-										<i class="bi bi-alarm mb-1"></i>&nbsp;&nbsp;IN
-									</p>
-									<p class="bi bi-alarm mt-1">
-										<fmt:formatDate pattern="hh:mm:ss" value="${attendVO.inTime}" />
-									</p>
+							<c:if test="${isManager == 'N'.charAt(0)}">
+								<div class="content">
+									<div class="row">
+										<div class="col-1"></div>
+										<div class="col" style="font-size: 25px;">
+											<div class="m-1">
+												<i class="bi bi-alarm mb-1" ></i>&nbsp;&nbsp;IN
+											</div>
+											<div class="m-1 pl-3">
+												<fmt:formatDate pattern="hh:mm:ss" value="${attendVO.inTime}" />
+											</div>
+										</div>
+										<div class="col-1"></div>
+										<div class="col" style="font-size: 25px;">
+											<div class="m-1">
+												<i class="bi bi-alarm mb-1"></i>&nbsp;&nbsp;OUT
+											</div>
+											<div class="m-1">
+												<fmt:formatDate pattern="hh:mm:ss" value="${attendVO.outTime}" />
+											</div>
+										</div>
+										<div class="col-1"></div>
+									</div>
 								</div>
-								<div class="row">
-									<p class="bi bi-alarm mb-1">&nbsp;&nbsp;OUT</p>
-									<p class="bi bi-alarm mt-1">
-										<fmt:formatDate pattern="hh:mm:ss" value="${attendVO.outTime}" />
-									</p>
-								</div>
-								<div class="row">
-									<c:if test="${empty attendVO.inTime}">
-										<a href='<c:url value="/attend/in"/>'>출근</a>
-									</c:if>
-									<c:if
-										test="${!empty attendVO.inTime && empty attendVO.outTime}">
-										<a href='<c:url value="/attend/out"/>'>퇴근</a>
-									</c:if>
-									<c:if
-										test="${!empty attendVO.inTime && !empty attendVO.outTime }" />
-								</div>
-							</div>
+							</c:if>
+							<c:if test="${isManager == 'Y'.charAt(0)}">
+								<p>당신은 관리자 입니다.</p>
+							</c:if>
 						</div>
 					</div>
 

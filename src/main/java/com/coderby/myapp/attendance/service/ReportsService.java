@@ -30,14 +30,14 @@ public class ReportsService implements IReportsService {
 
 	// 휴가신청 만들기
 	@Override
-	public boolean insertReports(ReportsVO reports, Date now) {
+	public String insertReports(ReportsVO reports, Date now) {
 		// reports에는 내가 신청한 휴가가 있음
 		// getReports에는 해당날짜에 해당하는 값이 있다면 있음
-		boolean isFinal = true;
+		boolean isFinal = false;
 		List<ReportsVO> getReports = reportsRepository.selectReports(reports);
 		AttendanceVO getAttend = attendanceRepository.attendToday(reports.getStudentId());
-
-		if (reports.getInTime().getTime() < now.getTime()) {
+		if (reports.getInTime().getTime() > now.getTime()) {
+			
 			// 현재 신청한 type이 휴가
 			if (reports.getRepType().equals("병가") || reports.getRepType().equals("경조사")
 					|| reports.getRepType().equals("예비군")) {
@@ -111,7 +111,12 @@ public class ReportsService implements IReportsService {
 				}
 			}
 		}
-		return isFinal;
+		
+		if(isFinal) {
+			return "성공";
+		}else {
+			return "이미 신청한 휴가가 존재합니다.";
+		}
 	}
 
 	// 휴가 취소

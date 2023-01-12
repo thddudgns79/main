@@ -14,7 +14,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		try {
 			String studentId = (String) request.getSession().getAttribute("stdId");
 			if (studentId == null || studentId.equals("")) {
-				response.sendRedirect("/");
+				response.sendRedirect(request.getContextPath()+"/");
 				return false;
 			}
 		} catch (Exception e) {

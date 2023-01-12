@@ -44,7 +44,7 @@
 		insert into reports 
 			(rep_id, rep_date, reason, in_time, out_time, rep_status, rep_type, student_id)
 		values
-			(SEQ_ENTITY_ID.NEXTVAL, #{repDate}, #{reason}, #{inTime}, #{outTime}, '대기', #{repType}, #{studentId})
+			(SEQ_ENTITY_ID.NEXTVAL, to_date(to_char(#{repDate}, 'yyyy-mm-dd'),'yyyy-mm-dd'), #{reason}, #{inTime}, #{outTime}, '대기', #{repType}, #{studentId})
 	</insert>
 	
 	<select id="selectRep" parameterType="int" resultType="com.coderby.myapp.attendance.model.ReportsVO">

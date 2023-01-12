@@ -3,16 +3,25 @@ package com.coderby.myapp.attendance.model;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.coderby.myapp.file.model.FileVO;
 
 public class ReportsVO {
 	private int repId;
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date repDate;
+	
 	private String reason; //사유
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date inTime;
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date outTime;
+	
 	private String repStatus;
 	private String repType;	//휴가, 공가 등등
 	private String studentId;
@@ -84,6 +93,12 @@ public class ReportsVO {
 
 	public void setMultiFile(List<MultipartFile> multiFile) {
 		this.multiFile = multiFile;
+	}
+
+	@Override
+	public String toString() {
+		return "ReportsVO [repDate=" + repDate + ", reason=" + reason + ", inTime=" + inTime + ", outTime=" + outTime
+				+ ", repType=" + repType + "]";
 	}
 	
 	
