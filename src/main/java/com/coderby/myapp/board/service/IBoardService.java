@@ -11,6 +11,7 @@ public interface IBoardService {
 	int selectTotalBoardCountByClass(int classId);
 	BoardVO selectBoard(int boardId);
 	List<ReplyVO> selectReReplyList(int replyId);
+	ReplyVO selectReply(int replyId);
 	void insertBoard(BoardVO board);
 	void insertReply(ReplyVO reply);
 	void insertReReply(ReplyVO reply);
@@ -18,5 +19,6 @@ public interface IBoardService {
 	void deleteBoard(int boardId);
 	void updateReply(ReplyVO reply);
 	void deleteReply(int replyId);
+	
 }
 

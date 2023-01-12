@@ -125,8 +125,12 @@ public class BoardController {
 	
 	//[게시글 수정 - 폼]
 	@RequestMapping(value="/board/update/{boardId}", method=RequestMethod.GET)
-	public String updateBoard(@PathVariable int boardId ,Model model) {
+	public String updateBoard(@PathVariable int boardId ,Model model, HttpSession session) {
 		BoardVO board = boardService.selectBoard(boardId);
+		// 게시글 작성자와 현재 로그인한 유저가 다르면 수정 불가능
+		if(!board.getStudentId().equals(session.getAttribute("stdId"))) {
+			return "redirect:/board/list";
+		}
 		model.addAttribute("board", board);
 		return "board/update";
 	}
@@ -171,7 +175,12 @@ public class BoardController {
 	
 	//[게시글 삭제]
 	@RequestMapping("board/delete/{boardId}")
-	public String deleteBoard(@PathVariable int boardId) {
+	public String deleteBoard(@PathVariable int boardId, HttpSession session) {
+		BoardVO board = boardService.selectBoard(boardId);
+		// 게시글 작성자와 현재 로그인한 유저가 다르면 수정 불가능
+		if(!board.getStudentId().equals(session.getAttribute("stdId"))) {
+			return "redirect:/board/list";
+		}
 		boardService.deleteBoard(boardId);
 		return "redirect:/board/list";
 	}
@@ -185,8 +194,13 @@ public class BoardController {
 	
 	//[댓글 삭제]
 	@RequestMapping("/board/reply/delete")
-	public @ResponseBody int deleteReply(@RequestParam int replyId) {
+	public @ResponseBody int deleteReply(@RequestParam int replyId, HttpSession session) {
 		try {
+			ReplyVO replyVO = boardService.selectReply(replyId);
+			// 게시글 작성자와 현재 로그인한 유저가 다르면 수정 불가능
+			if(!replyVO.getStudentId().equals(session.getAttribute("stdId"))) {
+				return 0;
+			}
 			boardService.deleteReply(replyId);
 		} catch (Exception e) {
 			e.getMessage();
@@ -197,8 +211,12 @@ public class BoardController {
 	
 	//[댓글 수정]
 	@RequestMapping("board/reply/update")
-	public @ResponseBody int updateReply(ReplyVO reply) {
+	public @ResponseBody int updateReply(ReplyVO reply, HttpSession session) {
 		try {
+			// 게시글 작성자와 현재 로그인한 유저가 다르면 수정 불가능
+			if(!reply.getStudentId().equals(session.getAttribute("stdId"))) {
+				return 0;
+			}
 			boardService.updateReply(reply);
 		} catch (Exception e) {
 			e.getMessage();
