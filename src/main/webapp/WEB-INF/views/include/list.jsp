@@ -4,7 +4,7 @@
 
 <div class="sidebar" data-color="orange">
 	<div class="logo">
-		<a href='<c:url value="/"/>'> 
+		<a href='<c:url value="/attend/today"/>'>
 			<img src="<c:url value="/img/youngsong.png"/>" style="width: 70%; margin: 0em 2em;">
 		</a>
 	</div>
@@ -20,7 +20,7 @@
 				</li>
 			
 				<li>
-					<a href='<c:url value=""/>'> 
+					<a href='<c:url value="/reports/write"/>'> 
 						<i class="now-ui-icons design_app"></i>
 						<p>휴가 신청</p>
 					</a>
@@ -67,7 +67,7 @@
 				<li>
 					<a href='<c:url value="/class/sectionlist"/>'>
 						<i class="now-ui-icons design_bullet-list-67"></i>
-						<p>수업 자료</p>
+						<p>${classId}반 수업 자료</p>
 					</a>
 				</li>
 				<li class="my-3 ml-4" style=" width:70%; border-bottom: 1px solid rgba(255,255,255,0.5);"></li>

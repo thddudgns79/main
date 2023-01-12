@@ -1355,7 +1355,8 @@ fieldset[disabled] .btn-link.active {
 .form-control:focus+.input-group-append .input-group-text,
 .form-control:focus~.input-group-append .input-group-text,
 .form-control:focus+.input-group-prepend .input-group-text,
-.form-control:focus~.input-group-prepend .input-group-text {
+.form-control:focus~.input-group-prepend .input-group-text
+{
   border: 1px solid #f96332;
   border-left: none;
   background-color: transparent;
@@ -1755,7 +1756,7 @@ fieldset[disabled] .form-control {
 
 textarea.form-control {
   max-width: 100%;
-  max-height: 80px;
+  max-height: 200px;
   padding: 10px 10px 0 0;
   resize: none;
   border: none;
@@ -1765,7 +1766,8 @@ textarea.form-control {
 }
 
 textarea.form-control:focus,
-textarea.form-control:active {
+textarea.form-control:active,
+ {
   border-left: none;
   border-top: none;
   border-right: none;
@@ -1838,6 +1840,7 @@ textarea.form-control:active {
 
 button,
 input,
+select,
 optgroup,
 select,
 textarea {

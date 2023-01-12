@@ -86,16 +86,23 @@
 				              </div>
 				              <div class="card-body">
 				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
-				              	<form action='<c:url value="/class/classlist/1"/>' method="get">
-								<select name="orgName">
-									<option value="전체" <c:if test ="${orgName eq '전체'}">selected="selected"</c:if>>전체</option>
-									<option value="KOREA SOFTWARE" <c:if test ="${orgName eq 'KOREA SOFTWARE'}">selected="selected"</c:if>>KOREA SOFTWARE</option>
-									<option value="한국개발진흥원" <c:if test ="${orgName eq '한국개발진흥원'}">selected="selected"</c:if>>한국개발진흥원</option>
-									<option value="삼성 멀티캠퍼스" <c:if test ="${orgName eq '삼성 멀티캠퍼스'}">selected="selected"</c:if>>삼성 멀티캠퍼스</option>
-									<option value="한국방송통신대학교" <c:if test ="${orgName eq '한국방송통신대학교'}">selected="selected"</c:if>>한국방송통신대학교</option>
-								</select>
-								<input type="text" name="className" value="${className}"/>
-								<input type="submit" value="검색"/>
+				              	<form action='<c:url value="/class/classlist/1"/>' method="get" class="form-inline">
+					              	<div class="form-group mr-3">
+									  	<label for="orgName" class="mr-2">기관</label>
+									  	<select name="orgName" class="form-control" id="orgName">
+											<option value="전체" <c:if test ="${orgName eq '전체'}">selected="selected"</c:if>>전체</option>
+											<option value="KOREA SOFTWARE" <c:if test ="${orgName eq 'KOREA SOFTWARE'}">selected="selected"</c:if>>KOREA SOFTWARE</option>
+											<option value="한국개발진흥원" <c:if test ="${orgName eq '한국개발진흥원'}">selected="selected"</c:if>>한국개발진흥원</option>
+											<option value="삼성 멀티캠퍼스" <c:if test ="${orgName eq '삼성 멀티캠퍼스'}">selected="selected"</c:if>>삼성 멀티캠퍼스</option>
+											<option value="한국방송통신대학교" <c:if test ="${orgName eq '한국방송통신대학교'}">selected="selected"</c:if>>한국방송통신대학교</option>
+										</select>
+									</div>
+					              	<div class="form-group mr-3">
+									  <label for="className" class="mr-2">클래스 명</label>
+									  <input type="text" name="className" value="${className}" class="form-control" id="className"/>
+									</div>
+									
+									<input type="submit" value="검색" class="btn btn-sm btn-primary"/>
 								</form>
 						
 				                <div class="table-responsive">
