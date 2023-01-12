@@ -26,7 +26,7 @@
 					<div class="card mx-auto p-3" style="width:70%;">
 						<div class="card-header d-flex justify-content-between" >
 							<p class="bi bi-calendar-check m-2" style="font-size: 30px;">
-								&nbsp;<%=sf.format(nowTime)%>
+								&nbsp;<%=sf.format(nowTime)%> 
 							</p>
 							<div >
 								<c:if test="${empty attendVO.inTime && isManager == 'N'.charAt(0)}">
