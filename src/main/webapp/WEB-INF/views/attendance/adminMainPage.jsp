@@ -86,7 +86,7 @@
 				              </div>
 				              <div class="card-body">
 				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
-						     	<form action='<c:url value="/attend/getAllAttend"/>' method="POST" class="form-inline">
+						     	<form action='<c:url value="/attend/getAllAttend"/>' method="POST" class="form-inline ml-4">
 						     		<label for="yearParam" class="mr-1">연도</label>
 							    	<select name="yearParam" class="form-control mr-2" id="yearParam">
 								    	<option <c:if test ="${yearParam eq '2013'}">selected="selected"</c:if> value="2013">2013</option>
@@ -121,7 +121,7 @@
 						     	</form>
 						
 						   		<c:forEach var="attendStat" items="${attendStatList}"> 
-						   				<div class="card mt-3" style="width: 350px">
+					   				<div class="card m-4" style="width: 350px">
 									  <div class="card-body">
 									    <h4 class="card-title"><a href='<c:url value="/attend/getStudentAttend/${attendStat.studentId}"/>'>${attendStat.studentId}</a></h4>
 									    <hr/>
