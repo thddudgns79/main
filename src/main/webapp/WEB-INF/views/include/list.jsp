@@ -4,9 +4,8 @@
 
 <div class="sidebar" data-color="orange">
 	<div class="logo">
-		<a href='<c:url value="/"/>'> <img
-			src="<c:url value="/img/songyoung.png"/>"
-			style="width: 50%; margin: 0em 3.5em;">
+		<a href='<c:url value="/"/>'> 
+			<img src="<c:url value="/img/youngsong.png"/>" style="width: 70%; margin: 0em 2em;">
 		</a>
 	</div>
 	<div class="sidebar-wrapper" id="sidebar-wrapper">
@@ -98,7 +97,7 @@
 			<li class="my-3 ml-4" ></li>
 			<li class="mt-5 ml-4 rounded-pill " style=" width:70%; border: 5px solid rgba(255,255,255,0.5);">
 				<a href='<c:url value="/student/logout"/>'> 
-					<i class="now-ui-icons design_bullet-list-67"></i>
+					<i class="now-ui-icons ui-1_lock-circle-open"></i>
 					<p>로그아웃 </p>
 				</a>
 			</li>

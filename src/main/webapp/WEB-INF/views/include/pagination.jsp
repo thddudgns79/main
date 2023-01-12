@@ -4,8 +4,8 @@
 
 <style>
 	#pagingDiv {
-		  place-content: center;
-		  height: 100%; 
+		  place-content: center; 
+		  height: 50px; 
 		}
 		
 	 #paginBtn { 
@@ -17,11 +17,13 @@
 	.pagination1 {
 	  display: flex;
 	  flex-direction: row;
-	  padding: 24px;
 	  border-radius: 6px;
 	  box-shadow: 0px 4px 8px 0px rgba(31, 41, 55, 0.14);
-	  background-color: #fff;
+	  background-color: MediumSeaGreen;
 	  position: relative;
+	  width: 350px;
+	  justify-content: center;
+	  align-items: center;
 	}
 	.pagination__number-indicator {
 	  position: absolute;
@@ -34,7 +36,7 @@
 	.pagination__number {
 	  font-weight: 600;
 	  font-size: 16px;
-	  color: #d1d5db;
+	  color: white;
 	}
 	.pagination__number--active {
 	  color: #111827;
@@ -68,7 +70,7 @@
 	  width: 9px;
 	  height: 2px;
 	  border-radius: 1px;
-	  background-color: #4338ca;
+	  background-color: OrangeRed;
 	  display: inline-block;
 	  position: absolute;
 	  transform-origin: 0px;
@@ -86,29 +88,55 @@
 <div id="pagingDiv" class="d-flex justify-content-center mb-4">
 	<div class="pagination1">
 		  <span class="pagination__number-indicator"></span>
-		  
-		  <c:if test="${pager.pageNo > 1}">
-			  <button type="button" onclick='location.href="<c:url value='/board/list/1'/>" '  id="paginBtn" class="pagination__arrow">
-				    <span class="pagination__arrow-half"></span>
-				    <span class="pagination__arrow-half"></span>
+  	  	  	  
+  	  	  	  <button type="button" onclick='location.href="<c:url value='/board/list/1'/>" '  id="paginBtn" style="padding: 16px 16px 16px 0px;">
+				    <div class="d-flex">
+					    <div class="pagination__arrow" style="padding: 0px;">
+						    <span class="pagination__arrow-half"></span>
+						    <span class="pagination__arrow-half"></span>
+					    </div>
+					    <div class="pagination__arrow" style="padding: 0px 0px 0px 4px;">
+						    <span class="pagination__arrow-half"></span>
+						    <span class="pagination__arrow-half"></span>
+					    </div>
+				    </div>
+			   </button>
+
+			  <c:if test="${pager.groupNo > 1}">
+				  <button type="button" onclick='location.href="<c:url value='/board/list/${pager.startPageNo-1}'/>" '  id="paginBtn" class="pagination__arrow">
+					    <span class="pagination__arrow-half" style="background-color: #204065;"></span>
+					    <span class="pagination__arrow-half" style="background-color: #204065;"></span>
+				  </button>
+			  </c:if>
+						  
+			<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}" step="1">
+				<c:if test="${pager.pageNo != i}">
+					<a href="<c:url value='/board/list/${i}'/>" id="paginBtn" class="pagination__number ">${i}</a>
+				</c:if>
+				<c:if test="${pager.pageNo == i}">
+					<button id="paginBtn" class="pagination__number pagination__number--active">${i}</button>
+				</c:if>
+			</c:forEach>
+			
+			<c:if test="${pager.groupNo < pager.totalGroupNo}">
+				  <button type="button" onclick='location.href="<c:url value='/board/list/${pager.endPageNo+1}'/>" '  id="paginBtn" class="pagination__arrow pagination__arrow--right">
+				    <span class="pagination__arrow-half" style="background-color: #204065;"></span>
+				    <span class="pagination__arrow-half" style="background-color: #204065;"></span>
+				  </button>
+			  </c:if>
+			
+			 <button type="button" onclick='location.href="<c:url value='/board/list/${pager.endPageNo}'/>" '   id="paginBtn" style="padding: 16px 0px 16px 16px;">
+				    <div class="d-flex">
+					    <div class="pagination__arrow pagination__arrow--right" style="padding: 0px 0px 0px 4px;">
+						    <span class="pagination__arrow-half"></span>
+						    <span class="pagination__arrow-half"></span>
+					    </div>
+					    <div class="pagination__arrow pagination__arrow--right" style="padding: 0px;">
+						    <span class="pagination__arrow-half"></span>
+						    <span class="pagination__arrow-half"></span>
+					    </div>
+				    </div>
 			  </button>
-		  </c:if>
-					  
-		<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}" step="1">
-			<c:if test="${pager.pageNo != i}">
-				<a href="<c:url value='/board/list/${i}'/>" id="paginBtn" class="pagination__number ">${i}</a>
-			</c:if>
-			<c:if test="${pager.pageNo == i}">
-				<button id="paginBtn" class="pagination__number pagination__number--active">${i}</button>
-			</c:if>
-		</c:forEach>
-		
-		<c:if test="${pager.pageNo != pager.endPageNo}">
-			  <button type="button" onclick='location.href="<c:url value='/board/list/${pager.endPageNo}'/>" '  id="paginBtn" class="pagination__arrow pagination__arrow--right">
-			    <span class="pagination__arrow-half"></span>
-			    <span class="pagination__arrow-half"></span>
-			  </button>
-		  </c:if>
 	</div>
 </div>
 
