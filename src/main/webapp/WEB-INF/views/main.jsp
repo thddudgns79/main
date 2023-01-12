@@ -18,13 +18,9 @@
 	<div class="wrapper">
 		<jsp:include page="/WEB-INF/views/include/list.jsp" />
 		<div class="main-panel" id="main-panel">
-
-
-			<div class="panel-header panel-header-lg">
-				<video autoplay loop controls muted style="width: 100%">
-					<source src="<c:url value='/video/school.mp4'/>" type="video/mp4">
-				</video>
-			</div>
+			<video autoplay loop controls muted style="width: 100%; height:100%;">
+				<source src="<c:url value='/video/school.mp4'/>" type="video/mp4">
+			</video>
 			<div class="content" >
 				<div class="row">
 					<div class="card mx-auto p-3" style="width:70%;">
