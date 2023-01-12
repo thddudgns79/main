@@ -15,6 +15,20 @@
 		]]>
 	</select>
 	
+	<select id="selectReply" parameterType="int" resultType="com.coderby.myapp.board.model.ReplyVO">
+		<![CDATA[
+			SELECT
+				REPLY_ID			AS "replyId",
+				REPLY_CONTENT		AS "replyContent",
+				CREATED_DATE		AS "createdDate",
+				MASTER_ID			AS "masterId",
+				STUDENT_ID			AS "studentId",
+				BOARD_ID			AS "boardId"
+			FROM reply
+			WHERE reply_id = #{replyId}
+		]]>
+	</select>
+	
 	<insert id="insertReply" parameterType="com.coderby.myapp.board.model.ReplyVO">
 		<![CDATA[
 			INSERT INTO

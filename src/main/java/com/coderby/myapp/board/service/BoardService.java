@@ -63,7 +63,12 @@ public class BoardService implements IBoardService {
 		board.setBfileList(fileRepository.getFileList(boardId));
 		return board;
 	}
-
+	
+	@Override
+	public ReplyVO selectReply(int replyId) {
+		return replyRepository.selectReply(replyId);
+	}
+	
 	@Override
 	public void insertBoard(BoardVO board) {
 		boardRepository.insertBoard(board);
@@ -136,5 +141,7 @@ public class BoardService implements IBoardService {
 		
 		return msg;
 	}
+
+
 	
 }

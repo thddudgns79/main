@@ -18,12 +18,13 @@
 	  display: flex;
 	  flex-direction: row;
 	  border-radius: 6px;
-	  box-shadow: 0px 4px 8px 0px rgba(31, 41, 55, 0.14);
-	  background-color: MediumSeaGreen;
+	  box-shadow: 0px 6px 10px 0px rgba(31, 41, 55, 0.14);
+	  background-color: white;
 	  position: relative;
 	  width: 350px;
 	  justify-content: center;
 	  align-items: center;
+	  color: gray;
 	}
 	.pagination__number-indicator {
 	  position: absolute;
@@ -36,7 +37,7 @@
 	.pagination__number {
 	  font-weight: 600;
 	  font-size: 16px;
-	  color: white;
+	  color: lightgray;
 	}
 	.pagination__number--active {
 	  color: #111827;
@@ -70,7 +71,7 @@
 	  width: 9px;
 	  height: 2px;
 	  border-radius: 1px;
-	  background-color: OrangeRed;
+	  background-color: MediumSeaGreen;
 	  display: inline-block;
 	  position: absolute;
 	  transform-origin: 0px;
