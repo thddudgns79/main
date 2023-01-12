@@ -76,15 +76,9 @@
 	<interceptors>
         <interceptor>
             <mapping path="/attend/**"/>
-<<<<<<< HEAD
             <mapping path="/reports/**"/>
             <mapping path="/board/**"/>
             <mapping path="/class/**"/>
-=======
-            <mapping path="/class/**"/>
-            <mapping path="/board/**"/>
-            <mapping path="/reports/**"/>
->>>>>>> branch 'master' of https://github.com/oti-project3/main.git
             <beans:bean class="com.coderby.myapp.common.filter.LoginInterceptor" />
         </interceptor>
     </interceptors>
