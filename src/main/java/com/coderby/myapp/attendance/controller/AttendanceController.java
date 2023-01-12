@@ -228,7 +228,7 @@ public class AttendanceController {
 			e.printStackTrace();
 		}
 		// 업데이트한 휴가의 상세페이지로 redirect
-		return "redirect:/attend/reportslist";
+		return "redirect:/attend/reportslistdefault";
 	}
 
 	// 전체 학생 월간 근태 조회 (관리자 메인)

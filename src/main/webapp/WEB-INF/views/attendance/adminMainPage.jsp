@@ -86,8 +86,9 @@
 				              </div>
 				              <div class="card-body">
 				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
-						     	<form action='<c:url value="/attend/getAllAttend"/>' method="POST">
-						     		<select name="yearParam">
+						     	<form action='<c:url value="/attend/getAllAttend"/>' method="POST" class="form-inline">
+						     		<label for="yearParam" class="mr-1">연도</label>
+							    	<select name="yearParam" class="form-control mr-2" id="yearParam">
 								    	<option <c:if test ="${yearParam eq '2013'}">selected="selected"</c:if> value="2013">2013</option>
 								    	<option <c:if test ="${yearParam eq '2014'}">selected="selected"</c:if> value="2014">2014</option>
 								    	<option <c:if test ="${yearParam eq '2015'}">selected="selected"</c:if> value="2015">2015</option>
@@ -101,7 +102,8 @@
 							    		<option <c:if test ="${yearParam eq '2023'}">selected="selected"</c:if> value="2023">2023</option>
 							    	</select>
 							    	
-							    	<select name="monthParam">
+							    	<label for="monthParam" class="mr-1">월</label>
+							    	<select name="monthParam" class="form-control mr-2" id="monthParam">
 							    		<option <c:if test ="${monthParam eq '1'}">selected="selected"</c:if> value="1">1</option>
 							    		<option <c:if test ="${monthParam eq '2'}">selected="selected"</c:if> value="2">2</option>
 							    		<option <c:if test ="${monthParam eq '3'}">selected="selected"</c:if> value="3">3</option>
@@ -115,7 +117,7 @@
 							    		<option <c:if test ="${monthParam eq '11'}">selected="selected"</c:if> value="11">11</option>
 							    		<option <c:if test ="${monthParam eq '12'}">selected="selected"</c:if> value="12">12</option>
 							    	</select>
-							    	<input type="submit" value="검색"/>
+							    	<input type="submit" value="검색" class="btn btn-sm btn-primary"/>
 						     	</form>
 						
 						   		<c:forEach var="attendStat" items="${attendStatList}"> 

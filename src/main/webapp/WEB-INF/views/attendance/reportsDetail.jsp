@@ -100,7 +100,7 @@
 						    		</c:forEach>
 						    	</div>
 							    	<c:if test="${isManager== 'Y'.charAt(0)}">
-				    				<form action='<c:url value="/attend/reportsstatusupdate"/>' method="POST">
+				    				<form action='<c:url value="/attend/reportsstatusupdate"/>' method="POST" class="form-inline">
 							    		<input type="hidden" name="repId" value="${reportsVO.repId}"/>
 							    		<input type="hidden" name="studentId" value="${reportsVO.studentId}"/>
 							    		<input type="hidden" name="repDateStr" value="${repDateStr}"/> 
@@ -110,7 +110,7 @@
 							    		<input type="hidden" name="reason" value="${reportsVO.reason}"/>
 							    		<input type="hidden" name="repStatus" value="${reportsVO.repStatus}"/>
 							    		
-							    	 	<select name="updateRepStatus">
+							    	 	<select name="updateRepStatus" class="form-control mr-2">
 							    			<c:if test ="${reportsVO.repStatus eq '승인'}">
 							    				<option value="반려">반려</option>
 							    			</c:if>
@@ -122,11 +122,11 @@
 							    				<option value="승인">승인</option>
 							    			</c:if>
 							    		</select> 
-							    		<input type="submit" value="제출"/>
+							    		<input type="submit" value="제출"/ class="form-control btn btn-sm btn-primary">
 							    	</form>
 					    		</c:if>
 					    		<c:if test="${isManager == 'N'.charAt(0)}">
-					    			<a href='<c:url value="/reports/cancle/${reportsVO.repId}"/>'>취소</a>
+					    			<a href='<c:url value="/reports/cancle/${reportsVO.repId}"/>' class="btn btn-sm btn-primary">취소</a>
 					    		</c:if>
 				              </div>
 				            </div>

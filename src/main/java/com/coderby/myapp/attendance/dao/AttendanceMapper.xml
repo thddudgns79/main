@@ -17,6 +17,11 @@
 	
 	<select id="selectAttend" parameterType="map" resultType="com.coderby.myapp.attendance.model.AttendanceVO">
 		select 
+			in_time 		as "inTime", 
+   			out_time		as "outTime",
+   			status			as "status",
+   			attendance_date as "attendanceDate",
+   			student_id as "studentId"
 		from attendance
 		where student_id = #{studentId}
 		and 

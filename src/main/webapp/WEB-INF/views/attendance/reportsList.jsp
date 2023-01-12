@@ -87,8 +87,9 @@
 				              <div class="card-body">
 				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
 				              	<!-- classId, year, month, status, reqType -->
-						    	<form action='<c:url value="/attend/reportslist/1"/>' method="GET">
-							    	<select name="yearParam">
+						    	<form action='<c:url value="/attend/reportslist/1"/>' method="GET" class="form-inline">
+						    		<label for="yearParam" class="mr-1">연도</label>
+							    	<select name="yearParam" class="form-control mr-2" id="yearParam">
 								    	<option <c:if test ="${yearParam eq '2013'}">selected="selected"</c:if> value="2013">2013</option>
 								    	<option <c:if test ="${yearParam eq '2014'}">selected="selected"</c:if> value="2014">2014</option>
 								    	<option <c:if test ="${yearParam eq '2015'}">selected="selected"</c:if> value="2015">2015</option>
@@ -102,7 +103,8 @@
 							    		<option <c:if test ="${yearParam eq '2023'}">selected="selected"</c:if> value="2023">2023</option>
 							    	</select>
 							    	
-							    	<select name="monthParam">
+							    	<label for="monthParam" class="mr-1">월</label>
+							    	<select name="monthParam" class="form-control mr-2" id="monthParam">
 							    		<option <c:if test ="${monthParam eq '1'}">selected="selected"</c:if> value="1">1</option>
 							    		<option <c:if test ="${monthParam eq '2'}">selected="selected"</c:if> value="2">2</option>
 							    		<option <c:if test ="${monthParam eq '3'}">selected="selected"</c:if> value="3">3</option>
@@ -117,14 +119,16 @@
 							    		<option <c:if test ="${monthParam eq '12'}">selected="selected"</c:if> value="12">12</option>
 							    	</select>
 							    	
-							    	<select name="classId">
+							    	<label for="classId" class="mr-1">클래스 번호</label>
+							    	<select name="classId" class="form-control mr-2" id="classId">
 							    		<option value="전체">전체</option>
 							    		<c:forEach var="classId" items="${classIdList}">
 							    			<option <c:if test ="${selectedClassId != '전체' && selectedClassId eq classId}">selected="selected"</c:if> value="${classId}">${classId}</option>
 							    		</c:forEach>
 							    	</select>
 							    	
-							    	<select name="repType">
+							    	<label for="repType" class="mr-1">신청 유형</label>
+							    	<select name="repType" class="form-control mr-2" id="repType">
 							    		<option <c:if test ="${repType eq '전체'}">selected="selected"</c:if> value="전체">전체</option>
 							    		<option <c:if test ="${repType eq '병가'}">selected="selected"</c:if> value="병가">병가</option>
 							    		<option <c:if test ="${repType eq '경조사'}">selected="selected"</c:if> value="경조사">경조사</option>
@@ -134,14 +138,15 @@
 							    		<option <c:if test ="${repType eq '지하철 연착'}">selected="selected"</c:if> value="지하철 연착">지하철 연착</option>
 							    	</select>
 							    	
-							    	<select name="repStatus">
+							    	<label for="repStatus" class="mr-1">상태</label>
+							    	<select name="repStatus" class="form-control mr-2" id="repStatus">
 							    		<option <c:if test ="${repStatus eq '전체'}">selected="selected"</c:if> value="전체">전체</option>
 							    		<option <c:if test ="${repStatus eq '대기'}">selected="selected"</c:if> value="대기">대기</option>
 							    		<option <c:if test ="${repStatus eq '승인'}">selected="selected"</c:if> value="승인">승인</option>
 							    		<option <c:if test ="${repStatus eq '반려'}">selected="selected"</c:if> value="반려">반려</option>
 							    	</select>
 							    	
-							    	<input type="submit" value="검색"/>
+							    	<input type="submit" value="검색" class="btn btn-sm btn-primary"/>
 						    	</form>
 						    	
 						    	<table class="table">
