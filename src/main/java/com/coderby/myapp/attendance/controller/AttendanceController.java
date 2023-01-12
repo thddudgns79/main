@@ -101,7 +101,7 @@ public class AttendanceController {
 			reports.setOutTime(formatSec.parse(repDateStr + " " + outTimeStr));
 			reports.setRepDate((formatYear.parse(repDateStr)));
 		} catch (ParseException e1) {
-			e1.printStackTrace();
+			e1.printStackTrace(); 
 		}
 		Date now = new Date(System.currentTimeMillis());
 		System.out.println(reports.getRepType());
