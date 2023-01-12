@@ -13,4 +13,5 @@ public interface IReplyRepository {
 	void insertReReply(ReplyVO reply);
 	void updateReply(ReplyVO reply);
 	void deleteReply(int replyId);
+	ReplyVO selectReply(int replyId);
 }
