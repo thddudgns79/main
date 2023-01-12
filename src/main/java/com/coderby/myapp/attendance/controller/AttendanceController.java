@@ -94,6 +94,9 @@ public class AttendanceController {
 	@RequestMapping(value = "/reports/write", method = RequestMethod.POST)
 	public String writeReport(ReportsVO reports,String repDateStr, String inTimeStr,String outTimeStr, 
 			RedirectAttributes redirectAttr, HttpSession session, Model model) {
+		System.out.println(repDateStr);
+		System.out.println(inTimeStr);
+		System.out.println(outTimeStr);
 		SimpleDateFormat formatYear = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat formatSec = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
