@@ -22,6 +22,36 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 
 Copyright (c) 2015 Daniel Eden
 */
+/* 전체화면 버튼 */
+video::-webkit-media-controls-fullscreen-button,
+/* 일시정지, 재생 버튼 */
+video::-webkit-media-controls-play-button,
+/* 재생 슬라이드..? */
+video::-webkit-media-controls-timeline,
+/* 현재 진행 시간 */
+video::-webkit-media-controls-current-time-display,
+/* 전체 시간 */
+video::-webkit-media-controls-time-remaining-display,
+/* 음소거 버튼 */
+video::-webkit-media-controls-mute-button,
+/* 볼륨 조절 슬라이드 */
+video::-webkit-media-controls-volume-slider,
+/* 괄호에 display: none !important; 를 추가하면된다.
+ 예 ) 전체화면 전환 버튼을 숨긴다. 
+ 다만 더블클릭으로 전체화면이 되는 기능등은 그대로고 단지 버튼만 없앤다. */
+video::-webkit-media-controls-fullscreen-button {
+	display: none !important;
+}
+
+.subButton{
+	 width:30%; 
+	 text-align: center; 
+	 height:55px; 
+	 background-color: mediumseagreen; 
+	 border:none; 
+	 color : white;
+	 font-size: 25px;
+}
 
 .body{
 	background-image: url("../img/login.png"); 

@@ -61,7 +61,6 @@ public class AttendanceController {
 			} else {
 				return "main";
 			}
-			System.out.println("VO:  " + attendVO.toString());
 		}
 		return "main";
 	}
@@ -93,8 +92,17 @@ public class AttendanceController {
 
 	// 휴가 신청
 	@RequestMapping(value = "/reports/write", method = RequestMethod.POST)
-	public String writeReport(ReportsVO reports, RedirectAttributes redirectAttr, HttpSession session, Model model) {
-//		System.out.println("reports:"+reports.toString());
+	public String writeReport(ReportsVO reports,String repDateStr, String inTimeStr,String outTimeStr, 
+			RedirectAttributes redirectAttr, HttpSession session, Model model) {
+		SimpleDateFormat formatYear = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formatSec = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			reports.setInTime(formatSec.parse(repDateStr + " " + inTimeStr));
+			reports.setOutTime(formatSec.parse(repDateStr + " " + outTimeStr));
+			reports.setRepDate((formatYear.parse(repDateStr)));
+		} catch (ParseException e1) {
+			e1.printStackTrace(); 
+		}
 		Date now = new Date(System.currentTimeMillis());
 		System.out.println(reports.getRepType());
 		reports.setStudentId((String) session.getAttribute("stdId"));

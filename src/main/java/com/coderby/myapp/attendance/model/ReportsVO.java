@@ -3,7 +3,6 @@ package com.coderby.myapp.attendance.model;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.coderby.myapp.file.model.FileVO;
@@ -11,15 +10,12 @@ import com.coderby.myapp.file.model.FileVO;
 public class ReportsVO {
 	private int repId;
 	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date repDate;
 	
 	private String reason; //사유
 	
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date inTime;
 	
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date outTime;
 	
 	private String repStatus;
