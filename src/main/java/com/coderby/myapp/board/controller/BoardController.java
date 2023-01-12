@@ -213,8 +213,9 @@ public class BoardController {
 	@RequestMapping("board/reply/update")
 	public @ResponseBody int updateReply(ReplyVO reply, HttpSession session) {
 		try {
+			ReplyVO replyVO = boardService.selectReply(reply.getReplyId());
 			// 게시글 작성자와 현재 로그인한 유저가 다르면 수정 불가능
-			if(!reply.getStudentId().equals(session.getAttribute("stdId"))) {
+			if(!replyVO.getStudentId().equals(session.getAttribute("stdId"))) {
 				return 0;
 			}
 			boardService.updateReply(reply);
