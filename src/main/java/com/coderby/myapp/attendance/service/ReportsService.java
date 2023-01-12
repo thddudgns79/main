@@ -35,10 +35,11 @@ public class ReportsService implements IReportsService {
 		// reports에는 내가 신청한 휴가가 있음
 		// getReports에는 해당날짜에 해당하는 값이 있다면 있음
 		boolean isFinal = false;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 		List<ReportsVO> getReports = reportsRepository.selectReports(reports);
 		AttendanceVO getAttend = attendanceRepository.attendToday(reports.getStudentId());
+		
 		if (reports.getInTime().getTime() > now.getTime()) {
-			
 			// 현재 신청한 type이 휴가
 			if (reports.getRepType().equals("병가") || reports.getRepType().equals("경조사")
 					|| reports.getRepType().equals("예비군")) {
@@ -68,8 +69,9 @@ public class ReportsService implements IReportsService {
 					} else {
 						if (!repVO.getRepStatus().equals("반려")
 								&& (repVO.getRepType().equals("외출") || repVO.getRepType().equals("지하철 연착"))) {
-							if (repVO.getInTime().getTime() < reports.getOutTime().getTime()
-									|| repVO.getOutTime().getTime() > reports.getInTime().getTime()) {
+							if ((repVO.getInTime().getTime() <= reports.getInTime().getTime() && reports.getInTime().getTime() <= repVO.getOutTime().getTime()) 
+									|| 
+									(repVO.getInTime().getTime() <= reports.getOutTime().getTime() && reports.getOutTime().getTime() <= repVO.getOutTime().getTime())) {
 								isPossible = false;
 							}
 						}
@@ -77,7 +79,9 @@ public class ReportsService implements IReportsService {
 				}
 				if (isPossible) {
 					// 현재 출근상태이면서 퇴근이 되어있지 않아야한다.
-					if (getAttend != null && getAttend.getInTime() != null && getAttend.getOutTime() == null) {
+					// 오늘이 아니면 조퇴 신청 불가능 
+					if (getAttend != null && getAttend.getInTime() != null && getAttend.getOutTime() == null &&
+							sdf.format(reports.getRepDate()).equals(sdf.format(getAttend.getAttendanceDate())) ) {
 						reportsRepository.insertReports(reports);
 						isFinal = true;
 					}
@@ -87,25 +91,33 @@ public class ReportsService implements IReportsService {
 			} else {
 				boolean isPossible = true;
 				for (ReportsVO repVO : getReports) {
+					System.out.println(repVO.getRepId());
 					// 휴가가 있다면
 					if (!repVO.getRepStatus().equals("반려") && (repVO.getRepType().equals("병가")
 							|| repVO.getRepType().equals("경조사") || repVO.getRepType().equals("예비군"))) {
 						isPossible = false;
+						System.out.println("휴가 존재");
 						break;
 						// 휴가가 존재하지 않을때
 					} else {
 						if (!repVO.getRepStatus().equals("반려") && (repVO.getRepType().equals("외출")
 								|| repVO.getRepType().equals("지하철 연착") || repVO.getRepType().equals("조퇴"))) {
-							if (repVO.getInTime().getTime() < reports.getOutTime().getTime()
-									|| repVO.getOutTime().getTime() > reports.getInTime().getTime()) {
+							if ((repVO.getInTime().getTime() <= reports.getInTime().getTime() && reports.getInTime().getTime() <= repVO.getOutTime().getTime()) 
+									|| 
+									(repVO.getInTime().getTime() <= reports.getOutTime().getTime() && reports.getOutTime().getTime() <= repVO.getOutTime().getTime())) {
 								isPossible = false;
+								System.out.println("겹침");
 							}
 						}
 					}
 				}
 				if (isPossible) {
 					// 현재 출근상태이면서 퇴근이 되어있지 않아야한다.
-					if (getAttend != null && getAttend.getInTime() != null && getAttend.getOutTime() == null) {
+					// 오늘이 아니면 외출 신청 불가능
+					System.out.println(sdf.format(reports.getRepDate()));
+					System.out.println(sdf.format(getAttend.getAttendanceDate()));
+					if (getAttend != null && getAttend.getInTime() != null && getAttend.getOutTime() == null &&
+							sdf.format(reports.getRepDate()).equals(sdf.format(getAttend.getAttendanceDate())) ) {
 						reportsRepository.insertReports(reports);
 						isFinal = true;
 					}
@@ -279,9 +291,11 @@ public class ReportsService implements IReportsService {
 				for (ReportsVO rep : getReports) {
 					if ((rep.getRepType().equals("외출") || rep.getRepType().equals("지하철 연착"))
 							&& (rep.getRepStatus().equals("승인") || rep.getRepStatus().equals("대기"))) {
-						if (repVO.getInTime().getTime() < rep.getOutTime().getTime()
-								|| repVO.getOutTime().getTime() > rep.getInTime().getTime()) {
+						if ((rep.getInTime().getTime() <= repVO.getInTime().getTime() && repVO.getInTime().getTime() <= rep.getOutTime().getTime()) 
+								|| 
+								(rep.getInTime().getTime() <= repVO.getOutTime().getTime() && repVO.getOutTime().getTime() <= rep.getOutTime().getTime())) {
 							isPossible = false;
+							System.out.println("외출이랑 시간 겹침");
 							break;
 						}
 					}
@@ -347,8 +361,9 @@ public class ReportsService implements IReportsService {
 					if ((rep.getRepType().equals("외출") || rep.getRepType().equals("조퇴")
 							|| rep.getRepType().equals("지하철 연착"))
 							&& (rep.getRepStatus().equals("승인") || rep.getRepStatus().equals("대기"))) {
-						if (repVO.getInTime().getTime() < rep.getOutTime().getTime()
-								|| repVO.getOutTime().getTime() > rep.getInTime().getTime()) {
+						if ((rep.getInTime().getTime() <= repVO.getInTime().getTime() && repVO.getInTime().getTime() <= rep.getOutTime().getTime()) 
+								|| 
+								(rep.getInTime().getTime() <= repVO.getOutTime().getTime() && repVO.getOutTime().getTime() <= rep.getOutTime().getTime())) {
 							isPossible = false;
 							break;
 						}
