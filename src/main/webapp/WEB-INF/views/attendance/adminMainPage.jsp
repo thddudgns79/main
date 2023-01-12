@@ -12,83 +12,20 @@
 	<div class="wrapper ">
 		<jsp:include page="/WEB-INF/views/include/list.jsp" />
 		    <div class="main-panel" id="main-panel">
-		      	<!-- Navbar --> 
-		      	<nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
-				        <div class="container-fluid">
-				          <div class="navbar-wrapper">
-				            <div class="navbar-toggle">
-				              <button type="button" class="navbar-toggler">
-				                <span class="navbar-toggler-bar bar1"></span>
-				                <span class="navbar-toggler-bar bar2"></span>
-				                <span class="navbar-toggler-bar bar3"></span>
-				              </button>
-				            </div> 
-				          </div>
-				          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-				            <span class="navbar-toggler-bar navbar-kebab"></span>
-				            <span class="navbar-toggler-bar navbar-kebab"></span>
-				            <span class="navbar-toggler-bar navbar-kebab"></span>
-				          </button>
-				          <div class="collapse navbar-collapse justify-content-end" id="navigation">
-				            <form>
-					              <div class="input-group no-border">
-					                <input type="text" value="" class="form-control" placeholder="Search..." style="left: -1.5px;">
-					                <div class="input-group-append">
-					                  <div class="input-group-text">
-					                    <i class="now-ui-icons ui-1_zoom-bold"></i>
-					                  </div>
-					                </div>
-					              </div>
-				            </form>
-				            <ul class="navbar-nav">
-				              <li class="nav-item">
-				                <a class="nav-link" href="#pablo">
-				                  <i class="now-ui-icons media-2_sound-wave"></i>
-				                  <p>
-				                    <span class="d-lg-none d-md-block">Stats</span>
-				                  </p>
-				                </a>
-				              </li>
-				              <li class="nav-item dropdown">
-				                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				                  <i class="now-ui-icons location_world"></i>
-				                  <p>
-				                    <span class="d-lg-none d-md-block">Some Actions</span>
-				                  </p>
-				                </a>
-				                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-				                  <a class="dropdown-item" href="#">Action</a>
-				                  <a class="dropdown-item" href="#">Another action</a>
-				                  <a class="dropdown-item" href="#">Something else here</a>
-				                </div>
-				              </li>
-				              <li class="nav-item">
-				                <a class="nav-link" href="#pablo">
-				                  <i class="now-ui-icons users_single-02"></i>
-				                  <p>
-				                    <span class="d-lg-none d-md-block">Account</span>
-				                  </p>
-				                </a>
-				              </li>
-				            </ul>
-				          </div>
-				        </div>
-		      	</nav>
-		      	<!-- End Navbar -->
 		      	<div class="panel-header panel-header-sm">
 		      	</div>
-		      	<div class="content">
+		      	<div class="content" style="padding-bottom: 150px;">
 				        <div class="row">
 				          <div class="col-md-12">
-				            <div class="card">
+				            <div class="card" style="padding-bottom: 50px;">
 				              <div class="card-header d-flex flex-row justify-content-between">
 				                <h4 class="card-title">${classId}반 ${yearParam}년 ${monthParam}월 근태 조회</h4>
 				              </div>
 				              <div class="card-body">
 				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
-						     	<form action='<c:url value="/attend/getAllAttend"/>' method="POST" class="form-inline ml-4">
-						     		<label for="yearParam" class="mr-1">연도</label>
-							    	<select name="yearParam" class="form-control mr-2" id="yearParam">
+						     	<form action='<c:url value="/attend/getAllAttend"/>' method="POST" class="form-inline ml-4 my-2">
+						     		<label for="yearParam" class="mr-2" style="font-size:20px;">연도</label>
+							    	<select name="yearParam" class="form-control mr-2" id="yearParam" style="width:150px; height:50px;font-size:20px;">
 								    	<option <c:if test ="${yearParam eq '2013'}">selected="selected"</c:if> value="2013">2013</option>
 								    	<option <c:if test ="${yearParam eq '2014'}">selected="selected"</c:if> value="2014">2014</option>
 								    	<option <c:if test ="${yearParam eq '2015'}">selected="selected"</c:if> value="2015">2015</option>
@@ -102,8 +39,8 @@
 							    		<option <c:if test ="${yearParam eq '2023'}">selected="selected"</c:if> value="2023">2023</option>
 							    	</select>
 							    	
-							    	<label for="monthParam" class="mr-1">월</label>
-							    	<select name="monthParam" class="form-control mr-2" id="monthParam">
+							    	<label for="monthParam" class="mr-2"  style="font-size:20px;">월</label>
+							    	<select name="monthParam" class="form-control mr-2" id="monthParam" style="width:50px; height:50px;font-size:20px;">
 							    		<option <c:if test ="${monthParam eq '1'}">selected="selected"</c:if> value="1">1</option>
 							    		<option <c:if test ="${monthParam eq '2'}">selected="selected"</c:if> value="2">2</option>
 							    		<option <c:if test ="${monthParam eq '3'}">selected="selected"</c:if> value="3">3</option>
@@ -117,26 +54,27 @@
 							    		<option <c:if test ="${monthParam eq '11'}">selected="selected"</c:if> value="11">11</option>
 							    		<option <c:if test ="${monthParam eq '12'}">selected="selected"</c:if> value="12">12</option>
 							    	</select>
-							    	<input type="submit" value="검색" class="btn btn-sm btn-primary"/>
+							    	<input type="submit" value="검색" class="btn btn-sm btn-primary ml-4" style="width:150px; height:40px; font-size:20px;"/>
 						     	</form>
 						
 						   		<c:forEach var="attendStat" items="${attendStatList}"> 
-					   				<div class="card m-4" style="width: 350px">
+					   				<div class="card m-4" style="width:30%;">
 									  <div class="card-body">
-									    <h4 class="card-title"><a href='<c:url value="/attend/getStudentAttend/${attendStat.studentId}"/>'>${attendStat.studentId}</a></h4>
-									    <hr/>
-									    <p class="card-text">
-										    <ul class="list-group list-group-horizontal">
-											  <li class="list-group-item" style="width:25%; border: 0">지각</li>
-											  <li class="list-group-item" style="width:25%; border: 0">결석</li>
-											  <li class="list-group-item" style="width:25%; border: 0">출석</li>
+									    <div class="std pb-3 pl-3" style="border-bottom: 1px solid grey;font-size:30px;">
+									    	<a href='<c:url value="/attend/getStudentAttend/${attendStat.studentId}"/>'>${attendStat.studentId}</a>
+									    </div>
+									    <div class="card-text p-3" >
+										    <ul class="list-group list-group-horizontal" style="font-size:23px;">
+											  <li class="list-group-item" style="width:33%; border: 0">지각</li>
+											  <li class="list-group-item" style="width:33%; border: 0">결석</li>
+											  <li class="list-group-item" style="width:33%; border: 0">출석</li>
 											</ul>
-											<ul class="list-group list-group-horizontal">
-											  <li class="list-group-item" style="width:25%; border: 0">${attendStat.lateCount}회</li>
-											  <li class="list-group-item" style="width:25%; border: 0">${attendStat.absenceCount}회</li>
-											  <li class="list-group-item" style="width:25%; border: 0">${attendStat.attendCount}회</li>
+											<ul class="list-group list-group-horizontal" style="font-size:20px;">
+											  <li class="list-group-item" style="width:33%; border: 0">${attendStat.lateCount}회</li>
+											  <li class="list-group-item" style="width:33%; border: 0">${attendStat.absenceCount}회</li>
+											  <li class="list-group-item" style="width:33%; border: 0">${attendStat.attendCount}회</li>
 											</ul>
-									    </p>
+									    </div>
 									  </div>
 								    </div>
 						

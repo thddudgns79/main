@@ -12,84 +12,21 @@
 	<div class="wrapper ">
 		<jsp:include page="/WEB-INF/views/include/list.jsp" />
 		    <div class="main-panel" id="main-panel">
-		      	<!-- Navbar --> 
-		      	<nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
-				        <div class="container-fluid">
-				          <div class="navbar-wrapper">
-				            <div class="navbar-toggle">
-				              <button type="button" class="navbar-toggler">
-				                <span class="navbar-toggler-bar bar1"></span>
-				                <span class="navbar-toggler-bar bar2"></span>
-				                <span class="navbar-toggler-bar bar3"></span>
-				              </button>
-				            </div> 
-				          </div>
-				          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-				            <span class="navbar-toggler-bar navbar-kebab"></span>
-				            <span class="navbar-toggler-bar navbar-kebab"></span>
-				            <span class="navbar-toggler-bar navbar-kebab"></span>
-				          </button>
-				          <div class="collapse navbar-collapse justify-content-end" id="navigation">
-				            <form>
-					              <div class="input-group no-border">
-					                <input type="text" value="" class="form-control" placeholder="Search..." style="left: -1.5px;">
-					                <div class="input-group-append">
-					                  <div class="input-group-text">
-					                    <i class="now-ui-icons ui-1_zoom-bold"></i>
-					                  </div>
-					                </div>
-					              </div>
-				            </form>
-				            <ul class="navbar-nav">
-				              <li class="nav-item">
-				                <a class="nav-link" href="#pablo">
-				                  <i class="now-ui-icons media-2_sound-wave"></i>
-				                  <p>
-				                    <span class="d-lg-none d-md-block">Stats</span>
-				                  </p>
-				                </a>
-				              </li>
-				              <li class="nav-item dropdown">
-				                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				                  <i class="now-ui-icons location_world"></i>
-				                  <p>
-				                    <span class="d-lg-none d-md-block">Some Actions</span>
-				                  </p>
-				                </a>
-				                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-				                  <a class="dropdown-item" href="#">Action</a>
-				                  <a class="dropdown-item" href="#">Another action</a>
-				                  <a class="dropdown-item" href="#">Something else here</a>
-				                </div>
-				              </li>
-				              <li class="nav-item">
-				                <a class="nav-link" href="#pablo">
-				                  <i class="now-ui-icons users_single-02"></i>
-				                  <p>
-				                    <span class="d-lg-none d-md-block">Account</span>
-				                  </p>
-				                </a>
-				              </li>
-				            </ul>
-				          </div>
-				        </div>
-		      	</nav>
-		      	<!-- End Navbar -->
 		      	<div class="panel-header panel-header-sm">
 		      	</div>
-		      	<div class="content">
+		      	<div class="content" style="padding-bottom: 200px;">
 				        <div class="row">
 				          <div class="col-md-12">
-				            <div class="card">
+				            <div class="card" style="padding-bottom: 50px;">
 				              <div class="card-header d-flex flex-row justify-content-between">
 				                <h4 class="card-title">클래스 목록</h4>
 				              </div>
 				              <div class="card-body">
 				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
 				              	<form action='<c:url value="/class/classlist/1"/>' method="get" class="form-inline">
-					              	<div class="form-group mr-3">
-									  	<label for="orgName" class="mr-2">기관</label>
-									  	<select name="orgName" class="form-control" id="orgName">
+					              	<div class="form-group mr-3 m-2">
+									  	<label for="orgName" class="mr-3" style="font-size:20px;">기관</label>
+									  	<select name="orgName" class="form-control" id="orgName" style="width:300px; height:50px;font-size:20px;">
 											<option value="전체" <c:if test ="${orgName eq '전체'}">selected="selected"</c:if>>전체</option>
 											<option value="KOREA SOFTWARE" <c:if test ="${orgName eq 'KOREA SOFTWARE'}">selected="selected"</c:if>>KOREA SOFTWARE</option>
 											<option value="한국개발진흥원" <c:if test ="${orgName eq '한국개발진흥원'}">selected="selected"</c:if>>한국개발진흥원</option>
@@ -97,39 +34,41 @@
 											<option value="한국방송통신대학교" <c:if test ="${orgName eq '한국방송통신대학교'}">selected="selected"</c:if>>한국방송통신대학교</option>
 										</select>
 									</div>
-					              	<div class="form-group mr-3">
-									  <label for="className" class="mr-2">클래스 명</label>
-									  <input type="text" name="className" value="${className}" class="form-control" id="className"/>
+					              	<div class="form-group mr-3 m-2">
+									  <label for="className" class="mr-3 " style="font-size:20px;" >클래스 명</label>
+									  <input type="text" name="className" value="${className}" class="form-control" id="className" style="width:300px; height:50px;font-size:20px;"/>
 									</div>
 									
-									<input type="submit" value="검색" class="btn btn-sm btn-primary"/>
+									<input type="submit" value="검색" class="btn btn-sm btn-primary ml-4" style="width:150px; height:40px; font-size:20px;"/>
 								</form>
 						
-				                <div class="table-responsive">
+				                <div class="table-responsive m-3 pr-4" style="font-size: 20px;" >
 				                	<table class="table">
 				                		<thead class=" text-primary">
-				                      		<th class="text-right">클래스 번호</th>
-				                      		<th class="text-right">담당 기관 </th>
-				                      		<th class="text-right">클래스 명</th>
-				                      		<th class="text-right">이수 시간</th>
-				                      		<th class="text-right">교육 시작일</th>
-				                      		<th class="text-right">교육 종료일</th>
+				                			<tr>
+					                      		<th class="claNumber">클래스 번호</th>
+					                      		<th>담당 기관 </th>
+					                      		<th>클래스 명</th>
+					                      		<th>이수 시간</th>
+					                      		<th>교육 시작일</th>
+					                      		<th>교육 종료일</th>
+				                      		</tr>
 				                    	</thead>
 				                    	<tbody>
 											<c:forEach var="class" items="${classList}">
 												<tr onclick='location.href="<c:url value='/attend/getAllAttend/${class.classId}'/>" '>
-													<td class="text-right">${class.classId}</td>
-													<td class="text-right">${class.orgName}</td>
-													<td class="text-right">${class.className}</td>
-													<td class="text-right">${class.classHours}시간</td>
-													<td class="text-right">${class.classStartDate}</td>
-													<td class="text-right">${class.classEndDate}</td>
+													<td>${class.classId}</td>
+													<td>${class.orgName}</td>
+													<td class="classHover">${class.className}</td>
+													<td>${class.classHours}시간</td>
+													<td>${class.classStartDate}</td>
+													<td>${class.classEndDate}</td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
 				                </div>
-				                <ul class="pagination">
+				                <ul class="pagination d-flex justify-content-center">
 									<!-- Previous 시작 -->
 									<li class="paginate_button page-item previous <c:if test='${pager.startPageNo eq 1}'>disabled</c:if>" id="dataTable_previous">
 										<a href='<c:url value="/class/classlist/${pager.startPageNo-5}?orgName=${orgName}&className=${className}"/>' aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">
