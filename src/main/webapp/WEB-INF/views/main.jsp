@@ -29,10 +29,10 @@
 								&nbsp;<%=sf.format(nowTime)%>
 							</p>
 							<div >
-								<c:if test="${empty attendVO.inTime}">
+								<c:if test="${empty attendVO.inTime && isManager == 'N'.charAt(0)}">
 									<a style="none;" href='<c:url value="/attend/in"/>'>출근</a>
 								</c:if>
-								<c:if test="${!empty attendVO.inTime && empty attendVO.outTime}">
+								<c:if test="${!empty attendVO.inTime && empty attendVO.outTime && isManager == 'N'.charAt(0)}">
 									<a style="none;" href='<c:url value="/attend/out"/>'>퇴근</a>
 								</c:if>
 								<c:if test="${!empty attendVO.inTime && !empty attendVO.outTime }" />
