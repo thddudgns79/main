@@ -135,9 +135,11 @@ public class ReportsService implements IReportsService {
 
 	// 휴가 취소
 	@Override
+	@Transactional
 	public void deleteReprots(int repId, Date now) {
 		ReportsVO rep = reportsRepository.selectRep(repId);
-		if (now.getTime() > rep.getInTime().getTime() && rep.getRepStatus().equals("대기")) {
+		if (now.getTime() < rep.getInTime().getTime() && rep.getRepStatus().equals("대기")) {
+			System.out.println("휴가 취소 조건 만족");
 			// 현재시간이 신청했던 휴가의 시작시간이 지나지 않은 경우
 			fileRepository.deleteFile(repId);
 			reportsRepository.deleteReports(repId);
