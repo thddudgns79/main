@@ -117,10 +117,10 @@
 				                    	</thead>
 				                    	<tbody>
 											<c:forEach var="class" items="${classList}">
-												<tr>
+												<tr onclick='location.href="<c:url value='/attend/getAllAttend/${class.classId}'/>" '>
 													<td class="text-right">${class.classId}</td>
 													<td class="text-right">${class.orgName}</td>
-													<td class="text-right"><a href='<c:url value="/attend/getAllAttend/${class.classId}"/>'>${class.className}</a></td>
+													<td class="text-right">${class.className}</td>
 													<td class="text-right">${class.classHours}시간</td>
 													<td class="text-right">${class.classStartDate}</td>
 													<td class="text-right">${class.classEndDate}</td>
