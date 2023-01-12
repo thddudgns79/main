@@ -27,7 +27,7 @@
 				</li>
 				
 				<li>
-					<a href='<c:url value="/attend/studentreportslist"/>'> 
+					<a href='<c:url value="/attend/studentreportslistdefault"/>'> 
 						<i class="now-ui-icons design_app"></i>
 						<p>휴가 목록</p>
 					</a>
@@ -44,7 +44,7 @@
 				</li>
 			
 				<li>
-					<a href='<c:url value="/attend/reportslist"/>'> 
+					<a href='<c:url value="/attend/reportslistdefault"/>'> 
 						<i class="now-ui-icons design_app"></i>
 						<p>휴가 결재</p>
 					</a>
@@ -54,7 +54,7 @@
 					<li>
 						<a href='<c:url value="/attend/getAllAttend/${classId}"/>'> 
 							<i class="now-ui-icons design_app"></i>
-							<p>반 근태 조회</p>
+							<p>${classId}반 근태 조회</p>
 						</a>
 					</li>
 				</c:if>
@@ -67,7 +67,7 @@
 				<li>
 					<a href='<c:url value="/class/sectionlist"/>'>
 						<i class="now-ui-icons design_bullet-list-67"></i>
-						<p>수업 자료</p>
+						<p>${classId}반 수업 자료</p>
 					</a>
 				</li>
 				<li class="my-3 ml-4" style=" width:70%; border-bottom: 1px solid rgba(255,255,255,0.5);"></li>

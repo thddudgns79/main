@@ -54,6 +54,7 @@ public class StudentController {
 		return "home";
 	}
    
+	
 	@RequestMapping(value="/student/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session, HttpServletRequest request) {
 		session.invalidate();//로그아웃

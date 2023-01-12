@@ -14,7 +14,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 		try {
 			String studentId = (String) request.getSession().getAttribute("stdId");
 			if (studentId == null || studentId.equals("")) {
+<<<<<<< HEAD
 				response.sendRedirect(request.getContextPath()+"/");
+=======
+				response.sendRedirect(request.getContextPath() + "/");
+>>>>>>> branch 'master' of https://github.com/oti-project3/main.git
 				return false;
 			}
 		} catch (Exception e) {

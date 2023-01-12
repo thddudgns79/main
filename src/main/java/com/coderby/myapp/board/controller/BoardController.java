@@ -26,6 +26,7 @@ import com.coderby.myapp.board.model.ReplyVO;
 import com.coderby.myapp.board.service.IBoardService;
 import com.coderby.myapp.file.model.FileVO;
 import com.coderby.myapp.file.service.IFileService;
+import com.coderby.myapp.util.Pager;
 
 @Controller
 public class BoardController {
@@ -39,32 +40,32 @@ public class BoardController {
 	//[게시글 목록] - 1page
 	@RequestMapping("/board/list")
 	public String getList(HttpSession session, Model model) {
-		return getList(1, session, model);
+		return getList(null, session, model);
 	}
 	
 	//[게시글 목록] - 페이징처리
-	@RequestMapping("/board/list/{page}")
-	public String getList(@PathVariable int page, HttpSession session, Model model) {
-		//세션
-		session.setAttribute("page", page);
-//		int classId = (Integer) session.getAttribute("classId");
-		int classId = 3;
+	@RequestMapping("/board/list/{strPageNo}")
+	public String getList(@PathVariable String strPageNo, HttpSession session, Model model) {
 		
-		//모델
-		model.addAttribute("classId", classId);
-		//게시판 목록 갖고 오는 서비스 로직 작성
-		List<BoardVO> boardList = boardService.selectBoardListByClass(classId, page);
+		if(strPageNo == null) {
+			strPageNo = "1";
+		}
+		
+		int pagerNo = Integer.parseInt(strPageNo);
+		
+		int classId = 3;
+//		int classId = (Integer) session.getAttribute("classId");
+		int totalBoardCount = boardService.selectTotalBoardCountByClass(classId);
+		
+		//Pager 객체
+		Pager pager = new Pager(5, 5, totalBoardCount, pagerNo);
+		
+		List<BoardVO> boardList = boardService.selectBoardListByClass(classId, pager);
 		model.addAttribute("boardList", boardList);
 		
-		//페이징 처리 
-		int bbsCount = boardService.selectTotalBoardCountByClass(classId);
-		int totalPage = 0;
-		if(bbsCount > 0) {
-			totalPage = (int) Math.ceil(bbsCount/10.0);
-		}
-		model.addAttribute("totalPage", totalPage);
-		model.addAttribute("page", page);
-		return "board/list";
+		model.addAttribute("pager", pager);
+		
+		return "board/boardList";
 	}
 	
 	//[게시글 상세보기]
@@ -104,7 +105,7 @@ public class BoardController {
 		}catch (Exception e) {
 			redirectAttr.addFlashAttribute("message", e.getMessage());
 		}
-		return "redirect:/board/list";
+		return "redirect:/board/list/1";
 	}
 	
 	//[게시글 - 파일/사진]

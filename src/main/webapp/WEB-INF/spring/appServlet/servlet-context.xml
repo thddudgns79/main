@@ -38,7 +38,6 @@
 		</beans:property>
 	</beans:bean>
 	
-	<view-controller path="/" view-name="home"/>
 	
 	<!-- 메인보드 -->
  	<resources location="/WEB-INF/resources/" mapping="/**/"/>
@@ -57,14 +56,14 @@
 	<resources location="/WEB-INF/resources/fonts/" mapping="/fonts/**/"/> 
 	
 	<!-- 로그인 -->
-	 	<resources location="/WEB-INF/resources/login/" mapping="/login/**/"/>
-	 	<resources location="/WEB-INF/resources/login/css/" mapping="/login/css/**/"/>
-	 	<resources location="/WEB-INF/resources/login/css/bootstrap/" mapping="/login/css/bootstrap/**/"/>
-	 	<resources location="/WEB-INF/resources/login/css/bootstrap/utilities/" mapping="/login/css/bootstrap/utilities/**/"/>
-	 	<resources location="/WEB-INF/resources/login/fonts/" mapping="/login/fonts/**/"/>
-	 	<resources location="/WEB-INF/resources/login/images/" mapping="/login/images/**/"/>
-	 	<resources location="/WEB-INF/resources/login/js/" mapping="/login/js/**/"/>
-	 	<resources location="/WEB-INF/resources/login/scss/" mapping="/login/scss/**/"/>
+ 	<resources location="/WEB-INF/resources/login/" mapping="/login/**/"/>
+ 	<resources location="/WEB-INF/resources/login/css/" mapping="/login/css/**/"/>
+ 	<resources location="/WEB-INF/resources/login/css/bootstrap/" mapping="/login/css/bootstrap/**/"/>
+ 	<resources location="/WEB-INF/resources/login/css/bootstrap/utilities/" mapping="/login/css/bootstrap/utilities/**/"/>
+ 	<resources location="/WEB-INF/resources/login/fonts/" mapping="/login/fonts/**/"/>
+ 	<resources location="/WEB-INF/resources/login/images/" mapping="/login/images/**/"/>
+ 	<resources location="/WEB-INF/resources/login/js/" mapping="/login/js/**/"/>
+ 	<resources location="/WEB-INF/resources/login/scss/" mapping="/login/scss/**/"/>
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize">
@@ -72,12 +71,20 @@
 		</beans:property>
 	</beans:bean>
 	
+	<view-controller path="/" view-name="home"/>
+	
 	<interceptors>
         <interceptor>
             <mapping path="/attend/**"/>
+<<<<<<< HEAD
             <mapping path="/reports/**"/>
             <mapping path="/board/**"/>
             <mapping path="/class/**"/>
+=======
+            <mapping path="/class/**"/>
+            <mapping path="/board/**"/>
+            <mapping path="/reports/**"/>
+>>>>>>> branch 'master' of https://github.com/oti-project3/main.git
             <beans:bean class="com.coderby.myapp.common.filter.LoginInterceptor" />
         </interceptor>
     </interceptors>
@@ -85,6 +92,5 @@
 	<context:component-scan base-package="com.coderby.myapp.attendance.controller"/>
 	<context:component-scan base-package="com.coderby.myapp.board.controller"/>
 	<context:component-scan base-package="com.coderby.myapp.classes.controller"/>
-	<context:component-scan base-package="com.coderby.myapp.attendance.controller"/>
 	
 </beans:beans>

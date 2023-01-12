@@ -30,6 +30,7 @@ import com.coderby.myapp.attendance.service.IReportsService;
 import com.coderby.myapp.classes.service.IClassService;
 import com.coderby.myapp.file.model.FileVO;
 import com.coderby.myapp.file.service.IFileService;
+import com.coderby.myapp.util.Pager;
 
 @Controller
 //@EnableScheduling
@@ -51,7 +52,7 @@ public class AttendanceController {
 	public String attendToday(HttpSession session, Model model) {
 		AttendanceVO attendVO = new AttendanceVO();
 		String stdId = (String) session.getAttribute("stdId");
-		if(stdId!=null) {
+		if (stdId != null) {
 			attendVO = attendanceService.attendToday(stdId);
 			if (attendVO != null) {
 				if (attendVO.getOutTime() != null) {
@@ -140,13 +141,17 @@ public class AttendanceController {
 
 	// 반 휴가 신청 목록
 	// classId, year, month, status, reqType
-	@RequestMapping(value = "/attend/reportslist", method = RequestMethod.POST)
-	public String getReportsList(String classId, String yearParam, String monthParam, String repType, String repStatus,
-			Model model) {
-		List<ReportsVO> reportsList = reportsService.getReportsList(classId, yearParam, monthParam, repType, repStatus);
+	@RequestMapping(value = "/attend/reportslist/{pageNo}", method = RequestMethod.GET)
+	public String getReportsList(@PathVariable("pageNo") int pageNo, String classId, String yearParam,
+			String monthParam, String repType, String repStatus, Model model) {
+		int totalRows = reportsService.getReportsListCount(classId, yearParam, monthParam, repType, repStatus);
+		Pager pager = new Pager(5, 5, totalRows, pageNo);
+		List<ReportsVO> reportsList = reportsService.getReportsList(classId, yearParam, monthParam, repType, repStatus,
+				pager);
 		List<Integer> classIdList = classService.getClassIdList();
 		model.addAttribute("classIdList", classIdList);
 		model.addAttribute("reportsList", reportsList);
+		model.addAttribute("pager", pager);
 		model.addAttribute("selectedClassId", classId);
 		model.addAttribute("yearParam", yearParam);
 		model.addAttribute("monthParam", monthParam);
@@ -157,12 +162,17 @@ public class AttendanceController {
 
 	// 학생의 휴가 신청 목록 조회(학생)
 	// year, month, status, reqType
-	@RequestMapping(value = "/attend/studentreportslist", method = RequestMethod.POST)
-	public String getStudentReportsList(String yearParam, String monthParam, String repType, String repStatus,
-			Model model, HttpSession session) {
+	@RequestMapping(value = "/attend/studentreportslist/{pageNo}", method = RequestMethod.GET)
+	public String getStudentReportsList(@PathVariable("pageNo") int pageNo, String yearParam, String monthParam,
+			String repType, String repStatus, Model model, HttpSession session) {
 		String stdId = (String) session.getAttribute("stdId");
+		int totalRows = reportsService.getStudentReportsListCount(yearParam, monthParam, repType, repStatus, stdId);
+		System.out.println("totalRows : " + totalRows);
+		Pager pager = new Pager(5, 5, totalRows, pageNo);
 		List<ReportsVO> reportsList = reportsService.getStudentReportsList(yearParam, monthParam, repType, repStatus,
-				stdId);
+				stdId, pager);
+		System.out.println("size : " + reportsList.size());
+		model.addAttribute("pager", pager);
 		model.addAttribute("reportsList", reportsList);
 		// jsp의 selectbox selected값 기억하기 위해서
 		model.addAttribute("yearParam", yearParam);
@@ -172,16 +182,16 @@ public class AttendanceController {
 		return "attendance/studentReportsList";
 	}
 
-	// 학생의 휴가 신청 목록 조회(학생)
-	@RequestMapping(value = "/attend/studentreportslist", method = RequestMethod.GET)
+	// 학생의 휴가 신청 목록 조회(학생, 첫 요청)
+	@RequestMapping(value = "/attend/studentreportslistdefault", method = RequestMethod.GET)
 	public String getStudentReportsList(Model model, HttpSession session) {
-		return getStudentReportsList("2023", "1", "전체", "전체", model, session);
+		return getStudentReportsList(1, "2023", "1", "전체", "전체", model, session);
 	}
 
-	// 반 휴가 신청 목록
-	@RequestMapping(value = "/attend/reportslist", method = RequestMethod.GET)
+	// 반 휴가 신청 목록(첫 요청)
+	@RequestMapping(value = "/attend/reportslistdefault", method = RequestMethod.GET)
 	public String getReportsList(Model model) {
-		return getReportsList("전체", "2023", "1", "전체", "전체", model);
+		return getReportsList(1, "전체", "2023", "1", "전체", "전체", model);
 	}
 
 	// 휴가 상세 조회
@@ -222,7 +232,7 @@ public class AttendanceController {
 			e.printStackTrace();
 		}
 		// 업데이트한 휴가의 상세페이지로 redirect
-		return "redirect:/attend/reportslist";
+		return "redirect:/attend/reportslistdefault";
 	}
 
 	// 전체 학생 월간 근태 조회 (관리자 메인)

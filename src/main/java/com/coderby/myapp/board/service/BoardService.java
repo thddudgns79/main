@@ -12,7 +12,7 @@ import com.coderby.myapp.board.dao.IReplyRepository;
 import com.coderby.myapp.board.model.BoardVO;
 import com.coderby.myapp.board.model.ReplyVO;
 import com.coderby.myapp.file.dao.IFileRepository;
-import com.fasterxml.jackson.core.format.DataFormatDetector;
+import com.coderby.myapp.util.Pager;
 
 @Service
 public class BoardService implements IBoardService {
@@ -27,10 +27,11 @@ public class BoardService implements IBoardService {
 	IFileRepository fileRepository;
 	
  	@Override
-	public List<BoardVO> selectBoardListByClass(int classId, int page) {
-		int start = ((page-1)*10)-1;
-		
-		List<BoardVO> boardList = boardRepository.selectBoardListByClass(classId, start, start+9);
+	public List<BoardVO> selectBoardListByClass(int classId, Pager pager) {
+ 		int pageNo = pager.getPageNo();
+ 		int rowsPerPage = pager.getRowsPerPage();
+ 		
+		List<BoardVO> boardList = boardRepository.selectBoardListByClass(classId, pageNo, rowsPerPage);
 		for(BoardVO vo : boardList) {
 			vo.setCalculateTime(CalculateBeforeTime(vo.getCreatedDate()));
 		}

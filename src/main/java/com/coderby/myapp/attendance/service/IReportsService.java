@@ -12,10 +12,14 @@ public interface IReportsService {
 	void deleteReprots(int repId, Date now);
 
 	List<ReportsVO> getReportsList(String classId, String yearParam, String monthParam, String repType,
-			String repStatus);
+			String repStatus, Pager pager);
+
+	int getReportsListCount(String classId, String yearParam, String monthParam, String repType, String repStatus);
 
 	List<ReportsVO> getStudentReportsList(String yearParam, String monthParam, String repType, String repStatus,
-			String stdId);
+			String stdId, Pager pager);
+
+	int getStudentReportsListCount(String yearParam, String monthParam, String repType, String repStatus, String stdId);
 
 	ReportsVO getReportsDetail(int repId);
 

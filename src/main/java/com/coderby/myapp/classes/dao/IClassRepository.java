@@ -6,10 +6,12 @@ import org.apache.ibatis.annotations.Param;
 
 import com.coderby.myapp.classes.model.ClassVO;
 import com.coderby.myapp.classes.model.SectionVO;
+import com.coderby.myapp.util.Pager;
 
 public interface IClassRepository {
-	List<ClassVO> getClassList(@Param("orgName") String orgName, @Param("className") String className);
-
+	List<ClassVO> getClassList(@Param("orgName") String orgName, @Param("className") String className, @Param("pager") Pager pager);
+	
+	int getClassListTotal(@Param("orgName") String orgName, @Param("className") String className);
 	List<SectionVO> getSectionList(int classId);
 	
 	void insertSection(@Param("classId") int classId, @Param("sectionTitle") String sectionTitle, @Param("sectionDescription") String sectionDescription);
