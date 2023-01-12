@@ -12,75 +12,12 @@
 	<div class="wrapper ">
 		<jsp:include page="/WEB-INF/views/include/list.jsp" />
 		    <div class="main-panel" id="main-panel">
-		      	<!-- Navbar --> 
-		      	<nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
-				        <div class="container-fluid">
-				          <div class="navbar-wrapper">
-				            <div class="navbar-toggle">
-				              <button type="button" class="navbar-toggler">
-				                <span class="navbar-toggler-bar bar1"></span>
-				                <span class="navbar-toggler-bar bar2"></span>
-				                <span class="navbar-toggler-bar bar3"></span>
-				              </button>
-				            </div> 
-				          </div>
-				          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-				            <span class="navbar-toggler-bar navbar-kebab"></span>
-				            <span class="navbar-toggler-bar navbar-kebab"></span>
-				            <span class="navbar-toggler-bar navbar-kebab"></span>
-				          </button>
-				          <div class="collapse navbar-collapse justify-content-end" id="navigation">
-				            <form>
-					              <div class="input-group no-border">
-					                <input type="text" value="" class="form-control" placeholder="Search..." style="left: -1.5px;">
-					                <div class="input-group-append">
-					                  <div class="input-group-text">
-					                    <i class="now-ui-icons ui-1_zoom-bold"></i>
-					                  </div>
-					                </div>
-					              </div>
-				            </form>
-				            <ul class="navbar-nav">
-				              <li class="nav-item">
-				                <a class="nav-link" href="#pablo">
-				                  <i class="now-ui-icons media-2_sound-wave"></i>
-				                  <p>
-				                    <span class="d-lg-none d-md-block">Stats</span>
-				                  </p>
-				                </a>
-				              </li>
-				              <li class="nav-item dropdown">
-				                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				                  <i class="now-ui-icons location_world"></i>
-				                  <p>
-				                    <span class="d-lg-none d-md-block">Some Actions</span>
-				                  </p>
-				                </a>
-				                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-				                  <a class="dropdown-item" href="#">Action</a>
-				                  <a class="dropdown-item" href="#">Another action</a>
-				                  <a class="dropdown-item" href="#">Something else here</a>
-				                </div>
-				              </li>
-				              <li class="nav-item">
-				                <a class="nav-link" href="#pablo">
-				                  <i class="now-ui-icons users_single-02"></i>
-				                  <p>
-				                    <span class="d-lg-none d-md-block">Account</span>
-				                  </p>
-				                </a>
-				              </li>
-				            </ul>
-				          </div>
-				        </div>
-		      	</nav>
-		      	<!-- End Navbar -->
 		      	<div class="panel-header panel-header-sm">
 		      	</div>
-		      	<div class="content">
+		      	<div class="content" style="padding-bottom: 180px;">
 				        <div class="row">
 				          <div class="col-md-12">
-				            <div class="card">
+				            <div class="card" style="padding-bottom: 50px;">
 				              <div class="card-header d-flex flex-row justify-content-between">
 				                <h4 class="card-title">휴가 결재</h4>
 				              </div>
@@ -88,8 +25,8 @@
 				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
 				              	<!-- classId, year, month, status, reqType -->
 						    	<form action='<c:url value="/attend/reportslist/1"/>' method="GET" class="form-inline">
-						    		<label for="yearParam" class="mr-1">연도</label>
-							    	<select name="yearParam" class="form-control mr-2" id="yearParam">
+						    		<label for="yearParam" class="mr-2 ml-2" style="font-size:20px;">연도</label>
+							    	<select name="yearParam" class="form-control mr-2" id="yearParam" style="width:150px; height:50px;font-size:20px;">
 								    	<option <c:if test ="${yearParam eq '2013'}">selected="selected"</c:if> value="2013">2013</option>
 								    	<option <c:if test ="${yearParam eq '2014'}">selected="selected"</c:if> value="2014">2014</option>
 								    	<option <c:if test ="${yearParam eq '2015'}">selected="selected"</c:if> value="2015">2015</option>
@@ -103,8 +40,8 @@
 							    		<option <c:if test ="${yearParam eq '2023'}">selected="selected"</c:if> value="2023">2023</option>
 							    	</select>
 							    	
-							    	<label for="monthParam" class="mr-1">월</label>
-							    	<select name="monthParam" class="form-control mr-2" id="monthParam">
+							    	<label for="monthParam" class="mr-2" style="font-size:20px;">월</label>
+							    	<select name="monthParam" class="form-control mr-2" id="monthParam" style="width:50px; height:50px;font-size:20px;">
 							    		<option <c:if test ="${monthParam eq '1'}">selected="selected"</c:if> value="1">1</option>
 							    		<option <c:if test ="${monthParam eq '2'}">selected="selected"</c:if> value="2">2</option>
 							    		<option <c:if test ="${monthParam eq '3'}">selected="selected"</c:if> value="3">3</option>
@@ -119,16 +56,16 @@
 							    		<option <c:if test ="${monthParam eq '12'}">selected="selected"</c:if> value="12">12</option>
 							    	</select>
 							    	
-							    	<label for="classId" class="mr-1">클래스 번호</label>
-							    	<select name="classId" class="form-control mr-2" id="classId">
+							    	<label for="classId" class="ml-5 mr-2" style="font-size:20px;">클래스 번호</label>
+							    	<select name="classId" class="form-control mr-2" id="classId" style="width:80px; height:50px;font-size:20px;">
 							    		<option value="전체">전체</option>
 							    		<c:forEach var="classId" items="${classIdList}">
 							    			<option <c:if test ="${selectedClassId != '전체' && selectedClassId eq classId}">selected="selected"</c:if> value="${classId}">${classId}</option>
 							    		</c:forEach>
 							    	</select>
 							    	
-							    	<label for="repType" class="mr-1">신청 유형</label>
-							    	<select name="repType" class="form-control mr-2" id="repType">
+							    	<label for="repType" class="mr-2" style="font-size:20px;">신청 유형</label>
+							    	<select name="repType" class="form-control mr-2" id="repType" style="width:200px; height:50px;font-size:20px;">
 							    		<option <c:if test ="${repType eq '전체'}">selected="selected"</c:if> value="전체">전체</option>
 							    		<option <c:if test ="${repType eq '병가'}">selected="selected"</c:if> value="병가">병가</option>
 							    		<option <c:if test ="${repType eq '경조사'}">selected="selected"</c:if> value="경조사">경조사</option>
@@ -138,38 +75,43 @@
 							    		<option <c:if test ="${repType eq '지하철 연착'}">selected="selected"</c:if> value="지하철 연착">지하철 연착</option>
 							    	</select>
 							    	
-							    	<label for="repStatus" class="mr-1">상태</label>
-							    	<select name="repStatus" class="form-control mr-2" id="repStatus">
+							    	<label for="repStatus" class=" mr-2" style="font-size:20px;">상태</label>
+							    	<select name="repStatus" class="form-control mr-2" id="repStatus" style="width:180px; height:50px;font-size:20px;">
 							    		<option <c:if test ="${repStatus eq '전체'}">selected="selected"</c:if> value="전체">전체</option>
 							    		<option <c:if test ="${repStatus eq '대기'}">selected="selected"</c:if> value="대기">대기</option>
 							    		<option <c:if test ="${repStatus eq '승인'}">selected="selected"</c:if> value="승인">승인</option>
 							    		<option <c:if test ="${repStatus eq '반려'}">selected="selected"</c:if> value="반려">반려</option>
 							    	</select>
 							    	
-							    	<input type="submit" value="검색" class="btn btn-sm btn-primary"/>
+							    	<input type="submit" value="검색" class="btn btn-sm btn-primary ml-5" style="width:150px; height:40px; font-size:20px;"/>
 						    	</form>
 						    	
-						    	<table class="table">
-			                    	<thead class=" text-primary">
-			                      		<th class="text-right">신청 번호</th>
-						    			<th class="text-right">신청인</th>
-						    			<th class="text-right">휴가 날짜</th>
-						    			<th class="text-right">신청 유형</th>
-						    			<th class="text-right">상태</th>
-			                    	</thead>
-			                    	<tbody>
-										<c:forEach var="report" items="${reportsList}">
-							    			<tr onclick='location.href="<c:url value='/attend/reportsdetail/${report.repId}'/>" '>
-							    				<td class="text-right">${report.repId}</td>
-							    				<td class="text-right">${report.studentId}</td>
-							    				<td class="text-right"><fmt:formatDate value="${report.repDate}" pattern="yyyy.MM.dd"/></td>
-							    				<td class="text-right">${report.repType}</td>
-							    				<td class="text-right">${report.repStatus}</td>
+						    	<div class="table-responsive m-3 pr-4" style="font-size: 20px;">
+							    	<table class="table table-hover" >
+				                    	<thead class=" text-primary">
+				                    		<tr class="colored">
+					                      		<th class="clNumber">신청 번호</th>
+								    			<th class="clName">신청인</th>
+								    			<th class="clDay">휴가 날짜</th>
+								    			<th>신청 유형</th>
+								    			<th class="clStatus">상태</th>
 							    			</tr>
-						    			</c:forEach>
-			                    	</tbody>
-				                 </table>
-				                 <ul class="pagination">
+				                    	</thead>
+				                    	<tbody>
+											<c:forEach var="report" items="${reportsList}">
+								    			<tr class="colored" onclick='location.href="<c:url value='/attend/reportsdetail/${report.repId}'/>" '>
+								    				<td>${report.repId}</td>
+								    				<td>${report.studentId}</td>
+								    				<td><fmt:formatDate value="${report.repDate}" pattern="yyyy.MM.dd"/></td>
+								    				<td>${report.repType}</td>
+								    				<td>${report.repStatus}</td>
+								    			</tr>
+							    			</c:forEach>
+				                    	</tbody>
+					                 </table>
+				                 </div>
+				                 
+				                 <ul class="pagination d-flex justify-content-center mt-5">
 									<!-- Previous 시작 -->
 									<li class="paginate_button page-item previous <c:if test='${pager.startPageNo eq 1}'>disabled</c:if>" id="dataTable_previous">
 										<a href='<c:url value="/attend/reportslist/${pager.startPageNo-5}?classId=${selectedClassId}&yearParam=${yearParam}&monthParam=${monthParam}&repType=${repType}&repStatus=${repStatus}"/>' aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">

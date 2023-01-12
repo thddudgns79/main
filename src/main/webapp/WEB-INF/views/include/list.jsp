@@ -9,7 +9,7 @@
 		</a>
 	</div>
 	<div class="sidebar-wrapper" id="sidebar-wrapper">
-		<ul class="nav"> 
+		<ul class="nav" style="font-size:25px;"> 
 			<!-- 학생 -->
 			<c:if test="${isManager == 'N'.charAt(0)}">
 				<li>
