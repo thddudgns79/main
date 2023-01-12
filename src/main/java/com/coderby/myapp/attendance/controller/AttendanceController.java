@@ -104,8 +104,10 @@ public class AttendanceController {
 			e1.printStackTrace();
 		}
 		Date now = new Date(System.currentTimeMillis());
+		System.out.println(reports.getRepType());
 		reports.setStudentId((String) session.getAttribute("stdId"));
 		String message = reportsService.insertReports(reports, now);
+		System.out.println(message);
 		try {
 			// DB에 게시판에 작성한 내용 등록
 			if (message.equals("성공")) {
@@ -130,7 +132,7 @@ public class AttendanceController {
 			redirectAttr.addFlashAttribute("message", e.getMessage());
 		}
 		
-		return "redirect:/attend/studentreportslist";
+		return "redirect:/attend/studentreportslistdefault";
 	}
 
 	// 휴가 취소
@@ -141,9 +143,9 @@ public class AttendanceController {
 		char isManager = (Character) session.getAttribute("isManager");
 		// 관리자면
 		if (isManager == 'Y') {
-			return "redirect:/attend/reportslist";
+			return "redirect:/attend/reportslistdefault";
 		} else {
-			return "redirect:/attend/studentreportslist";
+			return "redirect:/attend/studentreportslistdefault";
 		}
 	}
 

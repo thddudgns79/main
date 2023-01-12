@@ -180,7 +180,7 @@
 									<!-- Page번호 시작 -->
 									<c:forEach var="pNo" begin="${pager.startPageNo }" end="${pager.endPageNo }" step="1">
 										<li class="paginate_button page-item  <c:if test='${pager.pageNo eq pNo}'>active</c:if>">
-											<a href='<c:url value="/attend/reportslist/${pager.startPageNo-5}?classId=${selectedClassId}&yearParam=${yearParam}&monthParam=${monthParam}&repType=${repType}&repStatus=${repStatus}"/>' aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">
+											<a href='<c:url value="/attend/reportslist/${pNo}?classId=${selectedClassId}&yearParam=${yearParam}&monthParam=${monthParam}&repType=${repType}&repStatus=${repStatus}"/>' aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">
 												${pNo}
 											</a>
 										</li>
