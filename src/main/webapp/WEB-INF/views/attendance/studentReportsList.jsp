@@ -15,18 +15,18 @@
 		      	
 		      	<div class="panel-header panel-header-sm">
 		      	</div>
-		      	<div class="content">
+		      	<div class="content" style="padding-bottom: 150px;">
 				        <div class="row">
 				          <div class="col-md-12">
-				            <div class="card">
-				              <div class="card-header ml-5 d-flex flex-row justify-content-between">
+				            <div class="card"  style="padding-bottom:50px;">
+				              <div class="card-header ml-5">
 				              <h4 style="font-size: 35px;font-weight: 900;">휴가 신청 목록</h4>
 				              </div>
 				              <div class="card-body">
 				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
 				              	<!-- classId, year, month, status, reqType -->
-						    	<form action='<c:url value="/attend/studentreportslist/1"/>' method="GET">
-							    	<select name="yearParam">
+						    	<form class="row ml-3" action='<c:url value="/attend/studentreportslist/1"/>' method="GET">
+							    	<select name="yearParam" class="form-control col-1 mr-3" style="font-size:25px;">
 								    	<option <c:if test ="${yearParam eq '2013'}">selected="selected"</c:if> value="2013">2013</option>
 								    	<option <c:if test ="${yearParam eq '2014'}">selected="selected"</c:if> value="2014">2014</option>
 								    	<option <c:if test ="${yearParam eq '2015'}">selected="selected"</c:if> value="2015">2015</option>
@@ -40,7 +40,7 @@
 							    		<option <c:if test ="${yearParam eq '2023'}">selected="selected"</c:if> value="2023">2023</option>
 							    	</select>
 							    	
-							    	<select name="monthParam">
+							    	<select name="monthParam" class="form-control col-1 mr-3" style="font-size:25px;width:50%">
 							    		<option <c:if test ="${monthParam eq '1'}">selected="selected"</c:if> value="1">1</option>
 							    		<option <c:if test ="${monthParam eq '2'}">selected="selected"</c:if> value="2">2</option>
 							    		<option <c:if test ="${monthParam eq '3'}">selected="selected"</c:if> value="3">3</option>
@@ -55,8 +55,7 @@
 							    		<option <c:if test ="${monthParam eq '12'}">selected="selected"</c:if> value="12">12</option>
 							    	</select>
 							  
-							    	
-							    	<select name="repType">
+							    	<select name="repType" class="form-control col-2 mr-3" style="font-size:25px;">
 							    		<option <c:if test ="${repType eq '전체'}">selected="selected"</c:if> value="전체">전체</option>
 							    		<option <c:if test ="${repType eq '병가'}">selected="selected"</c:if> value="병가">병가</option>
 							    		<option <c:if test ="${repType eq '경조사'}">selected="selected"</c:if> value="경조사">경조사</option>
@@ -66,36 +65,40 @@
 							    		<option <c:if test ="${repType eq '지하철 연착'}">selected="selected"</c:if> value="지하철 연착">지하철 연착</option>
 							    	</select>
 							    	
-							    	<select name="repStatus">
+							    	<select name="repStatus" class="form-control col-1 mr-5" style="font-size:25px;">
 							    		<option <c:if test ="${repStatus eq '전체'}">selected="selected"</c:if> value="전체">전체</option>
 							    		<option <c:if test ="${repStatus eq '대기'}">selected="selected"</c:if> value="대기">대기</option>
 							    		<option <c:if test ="${repStatus eq '승인'}">selected="selected"</c:if> value="승인">승인</option>
 							    		<option <c:if test ="${repStatus eq '반려'}">selected="selected"</c:if> value="반려">반려</option>
 							    	</select>
 							    	
-							    	<input type="submit" value="검색"/>
+							    	<input type="submit" value="검색" class="btn btn-primary" style="width:150px; height:50px; font-size:25px;"/ >
 						    	</form>
-						    	<table class="table">
-			                    	<thead class=" text-primary">
-			                      		<th class="text-right">신청 번호</th>
-						    			<th class="text-right">신청인</th>
-						    			<th class="text-right">휴가 날짜</th>
-						    			<th class="text-right">신청 유형</th>
-						    			<th class="text-right">상태</th>
-			                    	</thead>
-			                    	<tbody>
-										<c:forEach var="report" items="${reportsList}">
-							    			<tr onclick='location.href="<c:url value='/attend/reportsdetail/${report.repId}'/>" '>
-							    				<td class="text-right">${report.repId}</td>
-							    				<td class="text-right">${report.studentId}</td>
-							    				<td class="text-right"><fmt:formatDate value="${report.repDate}" pattern="yyyy.MM.dd"/></td>
-							    				<td class="text-right">${report.repType}</td>
-							    				<td class="text-right">${report.repStatus}</td>
+						    	<div class="table-responsive m-3 pr-4" style="font-size: 25px; text-align: center;" >
+							    	<table class="table">
+				                    	<thead class=" text-primary">
+				                    		<tr>
+					                      		<th class="claNumber">신청 번호</th>
+								    			<th>신청인</th>
+								    			<th>휴가 날짜</th>
+								    			<th>신청 유형</th>
+								    			<th>상태</th>
 							    			</tr>
-						    			</c:forEach>
-			                    	</tbody>
-				                 </table>
-				                 <ul class="pagination">
+				                    	</thead>
+				                    	<tbody>
+											<c:forEach var="report" items="${reportsList}">
+								    			<tr class="classHover colored" onclick='location.href="<c:url value='/attend/reportsdetail/${report.repId}'/>" '>
+								    				<td>${report.repId}</td>
+								    				<td>${report.studentId}</td>
+								    				<td><fmt:formatDate value="${report.repDate}" pattern="yyyy.MM.dd"/></td>
+								    				<td>${report.repType}</td>
+								    				<td>${report.repStatus}</td>
+								    			</tr>
+							    			</c:forEach>
+				                    	</tbody>
+					                 </table>
+				                 </div>
+				                 <ul class="pagination d-flex justify-content-center">
 									<!-- Previous 시작 -->
 									<li class="paginate_button page-item previous <c:if test='${pager.startPageNo eq 1}'>disabled</c:if>" id="dataTable_previous">
 										<a href='<c:url value="/attend/studentreportslist/${pager.startPageNo-5}?yearParam=${yearParam}&monthParam=${monthParam}&repType=${repType}&repStatus=${repStatus}"/>' aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">
@@ -120,7 +123,6 @@
 									</li>
 									<!-- Next 끝 -->
 								</ul>
-						    	<a href='<c:url value="reports/write"/>'>휴가 신청</a>
 				              </div>
 				            </div>
 				          </div>

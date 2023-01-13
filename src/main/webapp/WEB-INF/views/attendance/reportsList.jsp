@@ -86,7 +86,7 @@
 							    	<input type="submit" value="검색" class="btn btn-sm btn-primary ml-5" style="width:150px; height:40px; font-size:20px;"/>
 						    	</form>
 						    	
-						    	<div class="table-responsive m-3 pr-4" style="font-size: 20px;">
+						    	<div class="table-responsive m-3 pr-4" style="font-size: 25px; text-align:center;">
 							    	<table class="table" >
 				                    	<thead class=" text-primary">
 				                    		<tr class="colored">
