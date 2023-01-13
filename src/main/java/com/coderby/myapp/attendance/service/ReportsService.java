@@ -115,8 +115,6 @@ public class ReportsService implements IReportsService {
 				if (isPossible) {
 					// 현재 출근상태이면서 퇴근이 되어있지 않아야한다.
 					// 오늘이 아니면 외출 신청 불가능
-					System.out.println(sdf.format(reports.getRepDate()));
-					System.out.println(sdf.format(getAttend.getAttendanceDate()));
 					if (getAttend != null && getAttend.getInTime() != null && getAttend.getOutTime() == null &&
 							sdf.format(reports.getRepDate()).equals(sdf.format(getAttend.getAttendanceDate())) ) {
 						reportsRepository.insertReports(reports);
