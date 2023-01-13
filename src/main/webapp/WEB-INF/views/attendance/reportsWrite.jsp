@@ -19,34 +19,34 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="card" style="padding-bottom:50px;">
-							<div class="card-header">
-								<h4 class="card-title" style="font-size:35px;">휴가 신청</h4>
+							<div class="card-header ml-5">
+								<h4 style="font-size: 35px;font-weight: 900;">휴가 신청</h4>
 							</div>
 							<div class="card-body" >
 								<div class="container">
 									<form action="<c:url value='/reports/write'/>" onsubmit="return check()" method=post enctype="multipart/form-data">
 										<div class="row px-0" >
 											<div class="m-3 col">
-												<label for="repDateStr" class="form-label" style="font-size:15px;">신청일</label>
+												<label for="repDateStr" class="form-label" style="font-size:15px;"><i class="bi bi-calendar-event pr-2"></i>신청일</label>
 												<input  type="date" class="form-control" id="repDateStr" placeholder="YYYY-MM-DD" name="repDateStr" 
 													style="height:50px; font-size:25px;"> 
 												<small id="dateMsg" style="color:red;"></small>
 											</div>
 											<div class="ml-2 my-2 col">
-												<label for="inTimeStr" class="form-label" style="font-size:15px;">inTime</label> 
+												<label for="inTimeStr" class="form-label" style="font-size:15px;"><i class="bi bi-clock pr-2"></i>inTime</label> 
 												<input type="text" class="form-control" id="inTimeStr" placeholder="HH:MM:SS" name="inTimeStr" 
 													 style=" height:50px;  font-size:25px;"> 
 												<small id="inMsg" style="color:red;"></small>
 											</div>
 											<div class="mr-2 my-2 col">
-												<label for="outTimeStr" class="form-label" style="font-size:15px;">outTime</label> 
+												<label for="outTimeStr" class="form-label" style="font-size:15px;"><i class="bi bi-clock pr-2"></i>outTime</label> 
 												<input type="text" class="form-control" id="outTimeStr" placeholder="HH:MM:SS" name="outTimeStr" 
 												style="height:50px; font-size:25px;">
 												 <small id="outMsg" style="color:red;"></small> 
 											</div>
 										</div>
 										<div class="row m-3" style="width:50%;">
-											<label for="outTime" class="form-label" style="font-size:15px;">휴가 신청 사유</label>
+											<label for="outTime" class="form-label" style="font-size:15px;"><i class="bi bi-question-square-fill pr-2"></i>휴가 신청 사유</label>
 											<select id="repType" class="form-select m-1 col" name="repType" onchange="repFunction()" style="font-size:20px;">
 												<option style="width:30%;">--전체--</option>
 												<option value="외출">외출</option>
@@ -59,13 +59,13 @@
 											<small id="repMsg" style="color:red;"></small>
 										</div>
 										<div class="row m-5">
-											<label for="reason" style="font-size:15px;">사유</label>
+											<label for="reason" style="font-size:15px;"><i class="bi bi-chat-square-text pr-2"></i>사유</label>
 											<textarea class="form-control" rows="5" id="reason" name="reason"  style="font-size:20px;"> </textarea>
 											<small id="reasonMsg" style="color:red;"></small>
 										</div>
 										<div class="row m-3" >
 											<!-- 히든으로 학생아이디 넣어주고  -->
-											<label for="multiFile" style="font-size:15px;">파일: </label> 
+											<label for="multiFile" style="font-size:15px;"><i class="bi bi-file-earmark-arrow-up-fill pr-2"></i>파일: </label> 
 											<input type="file" class="form-control" id="multiFile" name="multiFile" style="width:20%;" multiple>
 											<small id="fileMsg" style="color:red;"></small>
 										</div>

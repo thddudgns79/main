@@ -19,8 +19,8 @@
 				        <div class="row">
 				          <div class="col-md-12">
 				            <div class="card">
-				              <div class="card-header d-flex flex-row justify-content-between">
-				                <h4 class="card-title" style="font-size:35px;">휴가 신청 목록</h4>
+				              <div class="card-header ml-5 d-flex flex-row justify-content-between">
+				              <h4 style="font-size: 35px;font-weight: 900;">휴가 신청 목록</h4>
 				              </div>
 				              <div class="card-body">
 				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
