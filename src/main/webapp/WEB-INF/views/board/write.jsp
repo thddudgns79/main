@@ -52,9 +52,9 @@
 										카테고리:
 										<select id="categoryType" class="form-select" name="boardCategory">
 										    <option value="all">--전체--</option>
-										    <option value="qna">질문</option>
-										    <option value="everything">자유주제</option>
-										    <option value="study">스터디</option>
+										    <option value="질문">질문</option>
+										    <option value="자유주제">자유주제</option>
+										    <option value="스터디">스터디</option>
 									  	</select>
 										<div>
 							    			<label for="boardTitle" class="form-label">제목:</label>
