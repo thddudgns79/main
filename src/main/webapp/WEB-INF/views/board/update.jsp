@@ -15,7 +15,7 @@
 <style>
 	#categoryType {
 	    display: block;
-	    width: 105px;
+	    width: 120px;
 	    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
 	    font-size: 15px;
 	    color: grey;
@@ -46,9 +46,9 @@
 									<i class="bi bi-pencil-square"></i>
 								</h4>
 							</div>
-							<div class="card-body" >
+							<div class="card-body ml-5" >
 								<div class="container">
-									<form action="<c:url value='/board/insert'/>" onsubmit="return check()" method=post enctype="multipart/form-data">
+									<form action="<c:url value='/board/insert'/>" onsubmit="return checkUpdate('${board.boardTitle}', '${board.boardContent}')" method=post enctype="multipart/form-data">
 										<label for="categoryType" style="font-size: 17px;">카테고리:</label>
 										<select id="categoryType" class="form-select" name="boardCategory">
 										    <c:if test="${board.boardCategory=='질문'}">
@@ -93,12 +93,12 @@
 													        <h1 class="modal-title fs-5" id="exampleModalLabel">삭제하시겠습니까?</h1>
 													        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 													      </div>
-													      <div class="modal-body">
+													      <div class="modal-body text-muted" style="font-size: 15px;">
 													        삭제를 원하신다면 '삭제'버튼을 눌러주세요.
 													      </div>
 													      <div class="modal-footer">
-													        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-													        <button type="button" class="btn btn-primary" onclick="deleteFileFun(${file.fileId})">삭제</button>
+													        <button type="button" class="btn btn-primary btn-sm" onclick="deleteFileFun(${file.fileId})" style="border-radius: 30px;">삭제</button>
+													        <button type="button" class="btn btn-secondary btn-sm ml-2" data-bs-dismiss="modal" style="border-radius: 30px;">취소</button>
 													      </div>
 													    </div>
 													  </div>
