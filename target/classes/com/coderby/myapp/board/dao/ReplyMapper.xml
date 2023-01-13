@@ -69,7 +69,7 @@
 				REPLY
 					(REPLY_ID, REPLY_CONTENT, CREATED_DATE, MASTER_ID, STUDENT_ID, BOARD_ID)
 			VALUES
-				(SEQ_REPLY_REPLY_ID.NEXTVAL, #{replyContent}, sysdate, ${replyId}, 'song', ${boardId})
+				(SEQ_REPLY_REPLY_ID.NEXTVAL, #{replyContent}, sysdate, ${replyId}, #{studentId}, ${boardId})
 		]]>
 	</insert>
 	

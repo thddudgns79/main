@@ -175,53 +175,51 @@ function replyInputBox(i) {
  //================================================================================================
  // 게시글 작성
  
- //유효성 검사
+ //유효성 검사(게시글 작성)
  function check(){
-		var result = true;
-		
-		if($('#categoryType').val() == 'all'){
-			alert("카테고리를 선택해주세요!");
-			result= false;
-		}else{
-			$("#categoryType").val();
-		}
-		
-		if($('#boardTitle').val() == ''){
-			$("#boardTitle").text('제목을 입력해주세요!');
-			result= false;
-		}else{
-			$("#boardTitle").text('');
-		}
-		
-		if($('#boardContent').val() == ''){
-			$("#boardContent").text('내용을 입력해주세요!');
-			result= false;
-		}else{
-			$("#boardContent").text('');
-		}
+	var result = true;
 	
-		return result;
+	if($('#categoryType').val() == 'all'){
+		alert("카테고리를 선택해주세요!");
+		result= false;
+	}else{
+		$("#categoryType").val();
 	}
+	
+	if($('#boardTitle').val() == ''){
+		$("#boardTitle").text('제목을 입력해주세요!');
+		result= false;
+	}else{
+		$("#boardTitle").text('');
+	}
+	
+	if($('#boardContent').val() == ''){
+		$("#boardContent").text('내용을 입력해주세요!');
+		result= false;
+	}else{
+		$("#boardContent").text('');
+	}
+
+	return result;
+}
  
+//셀렉트태그 스타일
  $(document).ready(function(){
-	 $('#categoryType').on({
-		 "click":function(){
-			 console.log("클릭!");
-			 $(this).css({
+	 $('html').click(function(e) {
+		if(e.target.id === 'categoryType') {
+			$('#categoryType').css({
 				 "box-shadow": "none",
-				 "transition-timing-function":"10s",
-//				 "transition-delay": "0.1s",
+				 "transition-duration":"0.5s",
 				 "border":"1px solid #F96332"
 			 });
-		 },
-		 "dbclick":function(){
-			 console.log("벗어남!");
-			 $(this).css({
-				 "border":"1px solid white"
+		} else {
+			$('#categoryType').css({
+				 "border":"1px solid #E3E3E3"
 			 });
-		 }
-	 });
-});
+		}
+		});
+ });
+ 
  
  //================================================================================================
  //게시글 수정창
@@ -237,9 +235,37 @@ function replyInputBox(i) {
 			if(data==0) {
 				alert("사진 삭제에 실패하였습니다");
 			} else if(data==1) {
-				alert("사진 삭제에 완료하였습니다!");
+				$('#deleteFileModal').modal('hide')
 				$("#bfileImg"+i).css("display", "none");
 			}
 		}
 	});
+}
+ 
+//유효성 검사(게시글 작성)
+ function check(){
+	var result = true;
+	
+	if($('#categoryType').val() == 'all'){
+		alert("카테고리를 선택해주세요!");
+		result= false;
+	}else{
+		$("#categoryType").val();
+	}
+	
+	if($('#boardTitle').val() == ''){
+		$("#boardTitle").text('제목을 입력해주세요!');
+		result= false;
+	}else{
+		$("#boardTitle").text('');
+	}
+	
+	if($('#boardContent').val() == ''){
+		$("#boardContent").text('내용을 입력해주세요!');
+		result= false;
+	}else{
+		$("#boardContent").text('');
+	}
+
+	return result;
 }
