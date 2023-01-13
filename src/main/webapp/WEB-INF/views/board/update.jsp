@@ -48,24 +48,13 @@
 							</div>
 							<div class="card-body ml-5" >
 								<div class="container">
-									<form action="<c:url value='/board/insert'/>" onsubmit="return checkUpdate('${board.boardTitle}', '${board.boardContent}')" method=post enctype="multipart/form-data">
+									<form action="<c:url value='/board/update'/>" onsubmit="return checkUpdate('${board.boardTitle}', '${board.boardContent}')" method=post enctype="multipart/form-data">
+										<input type="hidden" name="boardId" value="${board.boardId}"/>
 										<label for="categoryType" style="font-size: 17px;">카테고리:</label>
 										<select id="categoryType" class="form-select" name="boardCategory">
-										    <c:if test="${board.boardCategory=='질문'}">
-										    	<option value="${board.boardCategory}" selected>질문</option>
-											    <option value="community">커뮤니티</option>
-											    <option value="study">스터디</option>
-									    	</c:if>
-									    	<c:if test="${board.boardCategory=='자유주제'}">
-										    	<option value="${board.boardCategory}" selected>자유주제</option>
-											    <option value="qna">질문</option>
-											    <option value="study">스터디</option>
-									    	</c:if>
-									    	<c:if test="${board.boardCategory=='스터디'}">
-										    	<option value="${board.boardCategory}" selected>스터디</option>
-											    <option value="qna">질문</option>
-											    <option value="community">커뮤니티</option>
-									    	</c:if>
+										    	<option value="질문" <c:if test ="${board.boardCategory eq '전체'}">selected="selected"</c:if>>질문</option>
+											    <option value="커뮤니티" <c:if test ="${board.boardCategory eq '자유주제'}">selected="selected"</c:if>>자유주제</option>
+											    <option value="스터디" <c:if test ="${board.boardCategory eq '스터디'}">selected="selected"</c:if>>스터디</option>			   
 									  	</select>
 										<div style="font-size: 25px;">
 							    			<label class="mt-4" for="boardTitle" class="form-label" style="font-size: 17px;">제목:</label>
@@ -81,12 +70,12 @@
 													<span id="bfileImg${file.fileId}" >
 														<img src='<c:url value="/board/file/${file.fileId}"/>' class="img-thumbnail" style="position: relative; width:150px; height:150px">
 														<!-- Button trigger modal -->
-														<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#deleteFileModal" style="position: relative; left:-50px; bottom: 53px; color: white; background: transparent;">
+														<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#deleteFileModal${file.fileId}" style="position: relative; left:-50px; bottom: 53px; color: white; background: transparent;">
 														  <i class="bi bi-x-square" ></i>
 														</button>
 													</span>
 													<!-- Modal -->
-													<div class="modal fade" id="deleteFileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+													<div class="modal fade" id="deleteFileModal${file.fileId}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 													  <div class="modal-dialog">
 													    <div class="modal-content">
 													      <div class="modal-header">
