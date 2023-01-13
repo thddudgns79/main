@@ -23,44 +23,52 @@
 			</video>
 			<div class="content" >
 				<div class="row">
-					<div class="card mx-auto p-3" style="width:70%;">
-						<div class="card-header d-flex justify-content-between" >
-							<p class="bi bi-calendar-check m-2" style="font-size: 30px;">
-								&nbsp;<%=sf.format(nowTime)%> 
+					<div class="card mx-auto" style="width:70%; height: 270px; background-color: #EEEEEE;">
+						<div class="card-header d-flex justify-content-between align-items-center" >
+							<p class="font-weight-bold m-3" style="font-size: 30px;">
+								<!-- 아이콘 -->
+								<img src="<c:url value='/img/calendar.png'/>" width="80">
+								<!-- yyyy-MM-dd  -->
+								&nbsp;<%=sf.format(nowTime)%>
+								<!-- 요일 -->
+								<c:set var="now" value="<%=new java.util.Date() %>"/>
+								<fmt:formatDate value="${now}" pattern="E" var="today" />
+								(${today})
 							</p>
 							<div >
 								<c:if test="${empty attendVO.inTime && isManager == 'N'.charAt(0)}">
-									<a style="none;" href='<c:url value="/attend/in"/>'>출근</a>
+									<a class="btn btn-lg mr-3" href='<c:url value="/attend/in"/>' style="background-color: #F96332; color:white;">출근</a>
 								</c:if>
 								<c:if test="${!empty attendVO.inTime && empty attendVO.outTime && isManager == 'N'.charAt(0)}">
-									<a style="none;" href='<c:url value="/attend/out"/>'>퇴근</a>
+									<a class="btn btn-lg mr-3" href='<c:url value="/attend/out"/>' style="background-color: #F96332; color:white;">퇴근</a>
 								</c:if>
 								<c:if test="${!empty attendVO.inTime && !empty attendVO.outTime }" />
 							</div>
 						</div>
-						<div class="card-body ">
+						<div class="card-body p-0 pt-2">
 							<c:if test="${isManager == 'N'.charAt(0)}">
 								<div class="content">
-									<div class="row">
-										<div class="col-1"></div>
-										<div class="col" style="font-size: 25px;">
-											<div class="m-1">
-												<i class="bi bi-alarm" ></i>&nbsp;&nbsp;IN
+									<div class="row d-flex justify-content-around">
+										<div class="col-5 p-2" style="height:120px; font-size: 25px; background-color: white; border-radius: 6px; box-shadow: 0px 6px 10px 0px rgb(31 41 55 / 14%);">
+											<div style="color:#F96332;">
+												<i class="bi bi-stopwatch ml-2"></i>&nbsp;IN
 											</div>
-											<div class="m-1 pl-3">
-												<fmt:formatDate pattern="hh:mm:ss" value="${attendVO.inTime}" />
-											</div>
-										</div>
-										<div class="col-1"></div>
-										<div class="col" style="font-size: 25px;">
-											<div class="m-1">
-												<i class="bi bi-alarm-fill"></i>&nbsp;&nbsp;OUT
-											</div>
-											<div class="m-1">
-												<fmt:formatDate pattern="hh:mm:ss" value="${attendVO.outTime}" />
+											<div class="d-flex justify-content-center" style="font-size: 35px;">
+												<span class="font-weight-bold text-muted">
+													<fmt:formatDate pattern="hh:mm:ss" value="${attendVO.inTime}" />
+												</span>
 											</div>
 										</div>
-										<div class="col-1"></div>
+										<div class="col-5 p-2" style="height:120px; font-size: 25px; background-color: white; border-radius: 6px; box-shadow: 0px 6px 10px 0px rgb(31 41 55 / 14%);">
+											<div style="color:#F96332;">
+												<i class="bi bi-stopwatch-fill ml-2"></i>&nbsp;OUT
+											</div>
+											<div class="d-flex justify-content-center" style="font-size: 35px;">
+												<span class="font-weight-bold text-muted">
+													<fmt:formatDate pattern="hh:mm:ss" value="${attendVO.outTime}" />
+												</span>
+											</div>
+										</div>
 									</div>
 								</div>
 							</c:if>

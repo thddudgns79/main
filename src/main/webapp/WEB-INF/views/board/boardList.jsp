@@ -24,7 +24,6 @@
 				                <span class="navbar-toggler-bar bar3"></span>
 				              </button>
 				            </div> 
-				            <a class="navbar-brand" href="#">커뮤니티</a>
 				          </div>
 				          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
 				            <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -84,13 +83,13 @@
 				          <div class="col-md-12">
 				            <div class="card">
 				              <div class="card-header d-flex flex-row justify-content-between">
-				                <h4 class="card-title"> Community</h4>
-				                <a class="btn" href="<c:url value='/board/insert'/>" style="background-color: MediumSeaGreen">게시글 작성</a>
+				                <h4 class="card-title"style="font-size: 35px;"> 커뮤니티</h4>
+				                <a class="btn btn-sm" href="<c:url value='/board/insert'/>" style="background-color: #F96332; font-size: 20px; padding: 15px 20px;">게시글 작성</a>
 				              </div>
 				              <div class="card-body">
 				                <div class="table-responsive">
 				                  <table id="boardListTable" class="table">
-				                    	<thead class=" text-primary">
+				                    	<thead class=" text-primary" style="font-size: 20px;">
 				                      		<th class="text-left" style="width:800px;">Title</th>
 				                      		<th class="text-right">Writer </th>
 				                      		<th class="text-right">Date</th>
