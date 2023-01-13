@@ -81,7 +81,7 @@
 														<form action='<c:url value="/class/sectionupdatedescription"/>' method="post">
 															<input type="hidden" name="sectionId" value="${section.sectionId}" />
 															<!-- 학생 -->
-															<c:if test="${isManager == 'N'.charAt(0)}">
+															<c:if test="${isManager == 'N'.charAt(0)} ">
 																<input type="text" name="sectionDescription" value="${section.sectionDescription}" class="p-2"
 																style=" width:70%; border:none; background:mediumseagreen;color:white; "disabled="disabled">
 															</c:if>
