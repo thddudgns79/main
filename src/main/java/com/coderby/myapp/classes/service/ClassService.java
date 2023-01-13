@@ -43,7 +43,7 @@ public class ClassService implements IClassService {
 
 	@Override
 	@Transactional
-	public boolean insertSection(int classId, String sectionTitle, String sectionDescription) {
+	public boolean insertSection(int classId, String sectionTitle, String sectionDescription, int thisOrder) {
 		List<SectionVO> sectionList = classRepository.getSectionList(classId);
 		// 섹션 리스트에 추가할 섹션의 타이틀과 중복되는 섹션이 존재할 경우
 		for(SectionVO sectionVO : sectionList) {
@@ -52,7 +52,7 @@ public class ClassService implements IClassService {
 			}
 		}
 		// 중복x
-		classRepository.insertSection(classId, sectionTitle, sectionDescription);
+		classRepository.insertSection(classId, sectionTitle, sectionDescription, thisOrder);
 		return true;
 	}
 
@@ -85,6 +85,16 @@ public class ClassService implements IClassService {
 	@Override
 	public List<Integer> getClassIdList() {
 		return classRepository.getClassIdList();
+	}
+
+	@Override
+	public SectionVO getSection(int sectionId) {
+		return classRepository.getSection(sectionId);
+	}
+	
+	@Override
+	public void updateSectionOrder(int order) {
+		classRepository.updateSectionOrder(order);
 	}
 
 

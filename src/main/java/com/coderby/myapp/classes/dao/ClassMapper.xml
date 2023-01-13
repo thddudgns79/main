@@ -49,15 +49,29 @@
 			created_date    	as  createdDate
 		from section 
 		where class_id = #{classId}
-		order by created_date
+		order by section_order
+	</select>
+	
+	<!-- 섹션 한 행 조회-->
+	<select id="getSection" parameterType="int" resultType="com.coderby.myapp.classes.model.SectionVO">
+		select 
+			section_id 			as 	sectionId,
+			section_title 		as 	sectionTitle,
+			section_description as sectionDescription,
+			class_id 			as 	classId,
+			created_date    	as  createdDate,
+			section_order       as  sectionOrder
+		from section 
+		where section_id = #{sectionId}
+		order by section_order
 	</select>
 	
 	<!-- 섹션 추가-->
 	<insert id="insertSection" parameterType="map">
 		insert into section
-			(section_id, section_title, section_description, class_id, created_date)
+			(section_id, section_title, section_description, class_id, created_date, section_order)
 		values 
-			(seq_entity_id.nextval, #{sectionTitle}, #{sectionDescription}, #{classId}, systimestamp)
+			(seq_entity_id.nextval, #{sectionTitle}, #{sectionDescription}, #{classId}, systimestamp, #{thisOrder})
 	</insert>
 	
 	<!-- 섹션 타이틀 수정 -->
@@ -87,4 +101,10 @@
 		select class_id
 		from class
 	</select>	
+	
+	<update id="updateSectionOrder" parameterType="int">
+		update section
+		set section_order = section_order + 1
+		where section_order >= #{order}
+	</update>
 </mapper>

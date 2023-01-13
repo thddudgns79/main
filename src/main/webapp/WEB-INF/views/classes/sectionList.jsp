@@ -24,7 +24,7 @@
 							</div>
 							<div class="card-body">
 								<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
-								<div class="m-3">
+								<%-- <div class="m-3">
 									<c:if test="${isManager == 'Y'.charAt(0)}">
 										<form action='<c:url value="/class/sectioninsert"/>' method="post" onsubmit="return check()">
 											<input type="text" class="mr-3" name="sectionTitle" id="sectionTitle"  placeholder="제목 작성" style="width:300px; height:50px;font-size:20px;"/> 
@@ -33,7 +33,7 @@
 										</form>
 										<small id="message" style="color:red; font-size:15px;"></small>
 									</c:if>
-								</div>
+								</div> --%>
 								
 								<div class="accordion" id="accordionPanelsStayOpenExample">
 									<div class="row" >
@@ -117,6 +117,16 @@
 																<input type="file" name="files" multiple/> 
 																<input type="submit" value="전송" class="btn btn-sm btn-grey" />
 															</form>
+														</c:if>
+														
+														<c:if test="${isManager == 'Y'.charAt(0)}">
+															<form action='<c:url value="/class/sectioninsert"/>' method="post">
+																<input type="hidden" name="beforeSectionId" value="${section.sectionId}"/>
+																<input type="text" class="mr-3" name="sectionTitle" id="sectionTitle"  placeholder="제목 작성" style="width:300px; height:50px;font-size:20px;"/> 
+																<input type="text" class="mr-2" name="sectionDescription" id="sectionDescription" placeholder="섹션 설명글 작성"  style="width:300px; height:50px;font-size:20px;"/> 
+																<input type="submit" value="섹션 추가" style="width:150px; height:40px;font-size:20px; border:none; background-color:mediumseagreen; color:white;" />
+															</form>
+															<small id="message" style="color:red; font-size:15px;"></small>
 														</c:if>
 														
 													</div>
