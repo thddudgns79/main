@@ -67,7 +67,7 @@ function replyInputBox(i) {
 				
 				setTimeout(function() {
 					  location.reload();
-					}, 10000);
+					}, 3000);
 			}
 		}
 	});
@@ -172,6 +172,34 @@ function replyInputBox(i) {
 	 });
  } 
 
+ //================================================================================================
+ // 게시글 작성
+ function check(){
+		var result = true;
+		
+		if($('#categoryType').val() == 'all'){
+			alert("카테고리를 선택해주세요!");
+			result= false;
+		}else{
+			$("#categoryType").val();
+		}
+		
+		if($('#boardTitle').val() == ''){
+			$("#boardTitle").text('제목을 입력해주세요!');
+			result= false;
+		}else{
+			$("#boardTitle").text('');
+		}
+		
+		if($('#boardContent').val() == ''){
+			$("#boardContent").text('내용을 입력해주세요!');
+			result= false;
+		}else{
+			$("#boardContent").text('');
+		}
+	
+		return result;
+	}
  
  //================================================================================================
  //게시글 수정창
