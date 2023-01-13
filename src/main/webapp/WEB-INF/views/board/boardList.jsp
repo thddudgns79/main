@@ -82,7 +82,7 @@
 								</div>
 							</div>
 							<!-- Pagination -->
-							<jsp:include page="/WEB-INF/views/include/pagination.jsp" />
+							<jsp:include page="/WEB-INF/views/paging/paginationBoard.jsp" />
 						</div>
 					</div>
 				</div>
