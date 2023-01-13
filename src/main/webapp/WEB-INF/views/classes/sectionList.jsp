@@ -18,8 +18,8 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="card" style="padding-bottom: 50px; width:70%;">
-							<div class="card-header">
-								<h4 class="card-title" style="font-size: 35px;">
+							<div class="card-header ml-5">
+								<h4 style="font-size: 35px;font-weight: 900;">
 								${classId}반 강의 자료실</h4>
 							</div>
 							<div class="card-body">
@@ -28,7 +28,7 @@
 									<c:if test="${isManager == 'Y'.charAt(0)}">
 										<form action='<c:url value="/class/sectioninsert"/>' method="post" onsubmit="return check()">
 											<input type="text" class="mr-3" name="sectionTitle" id="sectionTitle"  placeholder="제목 작성" style="width:300px; height:50px;font-size:20px;"/> 
-											<input type="text" class="mr-2" name="sectionDescription" id="sectionDescription" placeholder="섹션 설명글 작성"  style="width:300px; height:50px;font-size:20px;"/> 
+											<input type="text" class="mr-5" name="sectionDescription" id="sectionDescription" placeholder="섹션 설명글 작성"  style="width:300px; height:50px;font-size:20px;"/> 
 											<input type="submit" value="섹션 추가" style="width:150px; height:40px;font-size:20px; border:none; background-color:mediumseagreen; color:white;" />
 										</form>
 										<small id="message" style="color:red; font-size:15px;"></small>
@@ -49,18 +49,21 @@
 															aria-controls="panelsStayOpen-collapseOne"
 															style="width:100%; background-color:whitesmoke;color:black">
 															<form class="sectionTitleUpdateForm row" action='<c:url value="/class/sectionupdatetitle"/>' method="post" class="sectionTitleUpdateForm" 
-															style="font-size: 25px; text-align:left; color:mediumseagreen;">
+															style="font-size: 25px; text-align:left; color:#F77925;">
+																<div class="col-1 pl-4 py-2">
+																	<i class="bi bi-usb-c-fill"></i>
+																</div>
 																<!-- 학생 -->
 																<c:if test="${isManager == 'N'.charAt(0)}">	
 																	<div class="col-8 p-2">
 																		<span class="mr-3">섹션 ${status.index}.</span> 
-																		<input type="text" name="sectionTitle" style="border:none; background: transparent; color:mediumseagreen;" disabled="disabled" value="${section.sectionTitle}">
+																		<input type="text" name="sectionTitle" style="border:none; background: transparent; color:black;" disabled="disabled" value="${section.sectionTitle}">
 																		<input type="hidden" name="sectionId" value="${section.sectionId}" />
 																	</div >
 																</c:if>
 																<!-- 관리자 -->
 																<c:if test="${isManager == 'Y'.charAt(0)}">	
-																	<div class="col-8 p-2">
+																	<div class="col-7 p-2">
 																		<span class="mr-3">섹션 ${status.index}.</span> 
 																		<input type="text" name="sectionTitle" style="border:none; background: transparent; color:black;" value="${section.sectionTitle}">
 																		<input type="hidden" name="sectionId" value="${section.sectionId}" />
@@ -68,9 +71,8 @@
 																	<div class="col">
 																		<input type="submit" class="btn btn-sm btn-grey" value="수정" style="width:100px; height:35px;font-size:20px;"/>
 																		<form>
-																			<button type="submit" class="btn btn-sm btn-grey"style="width:100px; height:35px;font-size:20px;" formaction='<c:url value="/class/sectiondelete/${section.sectionId}"/>'>삭제</button>
+																			<button type="submit" class="btn btn-sm btn-grey" style="width:100px; height:35px;font-size:20px;" formaction='<c:url value="/class/sectiondelete/${section.sectionId}"/>'>삭제</button>
 																		</form>
-														
 																	</div>
 																</c:if>
 															</form>
@@ -85,24 +87,23 @@
 															<input type="hidden" name="sectionId" value="${section.sectionId}" />
 															<!-- 학생 -->
 															<c:if test="${isManager == 'N'.charAt(0)}">
+																<input type="text" name="sectionDescription" value="${section.sectionDescription}" class="p-2 mb-2"
+																style=" width:70%; border:2px solid #DD6C42; background:white; color:black;"disabled="disabled">
 																<p class="p-2" style="width:70%; border:none; color:black;">
 																	${section.sectionDescription}
 																</p> 
 															</c:if>
 															<!-- 관리자 -->
 															<c:if test="${isManager == 'Y'.charAt(0)}"> 
-																<textarea  wrap="hard" class="form-control" rows="5" id="sectionDescription" name="sectionDescription">${section.sectionDescription}</textarea>	
+																<textarea  wrap="hard" class="form-control p-2" rows="5" id="sectionDescription" name="sectionDescription" style=" width:70%; height:100px;color:black;">${section.sectionDescription}</textarea>	
 															</c:if>
-															
-															
-															
 															<c:if test="${isManager == 'Y'.charAt(0)}">
 																<input type="submit" class="btn btn-sm btn-grey" value="수정" />
 															</c:if>
 														</form>
 														
 														<c:forEach var="file" items="${section.fileList}">
-															<div class="fileList">
+															<div class="fileList" style="color:#FCC6A1;">
 																<a href='<c:url value="/class/filedownload/${file.fileId}"/>'> ${file.fileName} </a>
 																<c:if test="${isManager == 'Y'.charAt(0)}">
 																	<a href='<c:url value="/class/filedelete/${file.fileId}"/>' class="ml-3 btn btn-sm btn-grey"> 삭제 </a>
