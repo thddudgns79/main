@@ -125,7 +125,7 @@ public class BoardController {
 		}catch (Exception e) {
 			redirectAttr.addFlashAttribute("message", e.getMessage());
 		}
-		return "redirect:/board/list/1";
+		return "redirect:/board/list";
 	}
 	
 	//[게시글 - 파일/사진]

@@ -203,29 +203,28 @@ function replyInputBox(i) {
 		return result;
 	}
  
+//셀렉트태그 스타일
  $(document).ready(function(){
-	 $('#categoryType').on({
-		 "click":function(){
-			 console.log("클릭!");
-			 $(this).css({
+	 $('html').click(function(e) {
+		if(e.target.id === 'categoryType') {
+			$('#categoryType').css({
 				 "box-shadow": "none",
-				 "transition-timing-function":"10s",
-//				 "transition-delay": "0.1s",
+				 "transition-duration":"0.5s",
 				 "border":"1px solid #F96332"
 			 });
-		 },
-		 "dbclick":function(){
-			 console.log("벗어남!");
-			 $(this).css({
-				 "border":"1px solid white"
+		} else {
+			$('#categoryType').css({
+				 "border":"1px solid #E3E3E3"
 			 });
-		 }
-	 });
-});
+		}
+		});
+ });
+ 
  
  //================================================================================================
  //게시글 수정창
  function deleteFileFun(i) {
+	 $('#modal').show();
 	$.ajax({
 		type : 'GET',
 		url : "/myapp/board/file/delete",
