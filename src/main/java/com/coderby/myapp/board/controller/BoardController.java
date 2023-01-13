@@ -40,26 +40,45 @@ public class BoardController {
 	//[게시글 목록] - 1page
 	@RequestMapping("/board/list")
 	public String getList(HttpSession session, Model model) {
-		return getList(null, session, model);
+		return getList(null, "전체", "", "", session, model);
 	}
 	
 	//[게시글 목록] - 페이징처리
 	@RequestMapping("/board/list/{strPageNo}")
-	public String getList(@PathVariable String strPageNo, HttpSession session, Model model) {
-		
+	public String getList(@PathVariable String strPageNo, String selectedCategory, String searchTitle,
+			String searchStudentId, HttpSession session, Model model) {
+		model.addAttribute("selectedCategory", selectedCategory);
+		model.addAttribute("searchTitle", searchTitle);
+		model.addAttribute("searchStudentId", searchStudentId);
 		if(strPageNo == null) {
 			strPageNo = "1";
+		}
+		
+		if (!searchTitle.equals("")) {
+			searchTitle = "%" + searchTitle + "%";
+		}
+		// 검색 키워드 없을 경우
+		else {
+			searchTitle = null;
+		}
+
+		if (!searchStudentId.equals("")) {
+			searchStudentId = "%" + searchStudentId + "%";
+		}
+		// 검색 키워드 없을 경우
+		else {
+			searchStudentId = null;
 		}
 		
 		int pagerNo = Integer.parseInt(strPageNo);
 		
 		int classId = (Integer) session.getAttribute("classId");
-		int totalBoardCount = boardService.selectTotalBoardCountByClass(classId);
-		
+		int totalBoardCount = boardService.selectTotalBoardCountByClass(classId, selectedCategory, searchTitle, searchStudentId);
+
 		//Pager 객체
 		Pager pager = new Pager(5, 5, totalBoardCount, pagerNo);
 		
-		List<BoardVO> boardList = boardService.selectBoardListByClass(classId, pager);
+		List<BoardVO> boardList = boardService.selectBoardListByClass(classId, selectedCategory, searchTitle, searchStudentId, pager);
 		model.addAttribute("boardList", boardList);
 		
 		model.addAttribute("pager", pager);

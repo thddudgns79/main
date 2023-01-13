@@ -83,26 +83,59 @@
 				          <div class="col-md-12">
 				            <div class="card">
 				              <div class="card-header d-flex flex-row justify-content-between">
-				                <h4 class="card-title"style="font-size: 35px;"> 커뮤니티</h4>
-				                <a class="btn btn-sm" href="<c:url value='/board/insert'/>" style="background-color: #F96332; font-size: 20px; padding: 15px 20px;">게시글 작성</a>
+				                <h4 class="card-title"> Community</h4>
+				                <a class="btn" href="<c:url value='/board/insert'/>" style="background-color: MediumSeaGreen">게시글 작성</a>
 				              </div>
 				              <div class="card-body">
+				              	<div>
+				              		<form action='<c:url value="/board/list/1"/>' method="get" class="form-inline">
+				              			<div class="form-group mr-3 m-2">
+					              			<label for="selectedCategory" class="mr-3" style="font-size:20px;">카테고리</label>
+					              			<select name="selectedCategory" id="selectedCategory" class="form-control">
+					              				<option value="전체" <c:if test ="${selectedCategory eq '전체'}">selected="selected"</c:if>>전체</option>
+					              				<option value="질문" <c:if test ="${selectedCategory eq '질문'}">selected="selected"</c:if>>질문</option>
+					              				<option value="자유주제" <c:if test ="${selectedCategory eq '자유주제'}">selected="selected"</c:if>>자유주제</option>
+					              				<option value="스터디" <c:if test ="${selectedCategory eq '스터디'}">selected="selected"</c:if>>스터디</option>
+					              			</select>
+				              			</div>
+				              			<div class="form-group mr-3 m-2">
+				              				<label for="searchTitle" class="mr-3" style="font-size:20px;">글 제목 </label>
+				              				<input type="text" name="searchTitle" id="searchTitle" value="${searchTitle}" class="form-control"/>
+				              			</div>
+				              			
+				              			<div class="form-group mr-3 m-2">	
+				              				<label for="searchStudentId" class="mr-3" style="font-size:20px;">작성자</label>
+				              				<input type="text" name="searchStudentId" id="searchStudentId" value="${searchStudentId}" class="form-control"/>
+				              			</div>
+				              			
+				              			<div class="form-group mr-3 m-2">
+				              				<input type="submit" value="검색" class="form-control"/>
+				              			</div>
+				              			
+				              		</form>
+				              	</div>
 				                <div class="table-responsive">
 				                  <table id="boardListTable" class="table">
-				                    	<thead class=" text-primary" style="font-size: 20px;">
-				                      		<th class="text-left" style="width:800px;">Title</th>
-				                      		<th class="text-right">Writer </th>
-				                      		<th class="text-right">Date</th>
+				                    	<thead class=" text-primary">
+				                    		<tr>
+				                    			<th class="text-left">BoardId</th>
+				                    			<th class="text-right">Category</th>
+					                      		<th class="text-right">Title</th>
+					                      		<th class="text-right">Writer </th>
+					                      		<th class="text-right">Date</th>
+				                      		</tr>
 				                    	</thead>
-					                    	<tbody>
-				                    		<c:forEach var="board" items="${boardList}">
-								                      <tr onclick='location.href="<c:url value='/board/detail/${board.boardId}'/>" '>
-								                        <td class="text-left"><h5>${board.boardTitle}</h5></td>
-								                        <td class="text-right font-weight-bold" style="color:#204065;">${board.studentId}</td>
-								                        <td class="text-right text-muted">${board.calculateTime}</td>
-								                      </tr>
-							                 </c:forEach>
-					                    	</tbody>
+				                    	<tbody>
+			                    		<c:forEach var="board" items="${boardList}">
+					                       <tr onclick='location.href="<c:url value='/board/detail/${board.boardId}'/>" '>
+					                         <td class="text-left">${board.boardId}</td>
+					                       	 <td class="text-right">${board.boardCategory}</td>
+					                         <td class="text-right"><h5>${board.boardTitle}</h5></td>
+					                         <td class="text-right font-weight-bold" style="color:#204065;">${board.studentId}</td>
+					                         <td class="text-right text-muted">${board.calculateTime}</td>
+					                       </tr>
+						                 </c:forEach>
+				                    	</tbody>
 				                  </table>
 				                </div>
 				              </div>
