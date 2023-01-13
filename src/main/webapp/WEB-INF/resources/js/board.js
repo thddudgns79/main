@@ -174,6 +174,8 @@ function replyInputBox(i) {
 
  //================================================================================================
  // 게시글 작성
+ 
+ //유효성 검사
  function check(){
 		var result = true;
 		
@@ -200,6 +202,26 @@ function replyInputBox(i) {
 	
 		return result;
 	}
+ 
+ $(document).ready(function(){
+	 $('#categoryType').on({
+		 "click":function(){
+			 console.log("클릭!");
+			 $(this).css({
+				 "box-shadow": "none",
+				 "transition-timing-function":"10s",
+//				 "transition-delay": "0.1s",
+				 "border":"1px solid #F96332"
+			 });
+		 },
+		 "dbclick":function(){
+			 console.log("벗어남!");
+			 $(this).css({
+				 "border":"1px solid white"
+			 });
+		 }
+	 });
+});
  
  //================================================================================================
  //게시글 수정창
