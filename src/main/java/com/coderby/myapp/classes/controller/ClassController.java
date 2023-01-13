@@ -32,10 +32,11 @@ public class ClassController {
 
 	@Autowired
 	IFileService fileService;
-	
+
 	// 클래스 리스트 조회
 	@RequestMapping("/class/classlist/{pageNo}")
-	public String getClassList(String orgName, String className, @PathVariable("pageNo") int pageNo, Model model, HttpSession session) {
+	public String getClassList(String orgName, String className, @PathVariable("pageNo") int pageNo, Model model,
+			HttpSession session) {
 		model.addAttribute("orgName", orgName);
 		model.addAttribute("className", className);
 		// 검색 키워드 있을 경우
@@ -68,11 +69,24 @@ public class ClassController {
 		return "classes/sectionList";
 	}
 
-	// 섹션 추가
+	// 섹션 추가(중간 삽입 가능)
 	@RequestMapping("/class/sectioninsert")
-	public String insertSection(String sectionTitle, String sectionDescription, Model model, HttpSession session) {
+	public String insertSection(int beforeSectionId, String sectionTitle, String sectionDescription, Model model,
+			HttpSession session) {
+		if (sectionTitle.equals("") || sectionTitle == null) {
+			sectionTitle = "제목";
+		}
+
+		if (sectionDescription.equals("") || sectionTitle == null) {
+			sectionDescription = "내용";
+		}
 		int classId = (Integer) session.getAttribute("classId");
-		boolean result = classService.insertSection(classId, sectionTitle, sectionDescription);
+		// 새로 추가할 섹션이 가질 order값(= 바로 전 섹션의 order + 1)
+		int thisOrder = classService.getSection(beforeSectionId).getSectionOrder() + 1;
+		System.out.println("thisOrder : " + thisOrder);
+		// 이 섹션의 order값과 같거나 높은 section들의 order + 1 update(뒤로 밀기)
+		classService.updateSectionOrder(thisOrder);
+		boolean result = classService.insertSection(classId, sectionTitle, sectionDescription, thisOrder);
 		if (!result) {
 			System.out.println("섹션 추가 실패");
 		} else {
@@ -112,8 +126,8 @@ public class ClassController {
 	@RequestMapping("/class/fileupload")
 	public String uploadFile(int sectionId, List<MultipartFile> files, Model model, RedirectAttributes ra) {
 		try {
-			if(files != null) {
-				for(MultipartFile file : files) {
+			if (files != null) {
+				for (MultipartFile file : files) {
 					if (file != null && !file.isEmpty()) {
 						FileVO fileVO = new FileVO();
 						fileVO.setFileName(file.getOriginalFilename());

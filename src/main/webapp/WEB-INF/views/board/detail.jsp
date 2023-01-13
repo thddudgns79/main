@@ -45,7 +45,9 @@
 									                        <td class="text-left">
 									                        		<h5 class="mt-3">${fn: replace(board.boardContent, replaceChar, "</br>") }</h5>
 																	<c:forEach var="file" items="${board.bfileList}">
-																			<img src='<c:url value="/board/file/${file.fileId}"/>' class="img-thumbnail" style="width:200px;">
+																		<div class="mt-5" style="width:300px; height:200px;">
+																			<img src='<c:url value="/board/file/${file.fileId}"/>' class="img-thumbnail" style="width:100%;">
+																		</div>
 																	</c:forEach>						
 									                        </td>
 								                      </tr>

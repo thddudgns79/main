@@ -243,7 +243,7 @@ function replyInputBox(i) {
 }
  
 //유효성 검사(게시글 작성)
- function check(){
+ function checkUpdate(i, j){
 	var result = true;
 	
 	if($('#categoryType').val() == 'all'){
@@ -254,15 +254,13 @@ function replyInputBox(i) {
 	}
 	
 	if($('#boardTitle').val() == ''){
-		$("#boardTitle").text('제목을 입력해주세요!');
-		result= false;
+		$("#boardTitle").text(i);
 	}else{
 		$("#boardTitle").text('');
 	}
 	
 	if($('#boardContent').val() == ''){
-		$("#boardContent").text('내용을 입력해주세요!');
-		result= false;
+		$("#boardContent").text(j);
 	}else{
 		$("#boardContent").text('');
 	}

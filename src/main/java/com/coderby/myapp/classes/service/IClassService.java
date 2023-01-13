@@ -13,7 +13,7 @@ public interface IClassService {
 	
 	List<SectionVO> getSectionList(int classId);
 
-	boolean insertSection(int classId, String sectionTitle, String sectionDescription);
+	boolean insertSection(int classId, String sectionTitle, String sectionDescription, int thisOrder);
 
 	boolean updateSectionTitle(int classId, int sectionId, String sectionTitle);
 
@@ -22,5 +22,9 @@ public interface IClassService {
 	void deleteSection(int sectionId);
 
 	List<Integer> getClassIdList();
+	
+	SectionVO getSection(int sectionId);
+	
+	void updateSectionOrder(int order);
 
 }
