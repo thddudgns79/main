@@ -99,7 +99,7 @@
 							    				<option value="승인">승인</option>
 							    			</c:if>
 							    		</select> 
-							    		<input type="submit" value="제출"/ class="form-control btn btn-sm btn-primary">
+							    		<input type="submit" value="제출" class="form-control btn btn-sm btn-primary">
 							    	</form>
 					    		</c:if>
 					    		<c:if test="${isManager == 'N'.charAt(0) && reportsVO.repStatus == '대기'}">

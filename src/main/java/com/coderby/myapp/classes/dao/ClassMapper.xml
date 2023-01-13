@@ -20,6 +20,7 @@
 				and class_name like #{className}
 			</if>
 		</where>
+		order by class_start_date desc
 		OFFSET (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS
 		FETCH NEXT #{pager.rowsPerPage} ROWS ONLY
 	</select>
