@@ -20,7 +20,7 @@
 					<div class="col-md-12">
 						<div class="card" style="padding-bottom:50px;">
 							<div class="card-header">
-								<h4 style="padding-left:30px">휴가 신청</h4>
+								<h4 class="card-title" style="font-size:35px;">휴가 신청</h4>
 							</div>
 							<div class="card-body" >
 								<div class="container">

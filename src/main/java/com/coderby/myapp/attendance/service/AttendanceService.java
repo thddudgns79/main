@@ -81,6 +81,8 @@ public class AttendanceService implements IAttendanceService {
 				List<ReportsVO> getReports = reportsRepository.selectStdReports(stdId, getAttend.getAttendanceDate());
 				long cancleTime = 0;
 				boolean isExist = false;
+				
+				
 				for (ReportsVO repVO : getReports) {
 					if (repVO.getRepStatus().equals("반려") && !(repVO.getRepType().equals("병가")
 							|| repVO.getRepType().equals("경조사") || repVO.getRepType().equals("예비군"))) {
@@ -90,10 +92,15 @@ public class AttendanceService implements IAttendanceService {
 						// 휴가 목록을 뺀 이유는 값을 빼기 했을데 -값이 나올수도 있기 때문이다.
 					}
 				}
+				if(stdId.equals("subway")) {
+					System.out.println("Intime:" + getAttend.getInTime());
+					System.out.println("Outtime:" + getAttend.getOutTime());
+					System.out.println("ReportsSize:" + getReports.size());
+					System.out.println("IsExist:" + isExist);
+				}
+			
 				String strIn = formatTime.format(getAttend.getInTime());
 				String strOut = formatTime.format(getAttend.getOutTime());
-				System.out.println("strIn : " + strIn);
-				System.out.println("strOut : " + strOut);
 				
 				String[] inSplit = strIn.split(":");
 				String[] outSplit = strOut.split(":");
@@ -159,9 +166,6 @@ public class AttendanceService implements IAttendanceService {
 				// 밀리초 변환
 				inTime = inTime * 1000;
 				outTime = outTime * 1000;
-				System.out.println("inTime : " + inTime);
-				System.out.println("outTime : " + outTime);
-
 				if(inTime < 32400000) {
 					inTime = 32399999; //8시59분59초
 				}
@@ -169,17 +173,11 @@ public class AttendanceService implements IAttendanceService {
 				if(outTime >= 64800000) {
 					outTime = 64800000; //18시
 				}
-				
-				System.out.println("updatedInTime : " + inTime);
-				System.out.println("updatedOutTime : " + outTime);
+
 				long totalAttend = outTime - inTime - cancleTime;
 				String inTimeStr =  format.format(getAttend.getInTime());
 				String outTimeStr = format.format(getAttend.getOutTime());
-				System.out.println("attendanceDate : " + getAttend.getAttendanceDate());
-				System.out.println("inTimeStr : " + inTimeStr);
-				System.out.println("outTimeStr : " + outTimeStr);
-				System.out.println("totalAttend : " + totalAttend);
-				System.out.println();
+
 				// 9시간 미만 수업 참여
 				if (totalAttend < 32400000) {
 					// update) 해당 attendance행의 status값을 '결석'으로 변경

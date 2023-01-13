@@ -35,7 +35,7 @@ public class ReportsService implements IReportsService {
 		// reports에는 내가 신청한 휴가가 있음
 		// getReports에는 해당날짜에 해당하는 값이 있다면 있음
 		boolean isFinal = false;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		List<ReportsVO> getReports = reportsRepository.selectReports(reports);
 		AttendanceVO getAttend = attendanceRepository.attendToday(reports.getStudentId());
 		
@@ -89,6 +89,7 @@ public class ReportsService implements IReportsService {
 
 				// 현재신청한 type이 외출일때
 			} else {
+				System.out.println("외출 진입");
 				boolean isPossible = true;
 				for (ReportsVO repVO : getReports) {
 					System.out.println(repVO.getRepId());
@@ -134,9 +135,11 @@ public class ReportsService implements IReportsService {
 
 	// 휴가 취소
 	@Override
+	@Transactional
 	public void deleteReprots(int repId, Date now) {
 		ReportsVO rep = reportsRepository.selectRep(repId);
-		if (now.getTime() > rep.getInTime().getTime() && rep.getRepStatus().equals("대기")) {
+		if (now.getTime() < rep.getInTime().getTime() && rep.getRepStatus().equals("대기")) {
+			System.out.println("휴가 취소 조건 만족");
 			// 현재시간이 신청했던 휴가의 시작시간이 지나지 않은 경우
 			fileRepository.deleteFile(repId);
 			reportsRepository.deleteReports(repId);
@@ -175,6 +178,7 @@ public class ReportsService implements IReportsService {
 	public ReportsVO getReportsDetail(int repId) {
 		ReportsVO repVO = reportsRepository.getReportsDetail(repId);
 		repVO.setFileList(fileRepository.getFileList(repId));
+		System.out.println(repVO.getFileList());
 		return repVO;
 	}
 
