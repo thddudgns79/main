@@ -37,7 +37,7 @@
 												<option value="자유주제"
 													<c:if test ="${selectedCategory eq '자유주제'}">selected="selected"</c:if>>자유주제</option>
 												<option value="스터디"
-													<c:if test ="${selectedCategory eq '스터디'}">selected="selected"</c:if>>스터디</option>
+													<c:if test="${selectedCategory eq '스터디'}">selected="selected"</c:if>>스터디</option>
 											</select>
 										</div>
 										<div class="form-group mr-2 m-2">
