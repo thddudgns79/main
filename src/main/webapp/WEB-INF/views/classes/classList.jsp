@@ -18,8 +18,8 @@
 				        <div class="row">
 				          <div class="col-md-12">
 				            <div class="card" style="padding-bottom: 50px;">
-				              <div class="card-header d-flex flex-row justify-content-between">
-				                <h4 class="card-title" style="font-size:35px;">클래스 목록</h4>
+				              <div class="card-header ml-5 d-flex flex-row justify-content-between">
+				               <h4 style="font-size: 35px;font-weight: 900;">클래스 목록</h4>
 				              </div>
 				              <div class="card-body">
 				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
@@ -56,10 +56,10 @@
 				                    	</thead>
 				                    	<tbody>
 											<c:forEach var="class" items="${classList}">
-												<tr onclick='location.href="<c:url value='/attend/getAllAttend/${class.classId}'/>" '>
+												<tr class="classHover colored" onclick='location.href="<c:url value='/attend/getAllAttend/${class.classId}'/>" '>
 													<td>${class.classId}</td>
 													<td>${class.orgName}</td>
-													<td class="classHover">${class.className}</td>
+													<td >${class.className}</td>
 													<td>${class.classHours}시간</td>
 													<td>${class.classStartDate}</td>
 													<td>${class.classEndDate}</td>

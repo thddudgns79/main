@@ -18,8 +18,8 @@
 				        <div class="row">
 				          <div class="col-md-12">
 				            <div class="card" style="padding-bottom: 50px;">
-				              <div class="card-header d-flex flex-row justify-content-between">
-				                <h4 class="card-title" style="font-size:35px;">${classId}반 ${yearParam}년 ${monthParam}월 근태 조회</h4>
+				              <div class="card-header ml-5 d-flex flex-row justify-content-between">
+				                <h4 style="font-size: 35px;font-weight: 900;">${classId}반 ${yearParam}년 ${monthParam}월 근태 조회</h4>
 				              </div>
 				              <div class="card-body">
 				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
