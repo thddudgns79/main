@@ -27,11 +27,12 @@ public class BoardService implements IBoardService {
 	IFileRepository fileRepository;
 	
  	@Override
-	public List<BoardVO> selectBoardListByClass(int classId, Pager pager) {
+	public List<BoardVO> selectBoardListByClass(int classId, String selectedCategory, String searchTitle, String searchStudentId, Pager pager) {
  		int pageNo = pager.getPageNo();
  		int rowsPerPage = pager.getRowsPerPage();
  		
-		List<BoardVO> boardList = boardRepository.selectBoardListByClass(classId, pageNo, rowsPerPage);
+		List<BoardVO> boardList = boardRepository.selectBoardListByClass(classId, 
+				selectedCategory, searchTitle, searchStudentId, pageNo, rowsPerPage);
 		for(BoardVO vo : boardList) {
 			vo.setCalculateTime(CalculateBeforeTime(vo.getCreatedDate()));
 		}
@@ -40,8 +41,8 @@ public class BoardService implements IBoardService {
 	}
 
 	@Override
-	public int selectTotalBoardCountByClass(int classId) {
-		return boardRepository.selectTotalBoardCountByClass(classId);
+	public int selectTotalBoardCountByClass(int classId, String selectedCategory, String searchTitle, String searchStudentId) {
+		return boardRepository.selectTotalBoardCountByClass(classId, selectedCategory, searchTitle, searchStudentId);
 	}
 	
 	@Transactional

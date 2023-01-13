@@ -2,26 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.coderby.myapp.board.dao.IBoardRepository">
 	<select id="selectBoardListByClass" parameterType="map" resultType="com.coderby.myapp.board.model.BoardVO">
-		<![CDATA[
-			SELECT
-				BOARD_ID			AS "boardId",
-				BOARD_CATEGORY		AS "boardCategory",
-				BOARD_TITLE			AS "boardTitle",
-				CREATED_DATE		AS "createdDate",
-				STUDENT_ID			AS "studentId"
-			FROM board
-			WHERE class_id=#{classId}
-			OFFSET (#{pageNo}-1)*#{rowsPerPage} ROWS
-			FETCH FIRST #{rowsPerPage} ROWS ONLY
-		]]>
+		SELECT
+			BOARD_ID			AS "boardId",
+			BOARD_CATEGORY		AS "boardCategory",
+			BOARD_TITLE			AS "boardTitle",
+			CREATED_DATE		AS "createdDate",
+			STUDENT_ID			AS "studentId"
+		FROM board
+		<where>
+			class_id=#{classId}
+			<if test="selectedCategory != '전체'">
+				and board_category = #{selectedCategory} 
+			</if>
+			<if test="searchTitle != null">
+				and board_title like #{searchTitle}
+			</if>
+			<if test="searchStudentId != null">
+				and student_id like #{searchStudentId}
+			</if>
+		</where>
+		ORDER BY CREATED_DATE desc
+		OFFSET (#{pageNo}-1)*#{rowsPerPage} ROWS
+		FETCH FIRST #{rowsPerPage} ROWS ONLY
+		
 	</select>
 
-	<select id="selectTotalBoardCountByClass" parameterType="int" resultType="int">
-		<![CDATA[
-			SELECT COUNT(BOARD_ID) AS "count"
-			FROM BOARD
-			WHERE CLASS_ID=#{classId}
-		]]>
+	<select id="selectTotalBoardCountByClass" parameterType="map" resultType="int">
+		SELECT COUNT(BOARD_ID) AS "count"
+		FROM BOARD
+		<where>
+			class_id=#{classId}
+			<if test="selectedCategory != '전체'">
+				and board_category = #{selectedCategory} 
+			</if>
+			<if test="searchTitle != null">
+				and board_title like #{searchTitle}
+			</if>
+			<if test="searchStudentId != null">
+				and student_id like #{searchStudentId}
+			</if>
+		</where>
 	</select>
 	
 	<select id="selectBoard" parameterType="int" resultType="com.coderby.myapp.board.model.BoardVO">

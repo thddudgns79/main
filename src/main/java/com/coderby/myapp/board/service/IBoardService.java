@@ -7,8 +7,8 @@ import com.coderby.myapp.board.model.ReplyVO;
 import com.coderby.myapp.util.Pager;
 
 public interface IBoardService {
-	List<BoardVO> selectBoardListByClass(int classId, Pager pager);
-	int selectTotalBoardCountByClass(int classId);
+	List<BoardVO> selectBoardListByClass(int classId, String selectedCategory, String searchTitle, String searchStudentId, Pager pager);
+	int selectTotalBoardCountByClass(int classId, String selectedCategory, String searchTitle, String searchStudentId);
 	BoardVO selectBoard(int boardId);
 	List<ReplyVO> selectReReplyList(int replyId);
 	ReplyVO selectReply(int replyId);
