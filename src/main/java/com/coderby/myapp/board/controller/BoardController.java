@@ -89,6 +89,7 @@ public class BoardController {
 	//[게시글 상세보기]
 	@RequestMapping("/board/detail/{boardId}")
 	public String getBoardDetail(@PathVariable int boardId, HttpSession session, Model model) {
+		System.out.println(boardId);
 		BoardVO board = boardService.selectBoard(boardId);
 		model.addAttribute("board", board);
 		return "board/detail";
@@ -176,7 +177,6 @@ public class BoardController {
 		}catch (Exception e) {
 			redirectAttr.addFlashAttribute("message", e.getMessage());
 		}
-		
 		return "redirect:/board/detail/" + board.getBoardId();
 	}
 	
@@ -184,6 +184,7 @@ public class BoardController {
 	@RequestMapping(value="/board/file/delete", method=RequestMethod.GET)
 	public @ResponseBody int deleteBoardFile(@RequestParam int fileId) {
 		try {
+			System.out.println(fileId);
 			fileService.deleteFile(fileId);
 		} catch (Exception e) {
 			e.getMessage();
@@ -257,11 +258,13 @@ public class BoardController {
 	
 	//[답글 추가]
 	@RequestMapping(value="/board/rereply/insert", method=RequestMethod.POST)
-	public @ResponseBody int writeReReply(ReplyVO reply, Model model) {
+	public @ResponseBody int writeReReply(ReplyVO reply, Model model, HttpSession session) {
 		try {
+			reply.setStudentId((String)session.getAttribute("stdId"));
 			boardService.insertReReply(reply);
 		} catch (Exception e) {
 			e.getMessage();
+			e.printStackTrace();
 			return 0;
 		}
 		return 1;

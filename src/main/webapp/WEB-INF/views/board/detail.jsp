@@ -112,7 +112,7 @@
 																											<form id="writeReReplyForm" name="writeReReplyForm" class="d-flex">
 																							      				<label class="font-weight-bold" for="writeReReply${reply.replyId}"></label>
 																							      				<input type="text" class="form-control" placeholder="답글을 입력해주세요" id="writeReReply${reply.replyId}" name="writeReReply${reply.replyId}" style="width:400px; padding: 12px 25px; font-size: 15px;"/>
-																												<button type="button" onclick="writeReReplyFun(${reply.replyId}, ${reply.boardId}, '${reply.studentId}')"  class="btn btn-sm" style="background-color:#F96332; position:relative; left:-30px; height:45px; border-radius: 0px 30px 30px 0px / 0px 30px 30px 0px;"><b>작성</b></button>
+																												<button type="button" onclick="writeReReplyFun(${reply.replyId}, ${reply.boardId}, '${stdId}')"  class="btn btn-sm" style="background-color:#F96332; position:relative; left:-30px; height:45px; border-radius: 0px 30px 30px 0px / 0px 30px 30px 0px;"><b>작성</b></button>
 																											</form>
 																											<!-- 답글 목록 -->
 																											<div id="reReplyListDiv${reply.replyId}"></div>

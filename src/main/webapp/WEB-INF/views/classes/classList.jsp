@@ -68,31 +68,8 @@
 										</tbody>
 									</table>
 				                </div>
-				                <ul class="pagination d-flex justify-content-center">
-									<!-- Previous 시작 -->
-									<li class="paginate_button page-item previous <c:if test='${pager.startPageNo eq 1}'>disabled</c:if>" id="dataTable_previous">
-										<a href='<c:url value="/class/classlist/${pager.startPageNo-5}?orgName=${orgName}&className=${className}"/>' aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">
-											Previous
-										</a>
-									</li>
-									<!-- Previous 끝 -->
-									<!-- Page번호 시작 -->
-									<c:forEach var="pNo" begin="${pager.startPageNo }" end="${pager.endPageNo }" step="1">
-										<li class="paginate_button page-item  <c:if test='${pager.pageNo eq pNo}'>active</c:if>">
-											<a href='<c:url value="/class/classlist/${pNo}?orgName=${orgName}&className=${className}"/>' aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">
-												${pNo}
-											</a>
-										</li>
-									</c:forEach>
-									<!-- Page번호 끝 -->
-									<!-- Next 시작 -->
-									<li class="paginate_button page-item next <c:if test='${pager.endPageNo>=pager.totalPageNo}'>disabled</c:if>" id="dataTable_next">
-										<a href='<c:url value="/class/classlist/${pager.startPageNo+5}?orgName=${orgName}&className=${className}"/>' aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">
-											Next
-										</a>
-									</li>
-									<!-- Next 끝 -->
-								</ul>
+				    			<!-- Pagination -->
+								<jsp:include page="/WEB-INF/views/paging/paginationClass.jsp" />
 				              </div>
 				            </div>
 				          </div>
