@@ -67,7 +67,7 @@ function replyInputBox(i) {
 				
 				setTimeout(function() {
 					  location.reload();
-					}, 10000);
+					}, 3000);
 			}
 		}
 	});

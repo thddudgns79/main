@@ -45,7 +45,7 @@
 										<div class="col-1"></div>
 										<div class="col" style="font-size: 25px;">
 											<div class="m-1">
-												<i class="bi bi-alarm mb-1" ></i>&nbsp;&nbsp;IN
+												<i class="bi bi-alarm" ></i>&nbsp;&nbsp;IN
 											</div>
 											<div class="m-1 pl-3">
 												<fmt:formatDate pattern="hh:mm:ss" value="${attendVO.inTime}" />
@@ -54,7 +54,7 @@
 										<div class="col-1"></div>
 										<div class="col" style="font-size: 25px;">
 											<div class="m-1">
-												<i class="bi bi-alarm mb-1"></i>&nbsp;&nbsp;OUT
+												<i class="bi bi-alarm-fill"></i>&nbsp;&nbsp;OUT
 											</div>
 											<div class="m-1">
 												<fmt:formatDate pattern="hh:mm:ss" value="${attendVO.outTime}" />
