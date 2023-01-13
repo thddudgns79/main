@@ -91,9 +91,7 @@
 															</c:if>
 															<!-- 관리자 -->
 															<c:if test="${isManager == 'Y'.charAt(0)}"> 
-																<input type="text" name="sectionDescription" value="${section.sectionDescription}" class="p-2"
-																style=" width:70%; height:100px;color:black;">
-															
+																<textarea  wrap="hard" class="form-control" rows="5" id="sectionDescription" name="sectionDescription">${section.sectionDescription}</textarea>	
 															</c:if>
 															
 															

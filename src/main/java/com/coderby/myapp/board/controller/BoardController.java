@@ -206,7 +206,8 @@ public class BoardController {
 	
 	//[댓글 작성]
 	@RequestMapping(value="/board/reply/insert", method=RequestMethod.POST)
-	public String writeReply(ReplyVO reply) {
+	public String writeReply(ReplyVO reply, HttpSession session) {
+		reply.setStudentId((String)session.getAttribute("stdId"));
 		boardService.insertReply(reply);
 		return "redirect:/board/detail/" + reply.getBoardId();
 	}
