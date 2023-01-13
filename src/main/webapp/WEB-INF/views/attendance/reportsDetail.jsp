@@ -22,20 +22,60 @@
 				                <h4 class="card-title">휴가 상세정보</h4>
 				              </div>
 				              <div class="card-body">
-				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
-				              	<div>신청 번호 : ${reportsVO.repId}</div>
-						    	<div>신청인 : ${reportsVO.studentId}</div>
-						    	<div>신청 날짜 : ${repDateStr}</div>
-						    	<div>신청 유형 : ${reportsVO.repType}</div>
-						    	<div>불참 시작 :${inTimeStr}</div>
-						    	<div>불참 종료 : ${outTimeStr}</div>
-						    	<div>사유 : ${reportsVO.reason}</div>
-						    	<div>결재 상태 : ${reportsVO.repStatus}</div>
-						    	<div>
-						    		<c:forEach var="file" items="${fileList}">
-						    			<img src='<c:url value="/attend/filedownload/${file.fileId}"/>'/>
-						    		</c:forEach>
-						    	</div>
+				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->	 
+				              	
+					              	<div class="table-responsive m-3 pr-4" style="font-size: 20px;" >
+					                	<table class="table">
+					                      		<tr>
+					                      			<td>신청 번호 </td>
+					                      			<td>${reportsVO.repId}</td>
+					                      		</tr>
+					                      		
+					                      		<tr>
+					                      			<td>신청인</td>
+					                      			<td>${reportsVO.studentId}</td>
+					                      		</tr>
+					                      		
+					                      		<tr>
+					                      			<td>신청 날짜</td>
+					                      			<td>${repDateStr}</td>
+					                      		</tr>
+					                      		
+					                      		<tr>
+					                      			<td>신청 유형</td>
+					                      			<td>${reportsVO.repType}</td>
+					                      		</tr>
+					                      		
+					                      		<tr>
+					                      			<td>불참 시작</td>
+					                      			<td>${inTimeStr}</td>
+					                      		</tr>
+					                      		
+					                      		<tr>
+					                      			<td>불참 종료</td>
+					                      			<td>${outTimeStr}</td>
+					                      		</tr>
+					                      		
+					                      		<tr>
+					                      			<td>사유</td>
+					                      			<td>${reportsVO.reason}</td>
+					                      		</tr>
+					                      		<tr>
+					                      			<td>결재 상태</td>
+				                      				<td>${reportsVO.repStatus}</td>
+					                      		</tr>
+					                      		
+					                      		<c:forEach var="file" items="${reportsVO.fileList}">
+					                      			<tr>
+												 		<td>
+										    				<a href='<c:url value="/attend/filedownload/${file.fileId}"/>'>
+										    					<img src='<c:url value="/attend/filedownload/${file.fileId}"/>'/>
+										    				</a>
+										    			</td>
+									    			</tr>
+									    		</c:forEach> 	
+										</table>
+					                </div>
 							    	<c:if test="${isManager== 'Y'.charAt(0)}">
 				    				<form action='<c:url value="/attend/reportsstatusupdate"/>' method="POST" class="form-inline">
 							    		<input type="hidden" name="repId" value="${reportsVO.repId}"/>

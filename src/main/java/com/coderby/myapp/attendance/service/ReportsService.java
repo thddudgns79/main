@@ -178,6 +178,7 @@ public class ReportsService implements IReportsService {
 	public ReportsVO getReportsDetail(int repId) {
 		ReportsVO repVO = reportsRepository.getReportsDetail(repId);
 		repVO.setFileList(fileRepository.getFileList(repId));
+		System.out.println(repVO.getFileList());
 		return repVO;
 	}
 
