@@ -19,7 +19,7 @@
 				          <div class="col-md-12">
 				            <div class="card" style="padding-bottom: 50px;">
 				              <div class="card-header d-flex flex-row justify-content-between">
-				                <h4 class="card-title">클래스 목록</h4>
+				                <h4 class="card-title" style="font-size:35px;">클래스 목록</h4>
 				              </div>
 				              <div class="card-body">
 				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
