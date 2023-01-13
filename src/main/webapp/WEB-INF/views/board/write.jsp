@@ -15,7 +15,7 @@
 <style>
 	#categoryType {
 	    display: block;
-	    width: 105px;
+	    width: 120px;
 	    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
 	    font-size: 15px;
 	    color: grey;
@@ -46,7 +46,7 @@
 									<i class="bi bi-pencil"></i>
 								</h4>
 							</div>
-							<div class="card-body" >
+							<div class="card-body ml-5" >
 								<div class="container">
 									<form action="<c:url value='/board/insert'/>" onsubmit="return check()" method=post enctype="multipart/form-data">
 										<label for="categoryType" style="font-size: 17px;">카테고리:</label>
