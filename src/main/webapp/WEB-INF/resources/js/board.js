@@ -175,33 +175,33 @@ function replyInputBox(i) {
  //================================================================================================
  // 게시글 작성
  
- //유효성 검사
+ //유효성 검사(게시글 작성)
  function check(){
-		var result = true;
-		
-		if($('#categoryType').val() == 'all'){
-			alert("카테고리를 선택해주세요!");
-			result= false;
-		}else{
-			$("#categoryType").val();
-		}
-		
-		if($('#boardTitle').val() == ''){
-			$("#boardTitle").text('제목을 입력해주세요!');
-			result= false;
-		}else{
-			$("#boardTitle").text('');
-		}
-		
-		if($('#boardContent').val() == ''){
-			$("#boardContent").text('내용을 입력해주세요!');
-			result= false;
-		}else{
-			$("#boardContent").text('');
-		}
+	var result = true;
 	
-		return result;
+	if($('#categoryType').val() == 'all'){
+		alert("카테고리를 선택해주세요!");
+		result= false;
+	}else{
+		$("#categoryType").val();
 	}
+	
+	if($('#boardTitle').val() == ''){
+		$("#boardTitle").text('제목을 입력해주세요!');
+		result= false;
+	}else{
+		$("#boardTitle").text('');
+	}
+	
+	if($('#boardContent').val() == ''){
+		$("#boardContent").text('내용을 입력해주세요!');
+		result= false;
+	}else{
+		$("#boardContent").text('');
+	}
+
+	return result;
+}
  
 //셀렉트태그 스타일
  $(document).ready(function(){
@@ -224,7 +224,6 @@ function replyInputBox(i) {
  //================================================================================================
  //게시글 수정창
  function deleteFileFun(i) {
-	 $('#modal').show();
 	$.ajax({
 		type : 'GET',
 		url : "/myapp/board/file/delete",
@@ -236,9 +235,37 @@ function replyInputBox(i) {
 			if(data==0) {
 				alert("사진 삭제에 실패하였습니다");
 			} else if(data==1) {
-				alert("사진 삭제에 완료하였습니다!");
+				$('#deleteFileModal').modal('hide')
 				$("#bfileImg"+i).css("display", "none");
 			}
 		}
 	});
+}
+ 
+//유효성 검사(게시글 작성)
+ function check(){
+	var result = true;
+	
+	if($('#categoryType').val() == 'all'){
+		alert("카테고리를 선택해주세요!");
+		result= false;
+	}else{
+		$("#categoryType").val();
+	}
+	
+	if($('#boardTitle').val() == ''){
+		$("#boardTitle").text('제목을 입력해주세요!');
+		result= false;
+	}else{
+		$("#boardTitle").text('');
+	}
+	
+	if($('#boardContent').val() == ''){
+		$("#boardContent").text('내용을 입력해주세요!');
+		result= false;
+	}else{
+		$("#boardContent").text('');
+	}
+
+	return result;
 }

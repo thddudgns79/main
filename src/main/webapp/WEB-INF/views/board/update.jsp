@@ -76,15 +76,33 @@
 											
 											<div class="my-3">
 												<c:if test="${!empty board.bfileList}">
-												<div>첨부된 파일: </div>
+												<div class="mt-4" style="font-size: 17px; color:#9A9A9A;">첨부된 파일:</div>
 												<c:forEach var="file" items="${board.bfileList}">
 													<span id="bfileImg${file.fileId}" >
 														<img src='<c:url value="/board/file/${file.fileId}"/>' class="img-thumbnail" style="position: relative; width:150px; height:150px">
-														<a class="btn" onclick="deleteFileFun(${file.fileId})"
-															 style="position: relative; left:-50px; bottom: 53px; color: white;">
-															<i class="bi bi-x-square" ></i>
-														</a>
+														<!-- Button trigger modal -->
+														<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#deleteFileModal" style="position: relative; left:-50px; bottom: 53px; color: white; background: transparent;">
+														  <i class="bi bi-x-square" ></i>
+														</button>
 													</span>
+													<!-- Modal -->
+													<div class="modal fade" id="deleteFileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+													  <div class="modal-dialog">
+													    <div class="modal-content">
+													      <div class="modal-header">
+													        <h1 class="modal-title fs-5" id="exampleModalLabel">삭제하시겠습니까?</h1>
+													        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+													      </div>
+													      <div class="modal-body">
+													        삭제를 원하신다면 '삭제'버튼을 눌러주세요.
+													      </div>
+													      <div class="modal-footer">
+													        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+													        <button type="button" class="btn btn-primary" onclick="deleteFileFun(${file.fileId})">삭제</button>
+													      </div>
+													    </div>
+													  </div>
+													</div>
 												</c:forEach>
 												</c:if>
 												<c:if test="${empty board.bfileList}">
@@ -104,21 +122,6 @@
 				</div>
 				<div>
 				</div>
-				<!-- 모달창 -->
-				<div id="modal" class="modal-overlay" style="display: ">
-			        <div class="modal-window">
-			            <div class="title">
-			                <h2>모달</h2>
-			            </div>
-			            <div class="close-area">X</div>
-			            <div class="content">
-			                <p>가나다라마바사 아자차카타파하</p>
-			                <p>가나다라마바사 아자차카타파하</p>
-			                <p>가나다라마바사 아자차카타파하</p>
-			                <p>가나다라마바사 아자차카타파하</p>
-			            </div>
-			        </div>
-			    </div>
 			</div>
 			<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 		</div>
