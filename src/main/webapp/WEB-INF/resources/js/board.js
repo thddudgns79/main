@@ -235,7 +235,7 @@ function replyInputBox(i) {
 			if(data==0) {
 				alert("사진 삭제에 실패하였습니다");
 			} else if(data==1) {
-				$('#deleteFileModal').modal('hide')
+				$('#deleteFileModal'+i).modal('hide')
 				$("#bfileImg"+i).css("display", "none");
 			}
 		}
