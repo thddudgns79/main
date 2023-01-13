@@ -28,7 +28,7 @@
 									<c:if test="${isManager == 'Y'.charAt(0)}">
 										<form action='<c:url value="/class/sectioninsert"/>' method="post" onsubmit="return check()">
 											<input type="text" class="mr-3" name="sectionTitle" id="sectionTitle"  placeholder="제목 작성" style="width:300px; height:50px;font-size:20px;"/> 
-											<input type="text" class="mr-5" name="sectionDescription" id="sectionDescription" placeholder="섹션 설명글 작성"  style="width:300px; height:50px;font-size:20px;"/> 
+											<input type="text" class="mr-2" name="sectionDescription" id="sectionDescription" placeholder="섹션 설명글 작성"  style="width:300px; height:50px;font-size:20px;"/> 
 											<input type="submit" value="섹션 추가" style="width:150px; height:40px;font-size:20px; border:none; background-color:mediumseagreen; color:white;" />
 										</form>
 										<small id="message" style="color:red; font-size:15px;"></small>
@@ -67,7 +67,10 @@
 																	</div >
 																	<div class="col">
 																		<input type="submit" class="btn btn-sm btn-grey" value="수정" style="width:100px; height:35px;font-size:20px;"/>
-																		<a href='<c:url value="/class/sectiondelete/${section.sectionId}"/>' class="btn btn-sm btn-grey"style="width:100px; height:35px;font-size:20px;"> 삭제 </a>
+																		<form>
+																			<button type="submit" class="btn btn-sm btn-grey"style="width:100px; height:35px;font-size:20px;" formaction='<c:url value="/class/sectiondelete/${section.sectionId}"/>'>삭제</button>
+																		</form>
+														
 																	</div>
 																</c:if>
 															</form>
@@ -81,9 +84,10 @@
 														<form action='<c:url value="/class/sectionupdatedescription"/>' method="post">
 															<input type="hidden" name="sectionId" value="${section.sectionId}" />
 															<!-- 학생 -->
-															<c:if test="${isManager == 'N'.charAt(0)} ">
-																<input type="text" name="sectionDescription" value="${section.sectionDescription}" class="p-2"
-																style=" width:70%; border:none; background:mediumseagreen;color:white; "disabled="disabled">
+															<c:if test="${isManager == 'N'.charAt(0)}">
+																<p class="p-2" style="width:70%; border:none; color:black;">
+																	${section.sectionDescription}
+																</p> 
 															</c:if>
 															<!-- 관리자 -->
 															<c:if test="${isManager == 'Y'.charAt(0)}"> 
@@ -111,7 +115,7 @@
 														<c:if test="${isManager == 'Y'.charAt(0)}">
 															<form action='<c:url value="/class/fileupload"/>' method="post" enctype="multipart/form-data">
 																<input type="hidden" name="sectionId"  value="${section.sectionId}" /> 
-																<input type="file" name="file"/> 
+																<input type="file" name="files" multiple/> 
 																<input type="submit" value="전송" class="btn btn-sm btn-grey" />
 															</form>
 														</c:if>
