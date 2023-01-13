@@ -14,7 +14,8 @@ public interface IClassRepository {
 	int getClassListTotal(@Param("orgName") String orgName, @Param("className") String className);
 	List<SectionVO> getSectionList(int classId);
 	
-	void insertSection(@Param("classId") int classId, @Param("sectionTitle") String sectionTitle, @Param("sectionDescription") String sectionDescription);
+	void insertSection(@Param("classId") int classId, @Param("sectionTitle") String sectionTitle, 
+			@Param("sectionDescription") String sectionDescription, @Param("thisOrder") int thisOrder);
 	
 	void updateSectionTitle(@Param("sectionId") int sectionId, @Param("sectionTitle") String sectionTitle);
 	
@@ -23,4 +24,8 @@ public interface IClassRepository {
 	void deleteSection(int sectionId);
 	
 	List<Integer> getClassIdList();
+	
+	SectionVO getSection(int sectionId);
+	
+	void updateSectionOrder(int order);
 }

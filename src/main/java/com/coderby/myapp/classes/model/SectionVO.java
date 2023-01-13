@@ -10,7 +10,16 @@ public class SectionVO {
 	private String sectionTitle;
 	private String sectionDescription;
 	private int classId;
+	private int sectionOrder;
 	
+	public int getSectionOrder() {
+		return sectionOrder;
+	}
+
+	public void setSectionOrder(int sectionOrder) {
+		this.sectionOrder = sectionOrder;
+	}
+
 	public String getSectionDescription() {
 		return sectionDescription;
 	}
