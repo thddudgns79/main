@@ -87,9 +87,7 @@
 															<input type="hidden" name="sectionId" value="${section.sectionId}" />
 															<!-- 학생 -->
 															<c:if test="${isManager == 'N'.charAt(0)}">
-																<input type="text" name="sectionDescription" value="${section.sectionDescription}" class="p-2 mb-2"
-																style=" width:70%; border:2px solid #DD6C42; background:white; color:black;"disabled="disabled">
-																<p class="p-2" style="width:70%; border:none; color:black;">
+																<p class="p-2" style=" width:70%; border:2px solid #DD6C42; background:white; color:black;" disabled>
 																	${section.sectionDescription}
 																</p> 
 															</c:if>
