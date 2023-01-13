@@ -94,6 +94,9 @@ public class AttendanceController {
 	@RequestMapping(value = "/reports/write", method = RequestMethod.POST)
 	public String writeReport(ReportsVO reports,String repDateStr, String inTimeStr,String outTimeStr, 
 			RedirectAttributes redirectAttr, HttpSession session, Model model) {
+		System.out.println(repDateStr);
+		System.out.println(inTimeStr);
+		System.out.println(outTimeStr);
 		SimpleDateFormat formatYear = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat formatSec = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
@@ -139,6 +142,7 @@ public class AttendanceController {
 	@RequestMapping("/reports/cancle/{repId}")
 	public String cancleReport(@PathVariable("repId") int repId, Model model, HttpSession session) {
 		Date now = new Date(System.currentTimeMillis());
+		System.out.println("휴가 취소 컨트롤러");
 		reportsService.deleteReprots(repId, now);
 		char isManager = (Character) session.getAttribute("isManager");
 		// 관리자면
@@ -177,11 +181,9 @@ public class AttendanceController {
 			String repType, String repStatus, Model model, HttpSession session) {
 		String stdId = (String) session.getAttribute("stdId");
 		int totalRows = reportsService.getStudentReportsListCount(yearParam, monthParam, repType, repStatus, stdId);
-		System.out.println("totalRows : " + totalRows);
 		Pager pager = new Pager(5, 5, totalRows, pageNo);
 		List<ReportsVO> reportsList = reportsService.getStudentReportsList(yearParam, monthParam, repType, repStatus,
 				stdId, pager);
-		System.out.println("size : " + reportsList.size());
 		model.addAttribute("pager", pager);
 		model.addAttribute("reportsList", reportsList);
 		// jsp의 selectbox selected값 기억하기 위해서

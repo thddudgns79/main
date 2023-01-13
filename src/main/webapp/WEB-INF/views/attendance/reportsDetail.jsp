@@ -62,7 +62,7 @@
 							    		<input type="submit" value="제출"/ class="form-control btn btn-sm btn-primary">
 							    	</form>
 					    		</c:if>
-					    		<c:if test="${isManager == 'N'.charAt(0)}">
+					    		<c:if test="${isManager == 'N'.charAt(0) && reportsVO.repStatus == '대기'}">
 					    			<a href='<c:url value="/reports/cancle/${reportsVO.repId}"/>' class="btn btn-sm btn-primary">취소</a>
 					    		</c:if>
 				              </div>
