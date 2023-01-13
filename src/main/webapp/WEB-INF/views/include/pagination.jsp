@@ -90,7 +90,7 @@
 	<div class="pagination1">
 		  <span class="pagination__number-indicator"></span>
   	  	  	  
-  	  	  	  <button type="button" onclick='location.href="<c:url value='/board/list/1'/>" '  id="paginBtn" style="padding: 16px 16px 16px 0px;">
+  	  	  	  <button type="button" onclick='location.href="<c:url value='/board/list/1?selectedCategory=${selectedCategory}&searchTitle=${searchTitle}&searchStudentId=${searchStudentId}'/>" '  id="paginBtn" style="padding: 16px 16px 16px 0px;">
 				    <div class="d-flex">
 					    <div class="pagination__arrow" style="padding: 0px;">
 						    <span class="pagination__arrow-half"></span>
@@ -104,7 +104,7 @@
 			   </button>
 
 			  <c:if test="${pager.groupNo > 1}">
-				  <button type="button" onclick='location.href="<c:url value='/board/list/${pager.startPageNo-1}'/>" '  id="paginBtn" class="pagination__arrow">
+				  <button type="button" onclick='location.href="<c:url value='/board/list/${pager.startPageNo-1}?selectedCategory=${selectedCategory}&searchTitle=${searchTitle}&searchStudentId=${searchStudentId}'/>" '  id="paginBtn" class="pagination__arrow">
 					    <span class="pagination__arrow-half" style="background-color: #204065;"></span>
 					    <span class="pagination__arrow-half" style="background-color: #204065;"></span>
 				  </button>
@@ -112,7 +112,7 @@
 						  
 			<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}" step="1">
 				<c:if test="${pager.pageNo != i}">
-					<a href="<c:url value='/board/list/${i}'/>" id="paginBtn" class="pagination__number ">${i}</a>
+					<a href="<c:url value='/board/list/${i}?selectedCategory=${selectedCategory}&searchTitle=${searchTitle}&searchStudentId=${searchStudentId}'/>" id="paginBtn" class="pagination__number ">${i}</a>
 				</c:if>
 				<c:if test="${pager.pageNo == i}">
 					<button id="paginBtn" class="pagination__number pagination__number--active">${i}</button>
@@ -120,13 +120,13 @@
 			</c:forEach>
 			
 			<c:if test="${pager.groupNo < pager.totalGroupNo}">
-				  <button type="button" onclick='location.href="<c:url value='/board/list/${pager.endPageNo+1}'/>" '  id="paginBtn" class="pagination__arrow pagination__arrow--right">
+				  <button type="button" onclick='location.href="<c:url value='/board/list/${pager.endPageNo+1}?selectedCategory=${selectedCategory}&searchTitle=${searchTitle}&searchStudentId=${searchStudentId}'/>" '  id="paginBtn" class="pagination__arrow pagination__arrow--right">
 				    <span class="pagination__arrow-half" style="background-color: #204065;"></span>
 				    <span class="pagination__arrow-half" style="background-color: #204065;"></span>
 				  </button>
 			  </c:if>
 			
-			 <button type="button" onclick='location.href="<c:url value='/board/list/${pager.endPageNo}'/>" '   id="paginBtn" style="padding: 16px 0px 16px 16px;">
+			 <button type="button" onclick='location.href="<c:url value='/board/list/${pager.endPageNo}?selectedCategory=${selectedCategory}&searchTitle=${searchTitle}&searchStudentId=${searchStudentId}'/>" '   id="paginBtn" style="padding: 16px 0px 16px 16px;">
 				    <div class="d-flex">
 					    <div class="pagination__arrow pagination__arrow--right" style="padding: 0px 0px 0px 4px;">
 						    <span class="pagination__arrow-half"></span>
