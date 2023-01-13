@@ -59,7 +59,7 @@
 												<tr class="classHover colored" onclick='location.href="<c:url value='/attend/getAllAttend/${class.classId}'/>" '>
 													<td>${class.classId}</td>
 													<td>${class.orgName}</td>
-													<td >${class.className}</td>
+													<td>${class.className}</td>
 													<td>${class.classHours}시간</td>
 													<td>${class.classStartDate}</td>
 													<td>${class.classEndDate}</td>

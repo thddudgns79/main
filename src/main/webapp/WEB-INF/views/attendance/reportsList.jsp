@@ -99,7 +99,7 @@
 				                    	</thead>
 				                    	<tbody>
 											<c:forEach var="report" items="${reportsList}">
-								    			<tr class="colored" onclick='location.href="<c:url value='/attend/reportsdetail/${report.repId}'/>" '>
+								    			<tr class="classHover colored"  onclick='location.href="<c:url value='/attend/reportsdetail/${report.repId}'/>" '>
 								    				<td>${report.repId}</td>
 								    				<td>${report.studentId}</td>
 								    				<td><fmt:formatDate value="${report.repDate}" pattern="yyyy.MM.dd"/></td>

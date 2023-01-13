@@ -67,7 +67,7 @@ function replyInputBox(i) {
 				
 				setTimeout(function() {
 					  location.reload();
-					}, 10000);
+					}, 3000);
 			}
 		}
 	});
@@ -172,6 +172,56 @@ function replyInputBox(i) {
 	 });
  } 
 
+ //================================================================================================
+ // 게시글 작성
+ 
+ //유효성 검사
+ function check(){
+		var result = true;
+		
+		if($('#categoryType').val() == 'all'){
+			alert("카테고리를 선택해주세요!");
+			result= false;
+		}else{
+			$("#categoryType").val();
+		}
+		
+		if($('#boardTitle').val() == ''){
+			$("#boardTitle").text('제목을 입력해주세요!');
+			result= false;
+		}else{
+			$("#boardTitle").text('');
+		}
+		
+		if($('#boardContent').val() == ''){
+			$("#boardContent").text('내용을 입력해주세요!');
+			result= false;
+		}else{
+			$("#boardContent").text('');
+		}
+	
+		return result;
+	}
+ 
+ $(document).ready(function(){
+	 $('#categoryType').on({
+		 "click":function(){
+			 console.log("클릭!");
+			 $(this).css({
+				 "box-shadow": "none",
+				 "transition-timing-function":"10s",
+//				 "transition-delay": "0.1s",
+				 "border":"1px solid #F96332"
+			 });
+		 },
+		 "dbclick":function(){
+			 console.log("벗어남!");
+			 $(this).css({
+				 "border":"1px solid white"
+			 });
+		 }
+	 });
+});
  
  //================================================================================================
  //게시글 수정창

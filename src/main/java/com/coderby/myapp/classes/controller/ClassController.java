@@ -1,5 +1,6 @@
 package com.coderby.myapp.classes.controller;
 
+import java.io.File;
 import java.nio.charset.Charset;
 import java.util.List;
 
@@ -109,18 +110,19 @@ public class ClassController {
 
 	// 파일 업로드
 	@RequestMapping("/class/fileupload")
-	public String uploadFile(int sectionId, MultipartFile file, Model model, RedirectAttributes ra) {
+	public String uploadFile(int sectionId, List<MultipartFile> files, Model model, RedirectAttributes ra) {
 		try {
-			if (file != null && !file.isEmpty()) {
-				FileVO fileVO = new FileVO();
-				System.out.println(file.getOriginalFilename());
-				System.out.println(file.getContentType());
-				System.out.println(file.getSize());
-				fileVO.setFileName(file.getOriginalFilename());
-				fileVO.setFileType(file.getContentType());
-				fileVO.setFileSize(file.getSize());
-				fileVO.setFileData(file.getBytes());
-				fileService.uploadFile(sectionId, fileVO);
+			if(files != null) {
+				for(MultipartFile file : files) {
+					if (file != null && !file.isEmpty()) {
+						FileVO fileVO = new FileVO();
+						fileVO.setFileName(file.getOriginalFilename());
+						fileVO.setFileType(file.getContentType());
+						fileVO.setFileSize(file.getSize());
+						fileVO.setFileData(file.getBytes());
+						fileService.uploadFile(sectionId, fileVO);
+					}
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
