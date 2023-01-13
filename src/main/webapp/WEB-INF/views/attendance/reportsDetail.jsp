@@ -22,7 +22,8 @@
 				                <h4 class="card-title">휴가 상세정보</h4>
 				              </div>
 				              <div class="card-body">
-				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->
+				              	<!-- 페이지의 콘텐츠가 들어가야 할 부분 -->	 
+				              	
 					              	<div class="table-responsive m-3 pr-4" style="font-size: 20px;" >
 					                	<table class="table">
 					                      		<tr>
