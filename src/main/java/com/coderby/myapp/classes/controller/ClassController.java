@@ -69,7 +69,7 @@ public class ClassController {
 		return "classes/sectionList";
 	}
 
-	// 섹션 추가(중간 삽입 가능)
+	// 섹션 추가(중간 삽입 )
 	@RequestMapping("/class/sectioninsert")
 	public String insertSection(int beforeSectionId, String sectionTitle, String sectionDescription, Model model,
 			HttpSession session) {
@@ -87,6 +87,27 @@ public class ClassController {
 		// 이 섹션의 order값과 같거나 높은 section들의 order + 1 update(뒤로 밀기)
 		classService.updateSectionOrder(thisOrder);
 		boolean result = classService.insertSection(classId, sectionTitle, sectionDescription, thisOrder);
+		if (!result) {
+			System.out.println("섹션 추가 실패");
+		} else {
+			System.out.println("섹션 추가 성공");
+		}
+		return "redirect:/class/sectionlist";
+	}
+	
+	// 섹션 추가(첫 추가)
+	@RequestMapping("/class/firstsectioninsert")
+	public String insertSection(String sectionTitle, String sectionDescription, Model model,
+			HttpSession session) {
+		if (sectionTitle.equals("") || sectionTitle == null) {
+			sectionTitle = "제목";
+		}
+
+		if (sectionDescription.equals("") || sectionTitle == null) {
+			sectionDescription = "내용";
+		}
+		int classId = (Integer) session.getAttribute("classId");
+		boolean result = classService.insertSection(classId, sectionTitle, sectionDescription, 1);
 		if (!result) {
 			System.out.println("섹션 추가 실패");
 		} else {

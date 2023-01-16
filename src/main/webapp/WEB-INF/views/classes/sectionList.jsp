@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:setBundle basename="i18n/board" />
 
 <!DOCTYPE html>
@@ -127,11 +128,20 @@
 															<small id="message" style="color:red; font-size:15px;"></small>
 														</c:if>
 														
+									
 													</div>
 												</div>
 												
 											</div>
 										</c:forEach>
+										<c:if test="${isManager == 'Y'.charAt(0)&& fn:length(sectionList) == 0}">
+											<form action='<c:url value="/class/firstsectioninsert"/>' method="post">
+												<input type="text" class="mr-3" name="sectionTitle" id="sectionTitle"  placeholder="제목 작성" style="width:300px; height:50px;font-size:20px;"/> 
+												<input type="text" class="mr-2" name="sectionDescription" id="sectionDescription" placeholder="섹션 설명글 작성"  style="width:300px; height:50px;font-size:20px;"/> 
+												<input type="submit" value="섹션 추가" style="width:150px; height:40px;font-size:20px; border:none; background-color:mediumseagreen; color:white;" />
+											</form>
+											<small id="message" style="color:red; font-size:15px;"></small>
+										</c:if>
 									</div>
 								</div>
 							</div>
